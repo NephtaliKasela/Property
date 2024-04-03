@@ -1,0 +1,43 @@
+﻿@model List<Property.DTOs.Category.GetCategoryDTO>
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Subcategory Real Estate</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
+	</ol>
+</div>
+
+<div class="container">
+	<h2>Add SubCategory</h2>
+
+	<form method="post" asp-controller="SubCategoryRealEstate" asp-action="SaveAddSubcategory">
+
+		<div class="form-group">
+			<label for="name">Name:</label>
+			<input type="text" class="form-control" id="name" name="Name" required>
+		</div>
+		<div class="form-group">
+			<label for="description">Description:</label>
+			<textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
+		</div>
+		<!-- Other properties specific to the category -->
+
+		<div class="form-group">
+			<label for="CategoryId">Catégorie:</label>
+			<select id="CategoryId" name="CategoryId" class="form-control" required>
+				@* <option value="">Sélectionner une catégorie</option> *@
+				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
+				@foreach (var c in Model)
+				{
+					<option value="@c.Id">@c.Name</option>
+				}
+			</select>
+		</div>
+
+		<button type="submit" value="Add SubCategory" class="btn btn btn-sm">Add Subcategory</button>
+	</form>
+</div>

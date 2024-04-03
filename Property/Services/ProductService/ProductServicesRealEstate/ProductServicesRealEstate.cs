@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Property.Data;
-using Property.DTOs.Product;
 using Property.DTOs.Product.ProductRealEstate;
 using Property.Models;
 using Property.Models.Products;

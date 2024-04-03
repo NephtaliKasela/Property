@@ -1,0 +1,28 @@
+﻿@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Continent</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
+	</ol>
+</div>
+
+<div class="container">
+	<h2>Add Category</h2>
+
+	<form method="post" asp-controller="Continent" asp-action="SaveAddContinent">
+
+		<div class="form-group">
+			<label for="name">Name:</label>
+			<input type="text" class="form-control" id="name" name="Name" required>
+		</div>
+		<div class="form-group">
+			<label for="description">Description:</label>
+			<textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
+		</div>
+
+		<button type="submit" value="Add Category" class="btn btn btn-sm">Add Continent</button>
+	</form>
+</div>

@@ -7,6 +7,7 @@ using Property.Services.ContinentServices;
 using Property.Services.CountryServices;
 using Property.Services.OtherServices;
 using Property.Services.ProductService.ProductServicesRealEstate;
+using Property.Services.StoreServices;
 using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
 
@@ -32,6 +33,7 @@ builder.Services.AddScoped<ICityServices, CityServices>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<ISubCategoryServicesRealEstate, SubCategoryServicesRealEstate>();
 builder.Services.AddScoped<IProductServicesRealEstate, ProductServicesRealEstate>();
+builder.Services.AddScoped<IStoreServices, StoreServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

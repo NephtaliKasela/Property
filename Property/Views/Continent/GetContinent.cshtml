@@ -1,0 +1,65 @@
+﻿@model List<Property.DTOs.Continent.GetContinentDTO>
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!--**********************************
+		Content body start
+	***********************************-->
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Continent</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">All</a></li>
+	</ol>
+</div>
+<!-- row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="card-header">
+				<h4 class="card-title">Products</h4>
+			</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-responsive-sm">
+						<thead>
+							<tr style="border: 0px;">
+								<th>Id</th>
+								<th style="text-align:left;">Name</th>
+								<th style="text-align:left;">Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var continent in Model)
+							{
+								<tr>
+									<th>@continent.Id</th>
+									<td style="text-align:left;">@continent.Name</td>
+									<td style="text-align:left;">@continent.Description</td>
+									<td>
+										<div class="dropdown">
+											<button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
+												<svg width="20px" height="20px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
+											</button>
+											<div class="dropdown-menu">
+												<a class="dropdown-item" asp-controller="Continent" asp-action="UpdateContinent" asp-route-id="@continent.Id">Edit</a>
+												<a class="dropdown-item" asp-controller="Continent" asp-action="DeleteContinent" asp-route-id="@continent.Id">Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+							}
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+<!--**********************************
+	Content body end
+***********************************-->

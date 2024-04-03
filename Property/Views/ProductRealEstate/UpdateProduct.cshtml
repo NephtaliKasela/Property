@@ -1,0 +1,147 @@
+﻿@model Property.DTOs.Actions.UpdateProductRealEstate_action
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Bootstrap</a></li>
+	</ol>
+</div>
+<!-- row -->
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="container">
+			<form method="post" asp-controller="ProductAdmin" asp-action="SaveUpdateProduct">
+				<input type="hidden" id="Id" name="Id" value="@Model.Product.Id" class="form-control" required>
+
+				<div class="form-group">
+					<label for="productCategory">Store:</label>
+					<select id="StoreId" name="StoreId" class="form-control" required>
+						<option value="@Model.Product.Store.Id">@Model.Product.Store.Name</option>
+						@foreach (var store in Model.Stores)
+						{
+							<option value="@store.Id">@store.Name</option>
+						}
+					</select>
+				</div>
+
+				<br />
+				<div class="form-group">
+					<label for="productCategory">SubCategory:</label>
+					<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
+						<option value="@Model.Product.SubcategoryRealEstate.Id">@Model.Product.SubcategoryRealEstate.Name</option>
+						@foreach (var sc in Model.Subcategories)
+						{
+							<option value="@sc.Id">@sc.Name</option>
+						}
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="name">Name</label>
+					<input type="text" class="form-control" id="name" name="name" value="@Model.Product.Name" placeholder="Enter name">
+				</div>
+				<div class="form-group">
+					<label for="Description">Description:</label>
+					<textarea id="Description" name="Description" class="form-control" required></textarea>
+
+					<script>
+						// Get a reference to the textarea element
+						var textarea = document.getElementById('Description');
+
+						// Set the value of the textarea using your model's value
+						var modelValue = "@Model.Product.Description";
+						textarea.value = modelValue;
+					</script>
+				</div>
+				<div class="form-group">
+					<label for="price">Price</label>
+					<input type="number" class="form-control" id="price" name="price" value="@Model.Product.Price" placeholder="Enter price">
+				</div>
+				<div class="form-group">
+					<label for="category">Category</label>
+					<input type="text" class="form-control" id="category" name="category" value="@Model.Product.Category" placeholder="Enter category">
+				</div>
+				<div class="form-group">
+					<label for="room">Room</label>
+					<input type="number" class="form-control" id="room" name="room" value="@Model.Product.Room" placeholder="Enter room">
+				</div>
+				<div class="form-group">
+					<label for="address">Address</label>
+					<input type="text" class="form-control" id="address" name="address" value="@Model.Product.Address" placeholder="Enter address">
+				</div>
+				<div class="form-group">
+					<label for="yearOfConstruction">Year of Construction</label>
+					<input type="date" class="form-control" id="yearOfConstruction" value="@Model.Product.YearOfConstruction" name="yearOfConstruction">
+				</div>
+
+				<br />
+				<div class="form-group">
+					<label for="CountryId">SubCategory:</label>
+					<select id="CountryId" name="CountryId" class="form-control" required>
+						<option value="@Model.Product.Country.Id">@Model.Product.Country.Name</option>
+						@foreach (var sc in Model.Countries)
+						{
+							<option value="@sc.Id">@sc.Name</option>
+						}
+					</select>
+				</div>
+
+				<br />
+				<div class="form-group">
+					<label for="CityId">SubCategory:</label>
+					<select id="CityId" name="CityId" class="form-control" required>
+						<option value="@Model.Product.City.Id">@Model.Product.City.Name</option>
+						@foreach (var city in Model.Cities)
+						{
+							<option value="@city.Id">@city.Name</option>
+						}
+					</select>
+				</div>
+
+				<br />
+				<input type="submit" value="Update" class="btn btn-primary">
+			</form>
+
+			<hr />
+
+
+
+			@* <!--**************************
+				IMAGE SECTION START
+			**************************-->
+			<h2>Image</h2>
+			<br />
+
+			<div class="row">
+				@foreach (var image in Model.Product.ProductImages)
+				{
+					<div class="col-sm-4 col-md-4 col-lg-3" style="margin: 1px;">
+						<img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" style="max-height: 100px; " />
+					</div>
+				}
+			</div>
+
+			<br />
+			<br />
+			<form method="post" asp-controller="Image" asp-action="AddProductImage" enctype="multipart/form-data">
+				<input type="hidden" id="productId" name="productId" value="@Model.Product.Id" />
+				<div class="form-group">
+					<label for="productImages">Images:</label>
+					<input type="file" name="file" multiple class="form-control-file" required>
+				</div>
+				<br />
+				<input type="submit" value="Add image" class="btn btn-primary">
+			</form>
+
+			<!--**************************
+				IMAGE SECTION END
+			**************************--> *@
+		</div>
+	</div>
+
+</div>

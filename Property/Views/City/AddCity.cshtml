@@ -1,0 +1,39 @@
+﻿@model List<Property.DTOs.Country.GetCountryDTO>
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">City</a></li>
+        <li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
+    </ol>
+</div>
+
+<div class="container">
+    <form method="post" asp-controller="City" asp-action="SaveAddCity">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Description">Description:</label>
+            <textarea id="Description" name="Description" class="form-control" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="countryId">Country:</label>
+            <select id="countryId" name="countryId" class="form-control" required>
+                @foreach (var country in Model)
+                {
+                    <option value="@country.Id">@country.Name</option>
+                }
+            </select>
+        </div>
+
+        <br />
+        <input type="submit" value="Add City" class="btn btn-primary">
+    </form>
+</div>

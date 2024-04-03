@@ -1,0 +1,101 @@
+﻿@model Property.DTOs.Actions.AddProductRealEstate_action
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Bootstrap</a></li>
+	</ol>
+</div>
+<!-- row -->
+
+<div class="container">
+	<form method="post" asp-controller="ProductRealEstate" asp-action="SaveAddProduct">
+		<div class="form-group">
+			<label for="productCategory">Store:</label>
+			<select id="StoreId" name="StoreId" class="form-control" required>
+				@* <option value="">Sélectionner une catégorie</option> *@
+				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
+				@foreach (var store in Model.Stores)
+				{
+					<option value="@store.Id">@store.Name</option>
+				}
+			</select>
+		</div>
+
+		<br />
+		<div class="form-group">
+			<label for="productCategory">SubCategory:</label>
+			<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
+				@* <option value="">Sélectionner une catégorie</option> *@
+				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
+				@foreach (var sc in Model.Subcategories)
+				{
+					<option value="@sc.Id">@sc.Name</option>
+				}
+			</select>
+		</div>
+
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="Enter name">
+		</div>
+		<div class="form-group">
+			<label for="Description">Description:</label>
+			<textarea id="Description" name="Description" class="form-control" required></textarea>
+		</div>
+		<div class="form-group">
+			<label for="price">Price</label>
+			<input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
+		</div>
+		<div class="form-group">
+			<label for="category">Category</label>
+			<input type="text" class="form-control" id="category" name="category" placeholder="Enter category">
+		</div>
+		<div class="form-group">
+			<label for="room">Room</label>
+			<input type="number" class="form-control" id="room" name="room" placeholder="Enter room">
+		</div>
+		<div class="form-group">
+			<label for="address">Address</label>
+			<input type="text" class="form-control" id="address" name="address" placeholder="Enter address">
+		</div>
+		<div class="form-group">
+			<label for="yearOfConstruction">Year of Construction</label>
+			<input type="date" class="form-control" id="yearOfConstruction" name="yearOfConstruction">
+		</div>
+
+		<br />
+		<div class="form-group">
+			<label for="CountryId">SubCategory:</label>
+			<select id="CountryId" name="CountryId" class="form-control" required>
+				@* <option value="">Sélectionner une catégorie</option> *@
+				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
+				@foreach (var sc in Model.Countries)
+				{
+					<option value="@sc.Id">@sc.Name</option>
+				}
+			</select>
+		</div>
+
+		<br />
+		<div class="form-group">
+			<label for="CityId">SubCategory:</label>
+			<select id="CityId" name="CityId" class="form-control" required>
+				@* <option value="">Sélectionner une catégorie</option> *@
+				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
+				@foreach (var city in Model.Cities)
+				{
+					<option value="@city.Id">@city.Name</option>
+				}
+			</select>
+		</div>
+
+		<br />
+		<input type="submit" value="Add product" class="btn btn-primary">
+	</form>
+
+</div>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Property.DTOs.Product.ProductRealEstate.GetProductRealEstateDTO>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -58,15 +60,19 @@
                             </a>
 
                             <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
+                                @* <div class="price mb-2"><span>$1,291,000</span></div> *@
+                                <div class="price mb-2"><span>$@Model[0].Price</span></div>
                                 <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
+                                    @* <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span> *@
+                                    <span class="d-block mb-2 text-black-50">@Model[0].Name</span>
+                                    @* <span class="city d-block mb-3">California, USA</span> *@
+                                    <span class="city d-block mb-3">@Model[0].City.Name, @Model[0].Country.Name</span>
 
                                     <div class="specs d-flex mb-4">
                                         <span class="d-block d-flex align-items-center me-3">
                                             <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
+                                            @* <span class="caption">2 beds</span> *@
+                                            <span class="caption">@Model[0].Room beds</span>
                                         </span>
                                         <span class="d-block d-flex align-items-center">
                                             <span class="icon-bath me-2"></span>
