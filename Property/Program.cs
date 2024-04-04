@@ -10,6 +10,7 @@ using Property.Services.ProductService.ProductServicesRealEstate;
 using Property.Services.StoreServices;
 using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
+using Property.Services.TransactionTypeServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<ISubCategoryServicesRealEstate, SubCategoryServicesRealEstate>();
 builder.Services.AddScoped<IProductServicesRealEstate, ProductServicesRealEstate>();
 builder.Services.AddScoped<IStoreServices, StoreServices>();
+builder.Services.AddScoped<ITransactionTypeServices, TransactionTypeServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

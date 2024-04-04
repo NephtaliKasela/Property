@@ -1,4 +1,4 @@
-﻿@model List<Property.DTOs.Store.GetStoreDTO>
+﻿@model List<Property.DTOs.TransactionType.GetTransactionTypeDTO>
 
 @{
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -9,8 +9,8 @@
 	***********************************-->
 <div class="row page-titles">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
-		<li class="breadcrumb-item"><a href="javascript:void(0)">Bootstrap</a></li>
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Transaction Type</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">All</a></li>
 	</ol>
 </div>
 <!-- row -->
@@ -26,9 +26,8 @@
 					<table class="table table-responsive-sm">
 						<thead>
 							<tr style="border: 0px;">
-								<th>#</th>
+								<th>Id</th>
 								<th style="text-align:left;">Name</th>
-								<th style="text-align:left;">Description</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -37,15 +36,14 @@
 								<tr>
 									<th>@sc.Id</th>
 									<td style="text-align:left;">@sc.Name</td>
-									<td style="text-align:left;">@sc.Description</td>
 									<td>
 										<div class="dropdown">
 											<button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
 												<svg width="20px" height="20px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
 											</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" asp-controller="Store" asp-action="UpdateStore" asp-route-id="@sc.Id">Edit</a>
-												<a class="dropdown-item" asp-controller="Store" asp-action="SaveDeleteStore" asp-route-id="@sc.Id">Delete</a>
+												<a class="dropdown-item" asp-controller="TransactionType" asp-action="UpdateTransactionType" asp-route-id="@sc.Id">Edit</a>
+												<a class="dropdown-item" asp-controller="TransactionType" asp-action="DeleteTransactionType" asp-route-id="@sc.Id">Delete</a>
 											</div>
 										</div>
 									</td>

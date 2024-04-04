@@ -33,6 +33,7 @@ namespace Property.Data
         public DbSet<City> Cities => Set<City>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<SubcategoryRealEstate> SubcategoriesRealEstate => Set<SubcategoryRealEstate>();
+        public DbSet<TransactionType> TransactionTypes => Set<TransactionType>();
         public DbSet<ProductRealEstate> ProductsRealEstate => Set<ProductRealEstate>();
         public DbSet<ProductImageRealEstate> productImagesRealEstate => Set<ProductImageRealEstate>();
 

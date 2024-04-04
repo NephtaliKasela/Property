@@ -54,6 +54,19 @@ namespace Property.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TransactionTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SubcategoriesRealEstate",
                 columns: table => new
                 {
@@ -134,7 +147,8 @@ namespace Property.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: true),
                     SubcategoryRealEstateId = table.Column<int>(type: "int", nullable: false),
-                    StoreId = table.Column<int>(type: "int", nullable: false)
+                    StoreId = table.Column<int>(type: "int", nullable: false),
+                    TransactionTypeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,6 +174,12 @@ namespace Property.Migrations
                         name: "FK_ProductsRealEstate_SubcategoriesRealEstate_SubcategoryRealEstateId",
                         column: x => x.SubcategoryRealEstateId,
                         principalTable: "SubcategoriesRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ProductsRealEstate_TransactionTypes_TransactionTypeId",
+                        column: x => x.TransactionTypeId,
+                        principalTable: "TransactionTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -222,6 +242,11 @@ namespace Property.Migrations
                 column: "SubcategoryRealEstateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ProductsRealEstate_TransactionTypeId",
+                table: "ProductsRealEstate",
+                column: "TransactionTypeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SubcategoriesRealEstate_CategoryId",
                 table: "SubcategoriesRealEstate",
                 column: "CategoryId");
@@ -244,6 +269,9 @@ namespace Property.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubcategoriesRealEstate");
+
+            migrationBuilder.DropTable(
+                name: "TransactionTypes");
 
             migrationBuilder.DropTable(
                 name: "Countries");

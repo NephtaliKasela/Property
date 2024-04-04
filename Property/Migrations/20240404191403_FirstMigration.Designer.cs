@@ -12,7 +12,7 @@ using Property.Data;
 namespace Property.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240403132014_FirstMigration")]
+    [Migration("20240404191403_FirstMigration")]
     partial class FirstMigration
     {
         /// <inheritdoc />
@@ -197,6 +197,9 @@ namespace Property.Migrations
                     b.Property<int>("SubcategoryRealEstateId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TransactionTypeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("YearOfConstruction")
                         .HasColumnType("datetime2");
 
@@ -209,6 +212,8 @@ namespace Property.Migrations
                     b.HasIndex("StoreId");
 
                     b.HasIndex("SubcategoryRealEstateId");
+
+                    b.HasIndex("TransactionTypeId");
 
                     b.ToTable("ProductsRealEstate");
                 });
@@ -258,6 +263,23 @@ namespace Property.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubcategoriesRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.TransactionType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TransactionTypes");
                 });
 
             modelBuilder.Entity("Property.Models.City", b =>
@@ -317,6 +339,12 @@ namespace Property.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Property.Models.TransactionType", "TransactionType")
+                        .WithMany("Products")
+                        .HasForeignKey("TransactionTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("City");
 
                     b.Navigation("Country");
@@ -324,6 +352,8 @@ namespace Property.Migrations
                     b.Navigation("Store");
 
                     b.Navigation("SubcategoryRealEstate");
+
+                    b.Navigation("TransactionType");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -372,6 +402,11 @@ namespace Property.Migrations
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
                 {
                     b.Navigation("ProductsRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.TransactionType", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

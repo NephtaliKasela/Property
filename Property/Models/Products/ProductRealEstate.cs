@@ -1,5 +1,6 @@
 ﻿using Property.Models.Subcategories;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Property.Models.Products
 {
@@ -24,5 +25,6 @@ namespace Property.Models.Products
         public SubcategoryRealEstate SubcategoryRealEstate { get; set; }
         public Store Store { get; set; }
         public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
+        public TransactionType TransactionType { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using Property.DTOs.Product;
 using Property.DTOs.Product.ProductRealEstate;
 using Property.DTOs.Store;
 using Property.DTOs.Subcategories.SubcategoryRealEstate;
+using Property.DTOs.TransactionType;
 using Property.Models;
 using Property.Models.Products;
 using Property.Models.Subcategories;
@@ -53,9 +54,13 @@ namespace Property
 			CreateMap<UpdateProductRealEsteDTO, ProductRealEstate>();
 			CreateMap<AddProductRealEstateDTO, ProductRealEstate>();
 
-			
-            //CreateMap<GetStoreDTO, Store>();
-            CreateMap<Store, GetStoreDTO>();
+			// Transaction Type
+			CreateMap<TransactionType, GetTransactionTypeDTO>();
+			CreateMap<UpdateTransactionTypeDTO, TransactionType>();
+			CreateMap<AddTransactionTypeDTO, TransactionType>();
+
+			//CreateMap<GetStoreDTO, Store>();
+			CreateMap<Store, GetStoreDTO>();
             CreateMap<AddStoreDTO, Store>();
         }
     }
