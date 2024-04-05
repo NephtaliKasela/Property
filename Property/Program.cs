@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
 using Property.Models;
+using Property.Services.AgentServices;
 using Property.Services.CategoryServices;
 using Property.Services.CityServices;
 using Property.Services.ContinentServices;
@@ -37,6 +38,7 @@ builder.Services.AddScoped<ISubCategoryServicesRealEstate, SubCategoryServicesRe
 builder.Services.AddScoped<IProductServicesRealEstate, ProductServicesRealEstate>();
 builder.Services.AddScoped<IStoreServices, StoreServices>();
 builder.Services.AddScoped<ITransactionTypeServices, TransactionTypeServices>();
+builder.Services.AddScoped<IAgentServices, AgentServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
