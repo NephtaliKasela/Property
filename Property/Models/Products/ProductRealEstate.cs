@@ -26,5 +26,6 @@ namespace Property.Models.Products
         public Store Store { get; set; }
         public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
         public TransactionType TransactionType { get; set; }
+        public Agent Agent { get; set; }
     }
 }

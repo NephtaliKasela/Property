@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
+using Property.Models;
 using Property.Services.CategoryServices;
 using Property.Services.CityServices;
 using Property.Services.ContinentServices;
@@ -38,7 +39,7 @@ builder.Services.AddScoped<IStoreServices, StoreServices>();
 builder.Services.AddScoped<ITransactionTypeServices, TransactionTypeServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
