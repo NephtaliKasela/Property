@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
 using Property.DTOs.Agent;
@@ -11,12 +11,14 @@ namespace Property.Services.AgentServices
 	public class AgentServices : IAgentServices
 	{
 		private readonly DataContext _context;
+		private readonly ApplicationDbContext _applicationDbContext;
 		private readonly IMapper _mapper;
 
-		public AgentServices(DataContext context, IMapper mapper)
+		public AgentServices(DataContext context, IMapper mapper, ApplicationDbContext applicationDbContext)
 		{
 			_context = context;
 			_mapper = mapper;
+			_applicationDbContext = applicationDbContext;
 		}
 
 		public async Task<ServiceResponse<List<GetAgentDTO>>> AddAgent(AddAgentDTO newAgent)
@@ -24,11 +26,45 @@ namespace Property.Services.AgentServices
 			var serviceResponse = new ServiceResponse<List<GetAgentDTO>>();
 			var agent = _mapper.Map<Agent>(newAgent);
 
-			_context.Agents.Add(agent);
-			await _context.SaveChangesAsync();
+			var agents = await _context.Agents.ToListAsync();
+			if(agents.Any())
+			{ 
+				bool flag = false;
+				foreach	(var agnt in agents) 
+				{
+					if (agnt.ApplicationUserId == agent.ApplicationUserId) 
+					{ 
+						flag = true;
+						break;
+					}
+				}	
+				if (!flag)
+				{
+                    _context.Agents.Add(agent);
+                    await _context.SaveChangesAsync();
+                }
+			}
+			else
+			{
+                _context.Agents.Add(agent);
+                await _context.SaveChangesAsync();
+            }
 
-			serviceResponse.Data = await _context.Agents
+            serviceResponse.Data = await _context.Agents
 				.Select(x => _mapper.Map<GetAgentDTO>(x)).ToListAsync();
+			return serviceResponse;
+		}
+
+		public async Task<ServiceResponse<GetAgentDTO>> GetAgentByUserId(string userId)
+		{
+			var agent = await _context.Agents
+				.Include(x => x.ApplicationUser)
+				.FirstOrDefaultAsync(x => x.ApplicationUserId == userId);
+
+			var serviceResponse = new ServiceResponse<GetAgentDTO>()
+			{
+				Data = _mapper.Map<GetAgentDTO>(agent)
+			};
 			return serviceResponse;
 		}
 
@@ -105,5 +141,7 @@ namespace Property.Services.AgentServices
 			}
 			return serviceResponse;
 		}
+
+		
 	}
 }

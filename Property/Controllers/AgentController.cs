@@ -22,10 +22,23 @@ namespace Property.Controllers
 			_agentServices = agentServices;
 		}
 
-		public async Task<IActionResult> AddAgent()
+        [Authorize]
+        public async Task<IActionResult> Dashboard()
+        {
+			ApplicationUser user = await _userManager.GetUserAsync(User);
+
+			if (user != null)
+			{
+				var agent = await _agentServices.GetAgentByUserId(user.Id);
+				return View(agent.Data);
+			}
+			return RedirectToAction("AddAgent");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> AddAgent()
 		{
-			//var agents = await _agentServices.GetAllAgents();
-			return View();
+            return View();
 		}
 
 		[HttpGet]
@@ -40,8 +53,8 @@ namespace Property.Controllers
 		public async Task<IActionResult> GetAgent()
 		{
 			ApplicationUser user = await _userManager.GetUserAsync(User);
-			if (user != null)
-			{
+            if (user != null)
+            {
 				// Access user properties
 				string userId = user.Id;
 				string email = user.Email;
@@ -61,9 +74,18 @@ namespace Property.Controllers
 		[HttpPost]
 		public async Task<IActionResult> SaveAddAgent(AddAgentDTO newAgent)
 		{
-			await _agentServices.AddAgent(newAgent);
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                // Access user properties
+				newAgent.ApplicationUser = user;
+				newAgent.ApplicationUserId = user.Id;
+                // ...
 
-			return RedirectToAction("GetAgent");
+                await _agentServices.AddAgent(newAgent);
+            }
+
+			return RedirectToAction("Dashboard");
 		}
 
 		[HttpPost]

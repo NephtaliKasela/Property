@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Property.Controllers.Subcategories;
+using Property.DTOs.Agent;
 using Property.DTOs.Category;
 using Property.DTOs.City;
 using Property.DTOs.Continent;
@@ -59,8 +60,13 @@ namespace Property
 			CreateMap<UpdateTransactionTypeDTO, TransactionType>();
 			CreateMap<AddTransactionTypeDTO, TransactionType>();
 
-			//CreateMap<GetStoreDTO, Store>();
-			CreateMap<Store, GetStoreDTO>();
+            // Agent
+            CreateMap<Agent, GetAgentDTO>();
+            CreateMap<UpdateAgentDTO, Agent>();
+            CreateMap<AddAgentDTO, Agent>();
+
+            //CreateMap<GetStoreDTO, Store>();
+            CreateMap<Store, GetStoreDTO>();
             CreateMap<AddStoreDTO, Store>();
         }
     }

@@ -8,6 +8,7 @@ namespace Property.Services.AgentServices
 	{
 		Task<ServiceResponse<List<GetAgentDTO>>> GetAllAgents();
 		Task<ServiceResponse<GetAgentDTO>> GetAgentById(int id);
+		Task<ServiceResponse<GetAgentDTO>> GetAgentByUserId(string userId);
 		Task<ServiceResponse<List<GetAgentDTO>>> AddAgent(AddAgentDTO newAgent);
 		Task<ServiceResponse<GetAgentDTO>> UpdateAgent(UpdateAgentDTO updatedAgent);
 		Task<ServiceResponse<List<GetAgentDTO>>> DeleteAgent(int id);
