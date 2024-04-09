@@ -12,8 +12,8 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240405124631_AddRelationUserAgent")]
-    partial class AddRelationUserAgent
+    [Migration("20240409103902_AddRelUserAgent")]
+    partial class AddRelUserAgent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,6 +174,14 @@ namespace Property.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
@@ -188,6 +196,9 @@ namespace Property.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AgentId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -389,10 +400,6 @@ namespace Property.Data.Migrations
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
@@ -416,9 +423,6 @@ namespace Property.Data.Migrations
                     b.Property<int>("Room")
                         .HasColumnType("int");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SubcategoryRealEstateId")
                         .HasColumnType("int");
 
@@ -436,34 +440,11 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("StoreId");
-
                     b.HasIndex("SubcategoryRealEstateId");
 
                     b.HasIndex("TransactionTypeId");
 
                     b.ToTable("ProductRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.Store", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Store");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -622,12 +603,6 @@ namespace Property.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Property.Models.Store", "Store")
-                        .WithMany("ProductsRealEstate")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Property.Models.Subcategories.SubcategoryRealEstate", "SubcategoryRealEstate")
                         .WithMany("ProductsRealEstate")
                         .HasForeignKey("SubcategoryRealEstateId")
@@ -645,8 +620,6 @@ namespace Property.Data.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Country");
-
-                    b.Navigation("Store");
 
                     b.Navigation("SubcategoryRealEstate");
 
@@ -699,11 +672,6 @@ namespace Property.Data.Migrations
             modelBuilder.Entity("Property.Models.Products.ProductRealEstate", b =>
                 {
                     b.Navigation("ProductImages");
-                });
-
-            modelBuilder.Entity("Property.Models.Store", b =>
-                {
-                    b.Navigation("ProductsRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>

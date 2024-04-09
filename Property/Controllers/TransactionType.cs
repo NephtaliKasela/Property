@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Property.DTOs.Store;
 using Property.DTOs.TransactionType;
-using Property.Services.StoreServices;
 using Property.Services.TransactionTypeServices;
 
 namespace Property.Controllers

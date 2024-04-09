@@ -19,16 +19,10 @@ namespace Property.Data
 
         }
 
-        //public DbSet<User> Users => Set<User>();
-
-        public DbSet<Store> Stores => Set<Store>();
-		//public DbSet<Product> Products => Set<Product>();
-		//public DbSet<SubCategory> SubCategories => Set<SubCategory>();
-		//public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+        //public DbSet<Store> Stores => Set<Store>();
 		//*******************
 
 		
-
 		public DbSet<Continent> Continents => Set<Continent>();
         public DbSet<Country> Countries => Set<Country>();
         public DbSet<City> Cities => Set<City>();
@@ -37,9 +31,7 @@ namespace Property.Data
         public DbSet<TransactionType> TransactionTypes => Set<TransactionType>();
         public DbSet<ProductRealEstate> ProductsRealEstate => Set<ProductRealEstate>();
         public DbSet<ProductImageRealEstate> productImagesRealEstate => Set<ProductImageRealEstate>();
-
         public DbSet<Agent> Agents => Set<Agent>();
-		//public DbSet<ApplicationUser> Users => Set<ApplicationUser>();
 
 	}
 }

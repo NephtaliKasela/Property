@@ -11,7 +11,6 @@ using Property.DTOs.Continent;
 using Property.DTOs.Country;
 using Property.DTOs.Product;
 using Property.DTOs.Product.ProductRealEstate;
-using Property.DTOs.Store;
 using Property.DTOs.Subcategories.SubcategoryRealEstate;
 using Property.DTOs.TransactionType;
 using Property.Models;
@@ -65,9 +64,6 @@ namespace Property
             CreateMap<UpdateAgentDTO, Agent>();
             CreateMap<AddAgentDTO, Agent>();
 
-            //CreateMap<GetStoreDTO, Store>();
-            CreateMap<Store, GetStoreDTO>();
-            CreateMap<AddStoreDTO, Store>();
         }
     }
 }

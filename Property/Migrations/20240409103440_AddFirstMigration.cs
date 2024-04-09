@@ -3,35 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Property.Data.Migrations
+namespace Property.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRelationUserAgent : Migration
+    public partial class AddFirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Agent",
+                name: "Agents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Agent", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Agent_Users_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Agents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Category",
+                name: "Categories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -41,11 +36,11 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.Id);
+                    table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Continent",
+                name: "Continents",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -55,25 +50,11 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Continent", x => x.Id);
+                    table.PrimaryKey("PK_Continents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Store",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Store", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TransactionType",
+                name: "TransactionTypes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -82,11 +63,11 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionType", x => x.Id);
+                    table.PrimaryKey("PK_TransactionTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubcategoryRealEstate",
+                name: "SubcategoriesRealEstate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -97,17 +78,17 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubcategoryRealEstate", x => x.Id);
+                    table.PrimaryKey("PK_SubcategoriesRealEstate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubcategoryRealEstate_Category_CategoryId",
+                        name: "FK_SubcategoriesRealEstate_Categories_CategoryId",
                         column: x => x.CategoryId,
-                        principalTable: "Category",
+                        principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -118,17 +99,17 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Country_Continent_ContinentId",
+                        name: "FK_Countries_Continents_ContinentId",
                         column: x => x.ContinentId,
-                        principalTable: "Continent",
+                        principalTable: "Continents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -139,17 +120,17 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_City_Country_CountryId",
+                        name: "FK_Cities_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductRealEstate",
+                name: "ProductsRealEstate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -157,7 +138,6 @@ namespace Property.Data.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Room = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     YearOfConstruction = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -166,52 +146,45 @@ namespace Property.Data.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: true),
                     SubcategoryRealEstateId = table.Column<int>(type: "int", nullable: false),
-                    StoreId = table.Column<int>(type: "int", nullable: false),
                     TransactionTypeId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductRealEstate", x => x.Id);
+                    table.PrimaryKey("PK_ProductsRealEstate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductRealEstate_Agent_AgentId",
+                        name: "FK_ProductsRealEstate_Agents_AgentId",
                         column: x => x.AgentId,
-                        principalTable: "Agent",
+                        principalTable: "Agents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductRealEstate_City_CityId",
+                        name: "FK_ProductsRealEstate_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProductRealEstate_Country_CountryId",
+                        name: "FK_ProductsRealEstate_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductRealEstate_Store_StoreId",
-                        column: x => x.StoreId,
-                        principalTable: "Store",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductRealEstate_SubcategoryRealEstate_SubcategoryRealEstateId",
+                        name: "FK_ProductsRealEstate_SubcategoriesRealEstate_SubcategoryRealEstateId",
                         column: x => x.SubcategoryRealEstateId,
-                        principalTable: "SubcategoryRealEstate",
+                        principalTable: "SubcategoriesRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductRealEstate_TransactionType_TransactionTypeId",
+                        name: "FK_ProductsRealEstate_TransactionTypes_TransactionTypeId",
                         column: x => x.TransactionTypeId,
-                        principalTable: "TransactionType",
+                        principalTable: "TransactionTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductImageRealEstate",
+                name: "productImagesRealEstate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -223,69 +196,58 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductImageRealEstate", x => x.Id);
+                    table.PrimaryKey("PK_productImagesRealEstate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductImageRealEstate_ProductRealEstate_ProductRealEstateId",
+                        name: "FK_productImagesRealEstate_ProductsRealEstate_ProductRealEstateId",
                         column: x => x.ProductRealEstateId,
-                        principalTable: "ProductRealEstate",
+                        principalTable: "ProductsRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Agent_ApplicationUserId",
-                table: "Agent",
-                column: "ApplicationUserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_City_CountryId",
-                table: "City",
+                name: "IX_Cities_CountryId",
+                table: "Cities",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Country_ContinentId",
-                table: "Country",
+                name: "IX_Countries_ContinentId",
+                table: "Countries",
                 column: "ContinentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImageRealEstate_ProductRealEstateId",
-                table: "ProductImageRealEstate",
+                name: "IX_productImagesRealEstate_ProductRealEstateId",
+                table: "productImagesRealEstate",
                 column: "ProductRealEstateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_AgentId",
-                table: "ProductRealEstate",
+                name: "IX_ProductsRealEstate_AgentId",
+                table: "ProductsRealEstate",
                 column: "AgentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_CityId",
-                table: "ProductRealEstate",
+                name: "IX_ProductsRealEstate_CityId",
+                table: "ProductsRealEstate",
                 column: "CityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_CountryId",
-                table: "ProductRealEstate",
+                name: "IX_ProductsRealEstate_CountryId",
+                table: "ProductsRealEstate",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_StoreId",
-                table: "ProductRealEstate",
-                column: "StoreId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_SubcategoryRealEstateId",
-                table: "ProductRealEstate",
+                name: "IX_ProductsRealEstate_SubcategoryRealEstateId",
+                table: "ProductsRealEstate",
                 column: "SubcategoryRealEstateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductRealEstate_TransactionTypeId",
-                table: "ProductRealEstate",
+                name: "IX_ProductsRealEstate_TransactionTypeId",
+                table: "ProductsRealEstate",
                 column: "TransactionTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubcategoryRealEstate_CategoryId",
-                table: "SubcategoryRealEstate",
+                name: "IX_SubcategoriesRealEstate_CategoryId",
+                table: "SubcategoriesRealEstate",
                 column: "CategoryId");
         }
 
@@ -293,34 +255,31 @@ namespace Property.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductImageRealEstate");
+                name: "productImagesRealEstate");
 
             migrationBuilder.DropTable(
-                name: "ProductRealEstate");
+                name: "ProductsRealEstate");
 
             migrationBuilder.DropTable(
-                name: "Agent");
+                name: "Agents");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Store");
+                name: "SubcategoriesRealEstate");
 
             migrationBuilder.DropTable(
-                name: "SubcategoryRealEstate");
+                name: "TransactionTypes");
 
             migrationBuilder.DropTable(
-                name: "TransactionType");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Categories");
 
             migrationBuilder.DropTable(
-                name: "Category");
-
-            migrationBuilder.DropTable(
-                name: "Continent");
+                name: "Continents");
         }
     }
 }

@@ -6,8 +6,8 @@ using System.Reflection.Emit;
 
 namespace Property.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
+	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -23,7 +23,9 @@ namespace Property.Data
 			//builder.Entity<IdentityUserClaim<string>>(entity => entity.ToTable(name: "UserClaims"));
 			//builder.Entity<IdentityUserLogin<string>>(entity => entity.ToTable(name: "UserLogins"));
 			//builder.Entity<IdentityUserRole<string>>(entity => entity.ToTable(name: "UserRoles"));
+
 			builder.Entity<ApplicationUser>(entity => entity.ToTable(name: "Users"));
+
 			//builder.Entity<IdentityUserToken<string>>(entity => entity.ToTable(name: "UserTokens"));
 
 			builder.Entity<ApplicationUser>()

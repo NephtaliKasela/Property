@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
-using Property.DTOs.Store;
 using Property.DTOs.TransactionType;
 using Property.Models;
 

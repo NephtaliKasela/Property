@@ -1,5 +1,4 @@
-﻿using Property.DTOs.Store;
-using Property.DTOs.TransactionType;
+﻿using Property.DTOs.TransactionType;
 using Property.Models;
 
 namespace Property.Services.TransactionTypeServices

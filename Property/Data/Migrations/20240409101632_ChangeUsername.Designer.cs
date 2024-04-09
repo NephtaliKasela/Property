@@ -12,8 +12,8 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240405123350_ChangeUsername2")]
-    partial class ChangeUsername2
+    [Migration("20240409101632_ChangeUsername")]
+    partial class ChangeUsername
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

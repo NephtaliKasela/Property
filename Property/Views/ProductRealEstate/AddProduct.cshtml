@@ -1,34 +1,23 @@
 ﻿@model Property.DTOs.Actions.AddProductRealEstate_action
 
 @{
-	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+	Layout = "~/Views/Shared/_Layout2.cshtml";
 }
 
 <div class="row page-titles">
 	<ol class="breadcrumb">
-		<li class="breadcrumb-item active"><a href="javascript:void(0)">Table</a></li>
-		<li class="breadcrumb-item"><a href="javascript:void(0)">Bootstrap</a></li>
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Real Estate</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
 	</ol>
 </div>
 <!-- row -->
 
 <div class="container">
 	<form method="post" asp-controller="ProductRealEstate" asp-action="SaveAddProduct">
-		<div class="form-group">
-			<label for="productCategory">Store:</label>
-			<select id="StoreId" name="StoreId" class="form-control" required>
-				@* <option value="">Sélectionner une catégorie</option> *@
-				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
-				@foreach (var store in Model.Stores)
-				{
-					<option value="@store.Id">@store.Name</option>
-				}
-			</select>
-		</div>
 
 		<br />
 		<div class="form-group">
-			<label for="productCategory">SubCategory:</label>
+			<label for="productCategory">Category:</label>
 			<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
 				@* <option value="">Sélectionner une catégorie</option> *@
 				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
@@ -45,16 +34,23 @@
 		</div>
 		<div class="form-group">
 			<label for="Description">Description:</label>
-			<textarea id="Description" name="Description" class="form-control" required></textarea>
+			<textarea id="Description" name="Description" class="form-control" style="min-height: 100px;" required></textarea>
 		</div>
 		<div class="form-group">
 			<label for="price">Price</label>
 			<input type="number" class="form-control" id="price" name="price" placeholder="Enter price">
 		</div>
+
 		<div class="form-group">
-			<label for="category">Category</label>
-			<input type="text" class="form-control" id="category" name="category" placeholder="Enter category">
+			<label for="TransactionTypeId">Category:</label>
+			<select id="TransactionTypeId" name="TransactionTypeId" class="form-control" required>
+				@foreach (var transactionType in Model.TransactionTypes)
+				{
+					<option value="@transactionType.Id">@transactionType.Name</option>
+				}
+			</select>
 		</div>
+
 		<div class="form-group">
 			<label for="room">Room</label>
 			<input type="number" class="form-control" id="room" name="room" placeholder="Enter room">

@@ -3,30 +3,33 @@ using Property.DTOs.Product.ProductRealEstate;
 using Property.DTOs.Subcategories.SubcategoryRealEstate;
 using Property.Services.CityServices;
 using Property.Services.CountryServices;
-using Property.Services.ProductService;
 using Property.Services.ProductService.ProductServicesRealEstate;
-using Property.Services.StoreServices;
-using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
 using Microsoft.AspNetCore.Mvc;
+using Property.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Property.Services.TransactionTypeServices;
 
 namespace Property.Controllers.Products
 {
     public class ProductRealEstateController : Controller
     {
-        private readonly IStoreServices _storeServices;
+		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly ICountryServices _countryServices;
 		private readonly ICityServices _cityServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
 		private readonly ISubCategoryServicesRealEstate _subCategoryServicesRealEstate;
+		private readonly ITransactionTypeServices _transactionTypeServices;
 
-		public ProductRealEstateController(IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, IStoreServices storeServices, ICountryServices countryServices, ICityServices cityServices)
+		public ProductRealEstateController(UserManager<ApplicationUser> userManager, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices, ITransactionTypeServices transactionTypeServices)
         {
+            _userManager = userManager;
             _productServicesRealEstate = productServicesRealEstate;
 			_subCategoryServicesRealEstate = subCategoryServicesRealEstate;
-            _storeServices = storeServices;
 			_countryServices = countryServices;
 			_cityServices = cityServices;
+            _transactionTypeServices = transactionTypeServices;
 		}
 
         public async Task<IActionResult> GetProduct()
@@ -38,16 +41,16 @@ namespace Property.Controllers.Products
         public async Task<IActionResult> AddProduct()
         {
             var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
-            var stores = await _storeServices.GetAllStores();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
+            var transactionTypes = await _transactionTypeServices.GetAllTransactionTypes();
 
-            var v = new AddProductRealEstate_action();
+			var v = new AddProductRealEstate_action();
 
             v.Subcategories = subcategories.Data;
-            v.Stores = stores.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
+            v.TransactionTypes = transactionTypes.Data;
 
             return View(v);
         }
@@ -59,22 +62,28 @@ namespace Property.Controllers.Products
             var v = new UpdateProductRealEstate_action();
 
             var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
-            var stores = await _storeServices.GetAllStores();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
+			var transactionTypes = await _transactionTypeServices.GetAllTransactionTypes();
 
-            v.Subcategories = subcategories.Data;
-            v.Stores = stores.Data;
+			v.Subcategories = subcategories.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
+			v.TransactionTypes = transactionTypes.Data;
 
-            return View(v);
+			return View(v);
         }
 
 		[HttpPost]
 		public async Task<IActionResult> SaveAddProduct(AddProductRealEstateDTO newProduct)
 		{
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            //if (user != null && user.Agent != null)
+            //{
+            //    newProduct.Agent = user.Agent;
+            //}
+
 			await _productServicesRealEstate.AddProduct(newProduct);
 
 			return RedirectToAction("GetProduct");

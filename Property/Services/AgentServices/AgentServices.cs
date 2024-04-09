@@ -23,74 +23,78 @@ namespace Property.Services.AgentServices
 
 		public async Task<ServiceResponse<List<GetAgentDTO>>> AddAgent(AddAgentDTO newAgent)
 		{
-			var serviceResponse = new ServiceResponse<List<GetAgentDTO>>();
-			var agent = _mapper.Map<Agent>(newAgent);
+			//var serviceResponse = new ServiceResponse<List<GetAgentDTO>>();
+			//var agent = _mapper.Map<Agent>(newAgent);
 
-			var agents = await _context.Agents.ToListAsync();
-			if(agents.Any())
-			{ 
-				bool flag = false;
-				foreach	(var agnt in agents) 
-				{
-					if (agnt.ApplicationUserId == agent.ApplicationUserId) 
-					{ 
-						flag = true;
-						break;
-					}
-				}	
-				if (!flag)
-				{
-                    _context.Agents.Add(agent);
-                    await _context.SaveChangesAsync();
-                }
-			}
-			else
-			{
-                _context.Agents.Add(agent);
-                await _context.SaveChangesAsync();
-            }
+			//var agents = await _context.Agents.ToListAsync();
+			//if(agents.Any())
+			//{ 
+			//	bool flag = false;
+			//	foreach	(var agnt in agents) 
+			//	{
+			//		if (agnt.ApplicationUserId == agent.ApplicationUserId)
+			//		{
+			//			flag = true;
+			//			break;
+			//		}
+			//	}	
+			//	if (!flag)
+			//	{
+   //                 _context.Agents.Add(agent);
+   //                 await _context.SaveChangesAsync();
+   //             }
+			//}
+			//else
+			//{
+   //             _context.Agents.Add(agent);
+   //             await _context.SaveChangesAsync();
+   //         }
 
-            serviceResponse.Data = await _context.Agents
-				.Select(x => _mapper.Map<GetAgentDTO>(x)).ToListAsync();
-			return serviceResponse;
+   //         serviceResponse.Data = await _context.Agents
+			//	.Select(x => _mapper.Map<GetAgentDTO>(x)).ToListAsync();
+			//return serviceResponse;
+			throw new NotImplementedException();
 		}
 
 		public async Task<ServiceResponse<GetAgentDTO>> GetAgentByUserId(string userId)
 		{
-			var agent = await _context.Agents
-				.Include(x => x.ApplicationUser)
-				.FirstOrDefaultAsync(x => x.ApplicationUserId == userId);
+			//var agent = await _context.Agents
+			//	.Include(x => x.ApplicationUser)
+			//	.FirstOrDefaultAsync(x => x.ApplicationUserId == userId);
 
-			var serviceResponse = new ServiceResponse<GetAgentDTO>()
-			{
-				Data = _mapper.Map<GetAgentDTO>(agent)
-			};
-			return serviceResponse;
+			//var serviceResponse = new ServiceResponse<GetAgentDTO>()
+			//{
+			//	Data = _mapper.Map<GetAgentDTO>(agent)
+			//};
+			//return serviceResponse;
+			throw new NotImplementedException();
 		}
 
 		public async Task<ServiceResponse<GetAgentDTO>> GetAgentById(int id)
 		{
-			var agent = await _context.Agents
-				.Include(x => x.ApplicationUser)
-				.FirstOrDefaultAsync(x => x.Id == id);
+			//var agent = await _context.Agents
+			//	.Include(x => x.ApplicationUser)
+			//	.FirstOrDefaultAsync(x => x.Id == id);
 
-			var serviceResponse = new ServiceResponse<GetAgentDTO>()
-			{
-				Data = _mapper.Map<GetAgentDTO>(agent)
-			};
-			return serviceResponse;
+			//var serviceResponse = new ServiceResponse<GetAgentDTO>()
+			//{
+			//	Data = _mapper.Map<GetAgentDTO>(agent)
+			//};
+			//return serviceResponse;
+			throw new NotImplementedException();
 		}
 
 		public async Task<ServiceResponse<List<GetAgentDTO>>> GetAllAgents()
 		{
-			var agents = await _context.Agents
-				.Include(c => c.ApplicationUser)
-				.ToListAsync();
-			var serviceResponse = new ServiceResponse<List<GetAgentDTO>>()
-			{
-				Data = agents.Select(p => _mapper.Map<GetAgentDTO>(p)).ToList()
-			};
-			return serviceResponse;
+			//var agents = await _context.Agents
+			//	.Include(c => c.ApplicationUser)
+			//	.ToListAsync();
+			//var serviceResponse = new ServiceResponse<List<GetAgentDTO>>()
+			//{
+			//	Data = agents.Select(p => _mapper.Map<GetAgentDTO>(p)).ToList()
+			//};
+			//return serviceResponse;
+			throw new NotImplementedException();
 		}
 
 		public async Task<ServiceResponse<GetAgentDTO>> UpdateAgent(UpdateAgentDTO updatedAgent)

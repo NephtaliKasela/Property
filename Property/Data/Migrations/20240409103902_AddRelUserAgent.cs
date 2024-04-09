@@ -2,28 +2,28 @@
 
 #nullable disable
 
-namespace Property.Migrations
+namespace Property.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddApplicationUserIdToAgent : Migration
+    public partial class AddRelUserAgent : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "ApplicationUserId",
-                table: "Agents",
-                type: "nvarchar(max)",
+            migrationBuilder.AddColumn<int>(
+                name: "AgentId",
+                table: "Users",
+                type: "int",
                 nullable: false,
-                defaultValue: "");
+                defaultValue: 0);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "ApplicationUserId",
-                table: "Agents");
+                name: "AgentId",
+                table: "Users");
         }
     }
 }

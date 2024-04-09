@@ -25,9 +25,9 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
         {
             var products = await _context.ProductsRealEstate
                 .Include(p => p.SubcategoryRealEstate)
-                .Include(p => p.Store)
                 .Include(p => p.Country)
                 .Include(p => p.City)
+                .Include(p => p.TransactionType)
                 .Include(p => p.ProductImages)
                 .ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetProductRealEstateDTO>>()
@@ -43,10 +43,10 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
             try
             {
                 var product = await _context.ProductsRealEstate
-                    .Include(p => p.Store)
                     .Include(p => p.SubcategoryRealEstate)
                     .Include(p => p.Country)
                     .Include(p => p.City)
+                    .Include(p => p.TransactionType)
                     .Include(p => p.ProductImages)
                     .FirstOrDefaultAsync(p => p.Id == id);
                 if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
@@ -79,17 +79,6 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 }
             }
 
-            // Get Store
-            (result, number) = _otherServices.CheckIfInteger(newProduct.StoreId);
-            if (result == true)
-            {
-                var store = await _context.Stores.FirstOrDefaultAsync(s => s.Id == number);
-                if (store is not null)
-                {
-                    product.Store = store;
-                }
-            }
-
 			// Get Country
 			(result, number) = _otherServices.CheckIfInteger(newProduct.CountryId);
 			if (result == true)
@@ -112,7 +101,18 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				}
 			}
 
-            product.PublicationDate = DateTime.Now;
+			// Get Subcategory
+			(result, number) = _otherServices.CheckIfInteger(newProduct.TransactionTypeId);
+			if (result == true)
+			{
+				var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
+				if (transactionType is not null)
+				{
+					product.TransactionType = transactionType;
+				}
+			}
+
+			product.PublicationDate = DateTime.Now;
             product.Availability = true;
 
 			//Save product
@@ -146,14 +146,6 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 {
                     var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == IdNumber);
                     product.SubcategoryRealEstate = subcategory;
-                }
-
-                // Get Store
-                (result, IdNumber) = _otherServices.CheckIfInteger(updatedProduct.StoreId);
-                if (result == true)
-                {
-                    var store = await _context.Stores.FirstOrDefaultAsync(s => s.Id == IdNumber);
-                    product.Store = store;
                 }
 
                 await _context.SaveChangesAsync();

@@ -12,7 +12,7 @@ namespace Property.Models.Products
         public double Price { get; set; }
 
         // Other properties specific to the product
-        public string Category { get; set; }
+        //public string Category { get; set; }
         public int Room { get; set; }
         public string Address { get; set; }
         public DateTime YearOfConstruction { get; set; }
@@ -23,7 +23,6 @@ namespace Property.Models.Products
         public Country Country { get; set; }
         public City? City { get; set; }
         public SubcategoryRealEstate SubcategoryRealEstate { get; set; }
-        public Store Store { get; set; }
         public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
         public TransactionType TransactionType { get; set; }
         public Agent Agent { get; set; }

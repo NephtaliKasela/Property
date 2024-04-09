@@ -30,72 +30,17 @@ namespace Property.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("Profession")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("ApplicationUserId")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("Agents");
-                });
-
-            modelBuilder.Entity("Property.Models.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ApplicationUser");
                 });
 
             modelBuilder.Entity("Property.Models.Category", b =>
@@ -240,10 +185,6 @@ namespace Property.Migrations
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
 
@@ -267,9 +208,6 @@ namespace Property.Migrations
                     b.Property<int>("Room")
                         .HasColumnType("int");
 
-                    b.Property<int>("StoreId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SubcategoryRealEstateId")
                         .HasColumnType("int");
 
@@ -287,34 +225,11 @@ namespace Property.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("StoreId");
-
                     b.HasIndex("SubcategoryRealEstateId");
 
                     b.HasIndex("TransactionTypeId");
 
                     b.ToTable("ProductsRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.Store", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Stores");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -358,17 +273,6 @@ namespace Property.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TransactionTypes");
-                });
-
-            modelBuilder.Entity("Property.Models.Agent", b =>
-                {
-                    b.HasOne("Property.Models.ApplicationUser", "ApplicationUser")
-                        .WithOne("Agent")
-                        .HasForeignKey("Property.Models.Agent", "ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
                 });
 
             modelBuilder.Entity("Property.Models.City", b =>
@@ -422,12 +326,6 @@ namespace Property.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Property.Models.Store", "Store")
-                        .WithMany("ProductsRealEstate")
-                        .HasForeignKey("StoreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Property.Models.Subcategories.SubcategoryRealEstate", "SubcategoryRealEstate")
                         .WithMany("ProductsRealEstate")
                         .HasForeignKey("SubcategoryRealEstateId")
@@ -445,8 +343,6 @@ namespace Property.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Country");
-
-                    b.Navigation("Store");
 
                     b.Navigation("SubcategoryRealEstate");
 
@@ -467,11 +363,6 @@ namespace Property.Migrations
             modelBuilder.Entity("Property.Models.Agent", b =>
                 {
                     b.Navigation("ProductsRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("Agent");
                 });
 
             modelBuilder.Entity("Property.Models.Category", b =>
@@ -499,11 +390,6 @@ namespace Property.Migrations
             modelBuilder.Entity("Property.Models.Products.ProductRealEstate", b =>
                 {
                     b.Navigation("ProductImages");
-                });
-
-            modelBuilder.Entity("Property.Models.Store", b =>
-                {
-                    b.Navigation("ProductsRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>

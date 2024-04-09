@@ -17,9 +17,11 @@ namespace Property.DTOs.Product.ProductRealEstate
         // Foreign Keys
         public string CountryId { get; set; }
         public string CityId { get; set; }
-
         public string ProductSubCategoryId { get; set; }
-		public string StoreId { get; set; }
+		public string TransactionTypeId { get; set; }
+
+		public Property.Models.Agent Agent { get; set; }
+		
 
 	}
 }
