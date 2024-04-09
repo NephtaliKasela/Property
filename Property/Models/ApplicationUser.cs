@@ -6,7 +6,7 @@ namespace Property.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public int AgentId { get; set; }
+        //public int AgentId { get; set; }
         public Agent? Agent { get; set; }
     }
 }

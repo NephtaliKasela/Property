@@ -168,7 +168,6 @@ namespace Property.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
@@ -182,7 +181,8 @@ namespace Property.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ApplicationUserId] IS NOT NULL");
 
                     b.ToTable("Agent");
                 });
@@ -193,9 +193,6 @@ namespace Property.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AgentId")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -542,9 +539,7 @@ namespace Property.Data.Migrations
                 {
                     b.HasOne("Property.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("Agent")
-                        .HasForeignKey("Property.Models.Agent", "ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Property.Models.Agent", "ApplicationUserId");
 
                     b.Navigation("ApplicationUser");
                 });

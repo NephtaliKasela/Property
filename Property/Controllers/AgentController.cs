@@ -30,7 +30,10 @@ namespace Property.Controllers
 			if (user != null)
 			{
 				var agent = await _agentServices.GetAgentByUserId(user.Id);
-				return View(agent.Data);
+				if (agent.Data != null)
+				{
+					return View(agent.Data);
+				}
 			}
 			return RedirectToAction("AddAgent");
         }

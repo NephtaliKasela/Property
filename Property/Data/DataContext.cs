@@ -33,5 +33,16 @@ namespace Property.Data
         public DbSet<ProductImageRealEstate> productImagesRealEstate => Set<ProductImageRealEstate>();
         public DbSet<Agent> Agents => Set<Agent>();
 
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			base.OnModelCreating(builder);
+
+			builder.Entity<Agent>()
+				.HasOne(a => a.ApplicationUser)
+				.WithOne(a => a.Agent)
+				.HasForeignKey<ApplicationUser>();
+		}
+
 	}
 }

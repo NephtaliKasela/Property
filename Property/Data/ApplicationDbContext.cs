@@ -29,9 +29,9 @@ namespace Property.Data
 			//builder.Entity<IdentityUserToken<string>>(entity => entity.ToTable(name: "UserTokens"));
 
 			builder.Entity<ApplicationUser>()
-			.HasOne(a => a.Agent)
+				.HasOne(a => a.Agent)
 				.WithOne(a => a.ApplicationUser)
-				.HasForeignKey<Agent>(a => a.ApplicationUserId);
+				.HasForeignKey<Agent>();
 		}
 	}
 }
