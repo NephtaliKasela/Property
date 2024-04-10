@@ -59,6 +59,7 @@ namespace Property.Services.AgentServices
 		{
 			var agent = await _context.Agents
 				.Include(x => x.ApplicationUser)
+				.Include(x => x.ProductsRealEstate)
 				.FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId);
 
 			var serviceResponse = new ServiceResponse<GetAgentDTO>()
@@ -72,6 +73,7 @@ namespace Property.Services.AgentServices
 		{
 			var agent = await _context.Agents
 				.Include(x => x.ApplicationUser)
+				.Include(x => x.ProductsRealEstate)
 				.FirstOrDefaultAsync(x => x.Id == id);
 
 			var serviceResponse = new ServiceResponse<GetAgentDTO>()
@@ -85,6 +87,7 @@ namespace Property.Services.AgentServices
 		{
 			var agents = await _context.Agents
 				.Include(c => c.ApplicationUser)
+				.Include(c => c.ProductsRealEstate)
 				.ToListAsync();
 			var serviceResponse = new ServiceResponse<List<GetAgentDTO>>()
 			{

@@ -21,5 +21,7 @@ namespace Property.DTOs.Product.ProductRealEstate
         public Models.Country Country { get; set; }
         public Models.City? City { get; set; }
         public Models.Subcategories.SubcategoryRealEstate SubcategoryRealEstate { get; set; }
-    }
+		public Models.TransactionType TransactionType { get; set; }
+		public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
+	}
 }

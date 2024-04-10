@@ -19,8 +19,6 @@
 		<div class="form-group">
 			<label for="productCategory">Category:</label>
 			<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
-				@* <option value="">Sélectionner une catégorie</option> *@
-				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
 				@foreach (var sc in Model.Subcategories)
 				{
 					<option value="@sc.Id">@sc.Name</option>
@@ -42,7 +40,7 @@
 		</div>
 
 		<div class="form-group">
-			<label for="TransactionTypeId">Category:</label>
+			<label for="TransactionTypeId">Transaction Type:</label>
 			<select id="TransactionTypeId" name="TransactionTypeId" class="form-control" required>
 				@foreach (var transactionType in Model.TransactionTypes)
 				{
@@ -53,7 +51,7 @@
 
 		<div class="form-group">
 			<label for="room">Room</label>
-			<input type="number" class="form-control" id="room" name="room" placeholder="Enter room">
+			<input type="number" class="form-control" id="room" name="room" placeholder="Enter number of rooms">
 		</div>
 		<div class="form-group">
 			<label for="address">Address</label>
@@ -69,7 +67,6 @@
 			<label for="CountryId">Country:</label>
 			<select id="CountryId" name="CountryId" class="form-control" required>
 				<option value="">Country</option>
-				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
 				@foreach (var sc in Model.Countries)
 				{
 					<option value="@sc.Id">@sc.Name</option>
@@ -79,7 +76,7 @@
 
 		<br />
 		<div class="form-group">
-			<label for="CityId">SubCategory:</label>
+			<label for="CityId">City:</label>
 			<select id="CityId" name="CityId" class="form-control" required>
 				@* <option value="">Sélectionner une catégorie</option> *@
 				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->

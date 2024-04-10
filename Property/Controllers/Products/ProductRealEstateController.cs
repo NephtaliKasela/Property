@@ -10,22 +10,25 @@ using Property.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Property.Services.TransactionTypeServices;
+using Property.Services.AgentServices;
 
 namespace Property.Controllers.Products
 {
     public class ProductRealEstateController : Controller
     {
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IAgentServices _agentServices;
 		private readonly ICountryServices _countryServices;
 		private readonly ICityServices _cityServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
 		private readonly ISubCategoryServicesRealEstate _subCategoryServicesRealEstate;
 		private readonly ITransactionTypeServices _transactionTypeServices;
 
-		public ProductRealEstateController(UserManager<ApplicationUser> userManager, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices, ITransactionTypeServices transactionTypeServices)
+        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices, ITransactionTypeServices transactionTypeServices)
         {
             _userManager = userManager;
-            _productServicesRealEstate = productServicesRealEstate;
+			_agentServices = agentServices;
+			_productServicesRealEstate = productServicesRealEstate;
 			_subCategoryServicesRealEstate = subCategoryServicesRealEstate;
 			_countryServices = countryServices;
 			_cityServices = cityServices;
@@ -79,21 +82,27 @@ namespace Property.Controllers.Products
 		public async Task<IActionResult> SaveAddProduct(AddProductRealEstateDTO newProduct)
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            //if (user != null && user.Agent != null)
-            //{
-            //    newProduct.Agent = user.Agent;
-            //}
+            if (user != null)
+            {
+				newProduct.User = user;
+            }
 
-			await _productServicesRealEstate.AddProduct(newProduct);
+            await _productServicesRealEstate.AddProduct(newProduct);
 
 			return RedirectToAction("GetProduct");
 		}
 
+		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> SaveUpdateProduct(UpdateProductRealEsteDTO updatedProduct)
 		{
+			ApplicationUser user = await _userManager.GetUserAsync(User);
+			if (user != null)
+			{
+				updatedProduct.User = user;
+			}
 			await _productServicesRealEstate.UpdateProduct(updatedProduct);
-			return RedirectToAction("GetProduct");
+			return RedirectToAction("Dashboard", "Agent");
 		}
 
 		public async Task<IActionResult> DeleteProduct(int id)

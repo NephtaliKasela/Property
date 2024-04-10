@@ -24,12 +24,13 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
         public async Task<ServiceResponse<List<GetProductRealEstateDTO>>> GetAllProducts()
         {
             var products = await _context.ProductsRealEstate
-                .Include(p => p.SubcategoryRealEstate)
-                .Include(p => p.Country)
-                .Include(p => p.City)
-                .Include(p => p.TransactionType)
-                .Include(p => p.ProductImages)
-                .ToListAsync();
+				.Include(p => p.SubcategoryRealEstate)
+				.Include(p => p.Country)
+				.Include(p => p.City)
+				.Include(p => p.TransactionType)
+				.Include(p => p.ProductImages)
+				.Include(p => p.Agent)
+				.ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetProductRealEstateDTO>>()
             {
                 Data = products.Select(p => _mapper.Map<GetProductRealEstateDTO>(p)).ToList()
@@ -48,6 +49,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                     .Include(p => p.City)
                     .Include(p => p.TransactionType)
                     .Include(p => p.ProductImages)
+                    .Include(p => p.Agent)
                     .FirstOrDefaultAsync(p => p.Id == id);
                 if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
 
@@ -112,8 +114,17 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				}
 			}
 
+			// Get Agent
+			var agent = await _context.Agents.FirstOrDefaultAsync(x => x.ApplicationUser.Id == newProduct.User.Id);
+			if (agent is not null)
+			{
+				product.Agent = agent;
+			}
+
 			product.PublicationDate = DateTime.Now;
             product.Availability = true;
+
+
 
 			//Save product
 			_context.ProductsRealEstate.Add(product);
@@ -130,27 +141,34 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
             try
             {
-                var product = await _context.ProductsRealEstate
-                    .FirstOrDefaultAsync(p => p.Id == updatedProduct.Id);
-                if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
+				// Get Agent
+				var agent = await _context.Agents.FirstOrDefaultAsync(x => x.ApplicationUser.Id == updatedProduct.User.Id);
+				if (agent is not null)
+				{
+					var product = await _context.ProductsRealEstate
+					.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id && p.Agent.Id == agent.Id);
+					if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
 
-                product.Name = updatedProduct.Name;
-                product.Price = updatedProduct.Price;
-                product.Description = updatedProduct.Description;
-                // add more *******
+					product.Name = updatedProduct.Name;
+					product.Price = updatedProduct.Price;
+					product.Description = updatedProduct.Description;
 
-                bool result; int IdNumber;
-				// Get the Subcategory
-				(result, IdNumber) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
-                if (result == true)
-                {
-                    var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == IdNumber);
-                    product.SubcategoryRealEstate = subcategory;
-                }
+					// add more *******
 
-                await _context.SaveChangesAsync();
+					bool result; int IdNumber;
+					// Get the Subcategory
+					(result, IdNumber) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+					if (result == true)
+					{
+						var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == IdNumber);
+						product.SubcategoryRealEstate = subcategory;
+					}
 
-                serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
+					await _context.SaveChangesAsync();
+
+					serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
+				}
+				
             }
             catch (Exception ex)
             {

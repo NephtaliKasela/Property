@@ -20,7 +20,7 @@ namespace Property.DTOs.Product.ProductRealEstate
         public string ProductSubCategoryId { get; set; }
 		public string TransactionTypeId { get; set; }
 
-		public Property.Models.Agent Agent { get; set; }
+		public ApplicationUser User { get; set; }
 		
 
 	}
