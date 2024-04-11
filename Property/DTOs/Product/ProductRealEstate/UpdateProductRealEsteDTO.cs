@@ -17,12 +17,11 @@ namespace Property.DTOs.Product.ProductRealEstate
         public bool Availability { get; set; }
         public DateTime PublicationDate { get; set; }
 
-        // Foreign Keys
-        public Models.Country Country { get; set; }
-        public Models.City? City { get; set; }
+		// Foreign Keys
+		public string CountryId { get; set; }
+		public string CityId { get; set; }
 		public string ProductSubCategoryId { get; set; }
 		public string TransactionTypeId { get; set; }
 		public ApplicationUser User { get; set; }
-		public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
 	}
 }

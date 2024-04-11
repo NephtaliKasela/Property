@@ -5,6 +5,7 @@ using Property.Models;
 using Property.Models.Products;
 using Property.Services.OtherServices;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Property.Services.ProductService.ProductServicesRealEstate
 {
@@ -103,7 +104,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				}
 			}
 
-			// Get Subcategory
+			// Get transaction type
 			(result, number) = _otherServices.CheckIfInteger(newProduct.TransactionTypeId);
 			if (result == true)
 			{
@@ -146,22 +147,65 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				if (agent is not null)
 				{
 					var product = await _context.ProductsRealEstate
-					.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id && p.Agent.Id == agent.Id);
+						.Include(p => p.SubcategoryRealEstate)
+						.Include(p => p.Country)
+						.Include(p => p.City)
+						.Include(p => p.TransactionType)
+						.Include(p => p.Agent)
+						.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id && p.Agent.Id == agent.Id);
 					if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
 
 					product.Name = updatedProduct.Name;
-					product.Price = updatedProduct.Price;
 					product.Description = updatedProduct.Description;
+					product.Price = updatedProduct.Price;
+					product.Room = updatedProduct.Room;
+					product.Address = updatedProduct.Address;
+					product.YearOfConstruction = updatedProduct.YearOfConstruction;
 
-					// add more *******
+					bool result; int number;
 
-					bool result; int IdNumber;
-					// Get the Subcategory
-					(result, IdNumber) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+					// Get Subcategory
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
 					if (result == true)
 					{
-						var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == IdNumber);
-						product.SubcategoryRealEstate = subcategory;
+						var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+						if (subcategory is not null)
+						{
+							product.SubcategoryRealEstate = subcategory;
+						}
+					}
+
+					// Get Country
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.CountryId);
+					if (result == true)
+					{
+						var country = await _context.Countries.FirstOrDefaultAsync(c => c.Id == number);
+						if (country is not null)
+						{
+							product.Country = country;
+						}
+					}
+
+					// Get City
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.CityId);
+					if (result == true)
+					{
+						var city = await _context.Cities.FirstOrDefaultAsync(c => c.Id == number);
+						if (city is not null)
+						{
+							product.City = city;
+						}
+					}
+
+					// Get transaction type
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.TransactionTypeId);
+					if (result == true)
+					{
+						var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
+						if (transactionType is not null)
+						{
+							product.TransactionType = transactionType;
+						}
 					}
 
 					await _context.SaveChangesAsync();
