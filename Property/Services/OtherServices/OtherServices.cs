@@ -3,6 +3,7 @@ using Property.Data;
 using Property.DTOs.Category;
 using Property.Models;
 using Microsoft.EntityFrameworkCore;
+using Property.Services.TransactionTypeServices;
 
 namespace Property.Services.OtherServices
 {
@@ -10,11 +11,13 @@ namespace Property.Services.OtherServices
     {
 		private readonly DataContext _context;
 		private readonly IMapper _mapper;
+		private readonly ITransactionTypeServices _transactionTypeServices;
 
-		public OtherServices(DataContext context, IMapper mapper)
+		public OtherServices(DataContext context, IMapper mapper, ITransactionTypeServices transactionTypeServices)
         {
 			_context = context;
 			_mapper = mapper;
+			_transactionTypeServices = transactionTypeServices;
 		}
 		
         public (bool, int) CheckIfInteger(string number)
@@ -30,22 +33,24 @@ namespace Property.Services.OtherServices
             return (false, 0);
         }
 
-		public async Task<ServiceResponse<Category>> GetCategoryById(string categoryId)
+		public async Task<ServiceResponse<TransactionType>> GetTransactionTyoeByProductRealEstateId(int productId)
 		{
-			var serviceResponse = new ServiceResponse<Category>();
+			var serviceResponse = new ServiceResponse<TransactionType>();
 
 			try
 			{
-				bool result; int number;
-				(result, number) = CheckIfInteger(categoryId);
-				if(result)
+				var product = await _context.ProductsRealEstate.
+					Include(x => x.TransactionType)
+					.FirstOrDefaultAsync(x => x.Id == productId);
+
+				if (product != null)
 				{
-					var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == number);
-
-					if (category is null) { throw new Exception($"Category with Id '{number}' not found"); }
-
-					serviceResponse.Data =category;
-					return serviceResponse;
+					var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(t => t.Id == product.TransactionType.Id);
+					if(transactionType != null)
+					{
+						serviceResponse.Data = transactionType;
+						return serviceResponse;
+					}
 				}
 			}
 			catch (Exception ex)

@@ -62,16 +62,15 @@ namespace Property.Services.ImageServices
 			}
         }
 
-        //public async Task<ServiceResponse<List<GetProductImageDTO>>> GetImage()
-        //{
-        //    var serviceResponse = new ServiceResponse<List<GetProductImageDTO>>();
-        //    var images = await _context.ProductImages.ToListAsync();
+        public async Task<ServiceResponse<List<ProductImageRealEstate>>> GetImageByProductId(int productId)
+        {
+            var serviceResponse = new ServiceResponse<List<ProductImageRealEstate>>();
+            var images = await _context.productImagesRealEstate.Where(x => x.ProductRealEstate.Id == productId).ToListAsync();
 
-        //    serviceResponse.Data = images.Select(i => _mapper.Map<GetProductImageDTO>(i)).ToList();
+            serviceResponse.Data = images;
 
-        //    return serviceResponse;
-
-        //}
+            return serviceResponse;
+        }
 
 
         private string GetImageContentType(string fileName)

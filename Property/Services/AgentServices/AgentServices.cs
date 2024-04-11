@@ -26,7 +26,8 @@ namespace Property.Services.AgentServices
 			var serviceResponse = new ServiceResponse<List<GetAgentDTO>>();
 			var agent = _mapper.Map<Agent>(newAgent);
 
-			var agents = await _context.Agents.ToListAsync();
+			var agents = await _context.Agents
+				.Include(x => x.ApplicationUser).ToListAsync();
 			if (agents.Any())
 			{
 				bool flag = false;

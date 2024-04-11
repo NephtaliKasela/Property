@@ -54,6 +54,44 @@
             <div class="col-12">
                 <div class="property-slider-wrap">
                     <div class="property-slider">
+                        @foreach(var product in Model)
+                        {
+                            <div class="property-item">
+                                <a href="property-single.html" class="img">
+                                    @if (product.ProductImages.Count > 0)
+                                    {
+                                        var image = product.ProductImages[0];
+                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
+                                    }
+                                </a>
+
+                                <div class="property-content">
+                                    <div class="price mb-2"><span>$@product.Price</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">@product.Address</span>
+                                        <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
+
+                                        <div class="specs d-flex mb-4">
+                                            <span class="d-block d-flex align-items-center me-3">
+                                                <span class="icon-home me-2"></span>
+                                                <span class="caption">@product.Room Room(s)</span>
+                                            </span>
+                                            <span class="d-block d-flex align-items-center me-3">
+                                                <span class="icon-bed me-2"></span>
+                                                <span class="caption">2 beds</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="property-single.html"
+                                           class="btn btn-primary py-2 px-3">See details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         <div class="property-item">
                             <a href="property-single.html" class="img">
                                 <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />

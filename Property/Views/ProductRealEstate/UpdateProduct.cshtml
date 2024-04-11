@@ -1,10 +1,10 @@
 ﻿@model Property.DTOs.Actions.UpdateProductRealEstate_action
 
 @{
-	Layout = "~/Views/Shared/_Layout2.cshtml";
+	Layout = "~/Views/Shared/_Layout3.cshtml";
 }
 
-<div class="row page-titles">
+<div class="row page-titles" style="margin-bottom: 5px;">
 	<ol class="breadcrumb">
 		<li class="breadcrumb-item active"><a href="javascript:void(0)">Real Estate</a></li>
 		<li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
@@ -15,9 +15,8 @@
 <div class="container">
 	<form method="post" asp-controller="ProductRealEstate" asp-action="SaveUpdateProduct">
 
-		<br />
-		<div class="form-group">
-			<label for="productCategory">Category:</label>
+		<div class="form-group" style="margin-bottom: 3px;">
+			<label for="productCategory">Category</label>
 			<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
 				<option value="@Model.Product.SubcategoryRealEstate.Id">@Model.Product.SubcategoryRealEstate.Name</option>
 				@foreach (var sc in Model.Subcategories)
@@ -27,13 +26,13 @@
 			</select>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="name">Name</label>
 			<input type="text" class="form-control" id="name" name="name" value="@Model.Product.Name" placeholder="Enter name">
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="Description">Description:</label>
-			<textarea id="Description" name="Description" class="form-control" style="min-height: 100px;" required></textarea>
+			<textarea id="Description" name="Description" class="form-control" style="min-height: 200px;" required></textarea>
 
 			<script>
 				// Get a reference to the textarea element
@@ -44,12 +43,12 @@
 				textarea.value = modelValue;
 			</script>
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="price">Price</label>
 			<input type="number" class="form-control" id="price" name="price" value="@Model.Product.Price" placeholder="Enter price">
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="TransactionTypeId">Transaction Type:</label>
 			<select id="TransactionTypeId" name="TransactionTypeId" class="form-control" required>
 				<option value="@Model.Product.TransactionType.Id">@Model.Product.TransactionType.Name</option>
@@ -60,22 +59,21 @@
 			</select>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="room">Room</label>
 			<input type="number" class="form-control" id="room" name="room" value="@Model.Product.Room" placeholder="Enter number of rooms">
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="address">Address</label>
 			<input type="text" class="form-control" id="address" name="address" value="@Model.Product.Address" placeholder="Enter address">
 		</div>
-		<div class="form-group">
+		<div class="form-group" style="margin-bottom: 3px;">
 			<label for="yearOfConstruction">Year of Construction (Current date: @Model.Product.YearOfConstruction.ToShortDateString())</label>
 			<input type="date" class="form-control" id="yearOfConstruction" name="yearOfConstruction">
 		</div>
 
-		<br />
-		<div class="form-group">
-			<label for="CountryId">Country:</label>
+		<div class="form-group" style="margin-bottom: 3px;">
+			<label for="CountryId">Country</label>
 			<select id="CountryId" name="CountryId" class="form-control" required>
 				<option value="@Model.Product.Country.Id">@Model.Product.Country.Name</option>
 				@foreach (var country in Model.Countries)
@@ -85,9 +83,8 @@
 			</select>
 		</div>
 
-		<br />
-		<div class="form-group">
-			<label for="CityId">City:</label>
+		<div class="form-group" style="margin-bottom: 3px;">
+			<label for="CityId">City</label>
 			<select id="CityId" name="CityId" class="form-control" required>
 				<option value="@Model.Product.City.Id">@Model.Product.City.Name</option>
 				@foreach (var city in Model.Cities)
@@ -104,37 +101,58 @@
 </div>
 
 <br />
-<br />
 <hr />
-<br />
 
 <!--**************************
 				IMAGE SECTION START
 			**************************-->
-<h2>Image</h2>
-<br />
+<div class="container">
+	<br />
 
-<div class="row">
-	@foreach (var image in Model.Product.ProductImages)
-	{
-		<div class="col-sm-12 col-md-6 col-lg-6">
-			<img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" style="max-height: 400px; margin: 1px;" />
+	<h1>Image Gallery Form</h1>
+	<form>
+		<div class="form-group">
+			<label for="gallery">Select Images:</label>
+			<div class="gallery" style="display: flex;
+			  flex-wrap: wrap;
+			  justify-content: center;">
+				@foreach (var image in Model.Product.ProductImages)
+				{
+					<div class="gallery-item" style="margin: 10px;
+						max-width: 200px;">
+						<input type="checkbox" name="images[]" value="image1.jpg" required>
+						<img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Image 1">
+					</div>
+				}
+				<!-- Add more images here -->
+			</div>
 		</div>
-	}
+
+		<div style="text-align: right; margin: 5px;">
+			<button type="submit" class="btn btn-danger">Delete</button>
+		</div>
+	</form>
 </div>
 
-<br />
-<br />
-<form method="post" asp-controller="ProductImageRealEstate" asp-action="AddProductImage" enctype="multipart/form-data">
-	<input type="hidden" id="productId" name="productId" value="@Model.Product.Id" />
-	<div class="form-group">
-		<label for="productImages">Images:</label>
-		<input type="file" name="files" multiple class="form-control-file" required>
-	</div>
-	<br />
-	<input type="submit" value="Add image" class="btn btn-primary">
-</form>
+<hr />
 
+<div class="container">
+	<br />
+	<form method="post" asp-controller="ProductImageRealEstate" asp-action="AddProductImage" enctype="multipart/form-data">
+		<input type="hidden" id="productId" name="productId" value="@Model.Product.Id" />
+		<div class="form-group">
+			<label for="productImages">Images:</label>
+			<input type="file" name="files" multiple class="form-control-file" required>
+		</div>
+		<br />
+		<input type="submit" value="Add image" class="btn btn-primary">
+	</form>
+	<br />
+</div>
+
+	
+
+	
 <!--**************************
 	IMAGE SECTION END
 **************************-->
