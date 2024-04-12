@@ -35,7 +35,19 @@ namespace Property.Controllers.Products
             _transactionTypeServices = transactionTypeServices;
 		}
 
-        public async Task<IActionResult> GetProduct()
+		[HttpGet]
+		public async Task<IActionResult> ProductDetails(int id)
+		{
+			var product = await _productServicesRealEstate.GetProductById(id);
+			if(product.Data != null)
+			{
+                return View(product.Data);
+            }
+			return RedirectToAction("Index", "Home");
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> GetProduct()
         {
             var products = await _productServicesRealEstate.GetAllProducts();
 			return View(products.Data);
