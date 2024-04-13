@@ -108,18 +108,19 @@ namespace Property.Controllers
 		public async Task<IActionResult> SaveAddAgent(AddAgentDTO newAgent)
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            if (user != null)
-            {
-                // Access user properties
+			if (user != null)
+			{
+				// Access user properties
 				newAgent.ApplicationUser = user;
 				newAgent.ApplicationUserId = user.Id;
-                // ...
+				// ...
 
-                await _agentServices.AddAgent(newAgent);
-            }
+				await _agentServices.AddAgent(newAgent);
+				return RedirectToAction("Dashboard");
+			}
 
-			return RedirectToAction("Dashboard");
-		}
+            return RedirectToAction("AddAgent");
+        }
 
 		[HttpPost]
 		public async Task<IActionResult> SaveUpdateAgent(UpdateAgentDTO updatedAgent)

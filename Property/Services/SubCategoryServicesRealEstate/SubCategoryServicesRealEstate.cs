@@ -13,12 +13,12 @@ namespace Property.Services.SubCategoryServices
 {
 	public class SubCategoryServicesRealEstate : ISubCategoryServicesRealEstate
 	{
-		private readonly DataContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly IMapper _mapper;
 		private readonly ICategoryServices _categoryServices;
 		private readonly IOtherServices _otherServices;
 
-		public SubCategoryServicesRealEstate(DataContext context, IMapper mapper, ICategoryServices categoryServices, IOtherServices otherServices)
+		public SubCategoryServicesRealEstate(ApplicationDbContext context, IMapper mapper, ICategoryServices categoryServices, IOtherServices otherServices)
 		{
 			_context = context;
 			_mapper = mapper;

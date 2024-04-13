@@ -12,10 +12,10 @@ namespace Property.Services.ImageServices
 {
     public class ProductImageServicesRealEstate : IProductImageServicesRealEstate
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProductImageServicesRealEstate(DataContext context, IMapper mapper)
+        public ProductImageServicesRealEstate(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

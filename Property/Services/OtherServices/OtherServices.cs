@@ -1,23 +1,17 @@
 ﻿using AutoMapper;
 using Property.Data;
-using Property.DTOs.Category;
 using Property.Models;
 using Microsoft.EntityFrameworkCore;
-using Property.Services.TransactionTypeServices;
 
 namespace Property.Services.OtherServices
 {
     public class OtherServices : IOtherServices
     {
-		private readonly DataContext _context;
-		private readonly IMapper _mapper;
-		private readonly ITransactionTypeServices _transactionTypeServices;
+		private readonly ApplicationDbContext _context;
 
-		public OtherServices(DataContext context, IMapper mapper, ITransactionTypeServices transactionTypeServices)
+		public OtherServices(ApplicationDbContext context)
         {
 			_context = context;
-			_mapper = mapper;
-			_transactionTypeServices = transactionTypeServices;
 		}
 		
         public (bool, int) CheckIfInteger(string number)

@@ -42,7 +42,8 @@ namespace Property.Data
 				.HasOne(a => a.ApplicationUser)
 				.WithOne(a => a.Agent)
 				.HasForeignKey<ApplicationUser>();
-		}
+
+        }
 
 	}
 }

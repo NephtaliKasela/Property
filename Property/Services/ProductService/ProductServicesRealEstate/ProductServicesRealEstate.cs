@@ -11,11 +11,11 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 {
     public class ProductServicesRealEstate : IProductServicesRealEstate
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IOtherServices _otherServices;
 
-        public ProductServicesRealEstate(DataContext context, IMapper mapper, IOtherServices otherServices)
+        public ProductServicesRealEstate(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
         {
             _otherServices = otherServices;
             _context = context;

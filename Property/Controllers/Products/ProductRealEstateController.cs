@@ -101,7 +101,7 @@ namespace Property.Controllers.Products
 
             await _productServicesRealEstate.AddProduct(newProduct);
 
-			return RedirectToAction("GetProduct");
+			return RedirectToAction("Dashboard", "Agent");
 		}
 
 		[Authorize]

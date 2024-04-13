@@ -10,15 +10,13 @@ namespace Property.Services.AgentServices
 {
 	public class AgentServices : IAgentServices
 	{
-		private readonly DataContext _context;
-		private readonly ApplicationDbContext _applicationDbContext;
+		private readonly ApplicationDbContext _context;
 		private readonly IMapper _mapper;
 
-		public AgentServices(DataContext context, IMapper mapper, ApplicationDbContext applicationDbContext)
+		public AgentServices(ApplicationDbContext context, IMapper mapper)
 		{
 			_context = context;
 			_mapper = mapper;
-			_applicationDbContext = applicationDbContext;
 		}
 
 		public async Task<ServiceResponse<List<GetAgentDTO>>> AddAgent(AddAgentDTO newAgent)

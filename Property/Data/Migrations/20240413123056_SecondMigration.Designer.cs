@@ -12,8 +12,8 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240409111945_AddRelUserAgent")]
-    partial class AddRelUserAgent
+    [Migration("20240413123056_SecondMigration")]
+    partial class SecondMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,6 +173,9 @@ namespace Property.Data.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<double>("Debt")
+                        .HasColumnType("float");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -181,13 +184,16 @@ namespace Property.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId")
                         .IsUnique()
                         .HasFilter("[ApplicationUserId] IS NOT NULL");
 
-                    b.ToTable("Agent");
+                    b.ToTable("Agents");
                 });
 
             modelBuilder.Entity("Property.Models.ApplicationUser", b =>
@@ -273,7 +279,7 @@ namespace Property.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Property.Models.City", b =>
@@ -299,7 +305,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Property.Models.Continent", b =>
@@ -320,7 +326,7 @@ namespace Property.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Continent");
+                    b.ToTable("Continents");
                 });
 
             modelBuilder.Entity("Property.Models.Country", b =>
@@ -346,7 +352,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("ContinentId");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("Property.Models.Images.ProductImageRealEstate", b =>
@@ -376,7 +382,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("ProductRealEstateId");
 
-                    b.ToTable("ProductImageRealEstate");
+                    b.ToTable("productImagesRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Products.ProductRealEstate", b =>
@@ -441,7 +447,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("TransactionTypeId");
 
-                    b.ToTable("ProductRealEstate");
+                    b.ToTable("ProductsRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -467,7 +473,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("SubcategoryRealEstate");
+                    b.ToTable("SubcategoriesRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.TransactionType", b =>
@@ -484,7 +490,7 @@ namespace Property.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TransactionType");
+                    b.ToTable("TransactionTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

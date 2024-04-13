@@ -8,10 +8,10 @@ namespace Property.Services.TransactionTypeServices
 {
     public class TransactionTypeServices : ITransactionTypeServices
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public TransactionTypeServices(DataContext context, IMapper mapper)
+        public TransactionTypeServices(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -46,6 +46,8 @@ namespace Property.Services.TransactionTypeServices
         {
             var serviceResponse = new ServiceResponse<List<GetTransactionTypeDTO>>();
             var transactionType = _mapper.Map<TransactionType>(newTransactionType); 
+
+            transactionType.Name = transactionType.Name;
 
             _context.TransactionTypes.Add(transactionType);
             await _context.SaveChangesAsync();

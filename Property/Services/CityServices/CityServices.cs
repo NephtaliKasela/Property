@@ -10,11 +10,11 @@ namespace Property.Services.CityServices
 {
 	public class CityServices : ICityServices
 	{
-		private readonly DataContext _context;
+		private readonly ApplicationDbContext _context;
 		private readonly IMapper _mapper;
 		private readonly IOtherServices _otherServices;
 
-		public CityServices(DataContext context, IMapper mapper, IOtherServices otherServices)
+		public CityServices(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
 		{
 			_otherServices = otherServices;
 			_mapper = mapper;

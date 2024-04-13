@@ -9,10 +9,10 @@ namespace Property.Services.ContinentServices
 {
     public class ContinentServices : IContinentServices
     {
-        private readonly DataContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public ContinentServices(DataContext context, IMapper mapper)
+        public ContinentServices(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
