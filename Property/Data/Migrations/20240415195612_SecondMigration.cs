@@ -62,19 +62,6 @@ namespace Property.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionTypes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TransactionTypes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubcategoriesRealEstate",
                 columns: table => new
                 {
@@ -154,7 +141,6 @@ namespace Property.Data.Migrations
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: true),
                     SubcategoryRealEstateId = table.Column<int>(type: "int", nullable: false),
-                    TransactionTypeId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -183,12 +169,6 @@ namespace Property.Data.Migrations
                         principalTable: "SubcategoriesRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductsRealEstate_TransactionTypes_TransactionTypeId",
-                        column: x => x.TransactionTypeId,
-                        principalTable: "TransactionTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -209,6 +189,91 @@ namespace Property.Data.Migrations
                         name: "FK_productImagesRealEstate_ProductsRealEstate_ProductRealEstateId",
                         column: x => x.ProductRealEstateId,
                         principalTable: "ProductsRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RentsRealEstate",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductRealEstateId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RentsRealEstate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RentsRealEstate_ProductsRealEstate_ProductRealEstateId",
+                        column: x => x.ProductRealEstateId,
+                        principalTable: "ProductsRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "sellsRealEstate",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductRealEstateId = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Days = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sellsRealEstate", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_sellsRealEstate_ProductsRealEstate_ProductRealEstateId",
+                        column: x => x.ProductRealEstateId,
+                        principalTable: "ProductsRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "rentsRealEstatePerDay",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RentRealEstateId = table.Column<int>(type: "int", nullable: false),
+                    NumberOfPoeple = table.Column<int>(type: "int", nullable: false),
+                    AdditionalPerson = table.Column<int>(type: "int", nullable: false),
+                    AdditionalPrice = table.Column<double>(type: "float", nullable: false),
+                    Debt = table.Column<double>(type: "float", nullable: false),
+                    Penality = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_rentsRealEstatePerDay", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_rentsRealEstatePerDay_RentsRealEstate_RentRealEstateId",
+                        column: x => x.RentRealEstateId,
+                        principalTable: "RentsRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "rentsRealEstatePerMounth",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RentRealEstateId = table.Column<int>(type: "int", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Days = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_rentsRealEstatePerMounth", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_rentsRealEstatePerMounth_RentsRealEstate_RentRealEstateId",
+                        column: x => x.RentRealEstateId,
+                        principalTable: "RentsRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -256,9 +321,28 @@ namespace Property.Data.Migrations
                 column: "SubcategoryRealEstateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsRealEstate_TransactionTypeId",
-                table: "ProductsRealEstate",
-                column: "TransactionTypeId");
+                name: "IX_RentsRealEstate_ProductRealEstateId",
+                table: "RentsRealEstate",
+                column: "ProductRealEstateId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_rentsRealEstatePerDay_RentRealEstateId",
+                table: "rentsRealEstatePerDay",
+                column: "RentRealEstateId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_rentsRealEstatePerMounth_RentRealEstateId",
+                table: "rentsRealEstatePerMounth",
+                column: "RentRealEstateId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sellsRealEstate_ProductRealEstateId",
+                table: "sellsRealEstate",
+                column: "ProductRealEstateId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubcategoriesRealEstate_CategoryId",
@@ -273,6 +357,18 @@ namespace Property.Data.Migrations
                 name: "productImagesRealEstate");
 
             migrationBuilder.DropTable(
+                name: "rentsRealEstatePerDay");
+
+            migrationBuilder.DropTable(
+                name: "rentsRealEstatePerMounth");
+
+            migrationBuilder.DropTable(
+                name: "sellsRealEstate");
+
+            migrationBuilder.DropTable(
+                name: "RentsRealEstate");
+
+            migrationBuilder.DropTable(
                 name: "ProductsRealEstate");
 
             migrationBuilder.DropTable(
@@ -283,9 +379,6 @@ namespace Property.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubcategoriesRealEstate");
-
-            migrationBuilder.DropTable(
-                name: "TransactionTypes");
 
             migrationBuilder.DropTable(
                 name: "Countries");

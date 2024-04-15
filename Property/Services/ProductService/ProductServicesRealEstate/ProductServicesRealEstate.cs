@@ -24,44 +24,46 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
         public async Task<ServiceResponse<List<GetProductRealEstateDTO>>> GetAllProducts()
         {
-            var products = await _context.ProductsRealEstate
-				.Include(p => p.SubcategoryRealEstate)
-				.Include(p => p.Country)
-				.Include(p => p.City)
-				.Include(p => p.TransactionType)
-				.Include(p => p.ProductImages)
-				.Include(p => p.Agent)
-				.ToListAsync();
-            var serviceResponse = new ServiceResponse<List<GetProductRealEstateDTO>>()
-            {
-                Data = products.Select(p => _mapper.Map<GetProductRealEstateDTO>(p)).ToList()
-            };
-            return serviceResponse;
+            //        var products = await _context.ProductsRealEstate
+            //.Include(p => p.SubcategoryRealEstate)
+            //.Include(p => p.Country)
+            //.Include(p => p.City)
+            //.Include(p => p.TransactionType)
+            //.Include(p => p.ProductImages)
+            //.Include(p => p.Agent)
+            //.ToListAsync();
+            //        var serviceResponse = new ServiceResponse<List<GetProductRealEstateDTO>>()
+            //        {
+            //            Data = products.Select(p => _mapper.Map<GetProductRealEstateDTO>(p)).ToList()
+            //        };
+            //        return serviceResponse;
+            throw new NotImplementedException();
         }
 
         public async Task<ServiceResponse<GetProductRealEstateDTO>> GetProductById(int id)
         {
-            var serviceResponse = new ServiceResponse<GetProductRealEstateDTO>();
-            try
-            {
-                var product = await _context.ProductsRealEstate
-                    .Include(p => p.SubcategoryRealEstate)
-                    .Include(p => p.Country)
-                    .Include(p => p.City)
-                    .Include(p => p.TransactionType)
-                    .Include(p => p.ProductImages)
-                    .Include(p => p.Agent)
-                    .FirstOrDefaultAsync(p => p.Id == id);
-                if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
+            //var serviceResponse = new ServiceResponse<GetProductRealEstateDTO>();
+            //try
+            //{
+            //    var product = await _context.ProductsRealEstate
+            //        .Include(p => p.SubcategoryRealEstate)
+            //        .Include(p => p.Country)
+            //        .Include(p => p.City)
+            //        .Include(p => p.TransactionType)
+            //        .Include(p => p.ProductImages)
+            //        .Include(p => p.Agent)
+            //        .FirstOrDefaultAsync(p => p.Id == id);
+            //    if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
 
-                serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
-            }
-            catch (Exception ex)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = ex.Message;
-            }
-            return serviceResponse;
+            //    serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
+            //}
+            //catch (Exception ex)
+            //{
+            //    serviceResponse.Success = false;
+            //    serviceResponse.Message = ex.Message;
+            //}
+            //return serviceResponse;
+            throw new NotImplementedException();
         }
 
         public async Task<ServiceResponse<List<GetProductRealEstateDTO>>> AddProduct(AddProductRealEstateDTO newProduct)
@@ -108,11 +110,11 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 			(result, number) = _otherServices.CheckIfInteger(newProduct.TransactionTypeId);
 			if (result == true)
 			{
-				var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
-				if (transactionType is not null)
-				{
-					product.TransactionType = transactionType;
-				}
+				//var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
+				//if (transactionType is not null)
+				//{
+				//	product.TransactionType = transactionType;
+				//}
 			}
 
 			// Get Agent
@@ -138,88 +140,89 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
         public async Task<ServiceResponse<GetProductRealEstateDTO>> UpdateProduct(UpdateProductRealEsteDTO updatedProduct)
         {
-            var serviceResponse = new ServiceResponse<GetProductRealEstateDTO>();
+            //        var serviceResponse = new ServiceResponse<GetProductRealEstateDTO>();
 
-            try
-            {
-				// Get Agent
-				var agent = await _context.Agents.FirstOrDefaultAsync(x => x.ApplicationUser.Id == updatedProduct.User.Id);
-				if (agent is not null)
-				{
-					var product = await _context.ProductsRealEstate
-						.Include(p => p.SubcategoryRealEstate)
-						.Include(p => p.Country)
-						.Include(p => p.City)
-						.Include(p => p.TransactionType)
-						.Include(p => p.Agent)
-						.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id && p.Agent.Id == agent.Id);
-					if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
+            //        try
+            //        {
+            //// Get Agent
+            //var agent = await _context.Agents.FirstOrDefaultAsync(x => x.ApplicationUser.Id == updatedProduct.User.Id);
+            //if (agent is not null)
+            //{
+            //	var product = await _context.ProductsRealEstate
+            //		.Include(p => p.SubcategoryRealEstate)
+            //		.Include(p => p.Country)
+            //		.Include(p => p.City)
+            //		.Include(p => p.TransactionType)
+            //		.Include(p => p.Agent)
+            //		.FirstOrDefaultAsync(p => p.Id == updatedProduct.Id && p.Agent.Id == agent.Id);
+            //	if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
 
-					product.Name = updatedProduct.Name;
-					product.Description = updatedProduct.Description;
-					product.Price = updatedProduct.Price;
-					product.Room = updatedProduct.Room;
-					product.Address = updatedProduct.Address;
-					product.YearOfConstruction = updatedProduct.YearOfConstruction;
+            //	product.Name = updatedProduct.Name;
+            //	product.Description = updatedProduct.Description;
+            //	product.Price = updatedProduct.Price;
+            //	product.Room = updatedProduct.Room;
+            //	product.Address = updatedProduct.Address;
+            //	product.YearOfConstruction = updatedProduct.YearOfConstruction;
 
-					bool result; int number;
+            //	bool result; int number;
 
-					// Get Subcategory
-					(result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
-					if (result == true)
-					{
-						var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-						if (subcategory is not null)
-						{
-							product.SubcategoryRealEstate = subcategory;
-						}
-					}
+            //	// Get Subcategory
+            //	(result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+            //	if (result == true)
+            //	{
+            //		var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+            //		if (subcategory is not null)
+            //		{
+            //			product.SubcategoryRealEstate = subcategory;
+            //		}
+            //	}
 
-					// Get Country
-					(result, number) = _otherServices.CheckIfInteger(updatedProduct.CountryId);
-					if (result == true)
-					{
-						var country = await _context.Countries.FirstOrDefaultAsync(c => c.Id == number);
-						if (country is not null)
-						{
-							product.Country = country;
-						}
-					}
+            //	// Get Country
+            //	(result, number) = _otherServices.CheckIfInteger(updatedProduct.CountryId);
+            //	if (result == true)
+            //	{
+            //		var country = await _context.Countries.FirstOrDefaultAsync(c => c.Id == number);
+            //		if (country is not null)
+            //		{
+            //			product.Country = country;
+            //		}
+            //	}
 
-					// Get City
-					(result, number) = _otherServices.CheckIfInteger(updatedProduct.CityId);
-					if (result == true)
-					{
-						var city = await _context.Cities.FirstOrDefaultAsync(c => c.Id == number);
-						if (city is not null)
-						{
-							product.City = city;
-						}
-					}
+            //	// Get City
+            //	(result, number) = _otherServices.CheckIfInteger(updatedProduct.CityId);
+            //	if (result == true)
+            //	{
+            //		var city = await _context.Cities.FirstOrDefaultAsync(c => c.Id == number);
+            //		if (city is not null)
+            //		{
+            //			product.City = city;
+            //		}
+            //	}
 
-					// Get transaction type
-					(result, number) = _otherServices.CheckIfInteger(updatedProduct.TransactionTypeId);
-					if (result == true)
-					{
-						var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
-						if (transactionType is not null)
-						{
-							product.TransactionType = transactionType;
-						}
-					}
+            //	// Get transaction type
+            //	(result, number) = _otherServices.CheckIfInteger(updatedProduct.TransactionTypeId);
+            //	if (result == true)
+            //	{
+            //		//var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(sc => sc.Id == number);
+            //		//if (transactionType is not null)
+            //		//{
+            //		//	product.TransactionType = transactionType;
+            //		//}
+            //	}
 
-					await _context.SaveChangesAsync();
+            //	await _context.SaveChangesAsync();
 
-					serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
-				}
-				
-            }
-            catch (Exception ex)
-            {
-                serviceResponse.Success = false;
-                serviceResponse.Message = ex.Message;
-            }
-            return serviceResponse;
+            //	serviceResponse.Data = _mapper.Map<GetProductRealEstateDTO>(product);
+            //}
+
+            //}
+            //    catch (Exception ex)
+            //    {
+            //        serviceResponse.Success = false;
+            //        serviceResponse.Message = ex.Message;
+            //    }
+            //    return serviceResponse;
+            throw new NotImplementedException();
         }
 
         public async Task<ServiceResponse<List<GetProductRealEstateDTO>>> DeleteProduct(int id)

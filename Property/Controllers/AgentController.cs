@@ -53,12 +53,12 @@ namespace Property.Controllers
 								product.ProductImages = images.Data;
 							}
 
-							//Get transaction type
-							var transactionType = await _otherServices.GetTransactionTyoeByProductRealEstateId(product.Id);
-							if(transactionType.Data != null)
-							{
-								product.TransactionType = transactionType.Data;
-							}
+							////Get transaction type
+							//var transactionType = await _otherServices.GetTransactionTyoeByProductRealEstateId(product.Id);
+							//if(transactionType.Data != null)
+							//{
+							//	product.TransactionType = transactionType.Data;
+							//}
 						}
 					}
 					return View(agent.Data);

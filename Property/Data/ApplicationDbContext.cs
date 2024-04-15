@@ -21,26 +21,14 @@ namespace Property.Data
         public DbSet<City> Cities => Set<City>();
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<SubcategoryRealEstate> SubcategoriesRealEstate => Set<SubcategoryRealEstate>();
-        public DbSet<TransactionType> TransactionTypes => Set<TransactionType>();
         public DbSet<ProductRealEstate> ProductsRealEstate => Set<ProductRealEstate>();
         public DbSet<ProductImageRealEstate> productImagesRealEstate => Set<ProductImageRealEstate>();
         public DbSet<Agent> Agents => Set<Agent>();
+        public DbSet<RentRealEstate> RentsRealEstate => Set<RentRealEstate>();
+        public DbSet<RentRealEstatePerDay> rentsRealEstatePerDay => Set<RentRealEstatePerDay>();
+        public DbSet<RentRealEstatePerMounth> rentsRealEstatePerMounth => Set<RentRealEstatePerMounth>();
+        public DbSet<SellRealEstate> sellsRealEstate => Set<SellRealEstate>();
 
-
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
-
-        //    builder.Entity<Agent>()
-        //        .HasOne(a => a.ApplicationUser)
-        //        .WithOne(a => a.Agent)
-        //        .HasForeignKey<ApplicationUser>();
-
-        //    builder.Entity<ApplicationUser>()
-        //        .HasMany(a => a.OrdersRealEstate)
-        //        .WithOne(a => a.ApplicationUser)
-        //        .HasForeignKey(a => a.ApplicationUserId);
-        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
 		{

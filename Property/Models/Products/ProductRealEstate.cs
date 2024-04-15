@@ -15,16 +15,15 @@ namespace Property.Models.Products
         public DateTime YearOfConstruction { get; set; }
         public bool Availability { get; set; }
         public DateTime PublicationDate { get; set; }
-        public DateTime? PaymentDate { get; set; }
-        public int Days { get; set; }
 
         // Foreign Keys
         public Country Country { get; set; }
         public City? City { get; set; }
         public SubcategoryRealEstate SubcategoryRealEstate { get; set; }
         public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
-        public TransactionType TransactionType { get; set; }
         public Agent Agent { get; set; }
+        public RentRealEstate? Rent { get; set; }
+        public SellRealEstate? Sell { get; set; }
        
     }
 }

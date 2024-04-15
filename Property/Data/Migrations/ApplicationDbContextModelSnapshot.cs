@@ -406,9 +406,6 @@ namespace Property.Data.Migrations
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Days")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -416,9 +413,6 @@ namespace Property.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("PaymentDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -430,9 +424,6 @@ namespace Property.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("SubcategoryRealEstateId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransactionTypeId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("YearOfConstruction")
@@ -448,9 +439,110 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("SubcategoryRealEstateId");
 
-                    b.HasIndex("TransactionTypeId");
-
                     b.ToTable("ProductsRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ProductRealEstateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductRealEstateId")
+                        .IsUnique();
+
+                    b.ToTable("RentsRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstatePerDay", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AdditionalPerson")
+                        .HasColumnType("int");
+
+                    b.Property<double>("AdditionalPrice")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Debt")
+                        .HasColumnType("float");
+
+                    b.Property<int>("NumberOfPoeple")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Penality")
+                        .HasColumnType("float");
+
+                    b.Property<int>("RentRealEstateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RentRealEstateId")
+                        .IsUnique();
+
+                    b.ToTable("rentsRealEstatePerDay");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstatePerMounth", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RentRealEstateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RentRealEstateId")
+                        .IsUnique();
+
+                    b.ToTable("rentsRealEstatePerMounth");
+                });
+
+            modelBuilder.Entity("Property.Models.SellRealEstate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Days")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProductRealEstateId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductRealEstateId")
+                        .IsUnique();
+
+                    b.ToTable("sellsRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -477,23 +569,6 @@ namespace Property.Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubcategoriesRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.TransactionType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TransactionTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -613,12 +688,6 @@ namespace Property.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Property.Models.TransactionType", "TransactionType")
-                        .WithMany("ProductsRealEstate")
-                        .HasForeignKey("TransactionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Agent");
 
                     b.Navigation("City");
@@ -626,8 +695,50 @@ namespace Property.Data.Migrations
                     b.Navigation("Country");
 
                     b.Navigation("SubcategoryRealEstate");
+                });
 
-                    b.Navigation("TransactionType");
+            modelBuilder.Entity("Property.Models.RentRealEstate", b =>
+                {
+                    b.HasOne("Property.Models.Products.ProductRealEstate", "ProductRealEstate")
+                        .WithOne("Rent")
+                        .HasForeignKey("Property.Models.RentRealEstate", "ProductRealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstatePerDay", b =>
+                {
+                    b.HasOne("Property.Models.RentRealEstate", "RentRealEstate")
+                        .WithOne("RentRealEstatePerDay")
+                        .HasForeignKey("Property.Models.RentRealEstatePerDay", "RentRealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RentRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstatePerMounth", b =>
+                {
+                    b.HasOne("Property.Models.RentRealEstate", "RentRealEstate")
+                        .WithOne("RentRealEstatePerMounth")
+                        .HasForeignKey("Property.Models.RentRealEstatePerMounth", "RentRealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RentRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.SellRealEstate", b =>
+                {
+                    b.HasOne("Property.Models.Products.ProductRealEstate", "ProductRealEstate")
+                        .WithOne("Sell")
+                        .HasForeignKey("Property.Models.SellRealEstate", "ProductRealEstateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProductRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
@@ -676,14 +787,20 @@ namespace Property.Data.Migrations
             modelBuilder.Entity("Property.Models.Products.ProductRealEstate", b =>
                 {
                     b.Navigation("ProductImages");
+
+                    b.Navigation("Rent");
+
+                    b.Navigation("Sell");
+                });
+
+            modelBuilder.Entity("Property.Models.RentRealEstate", b =>
+                {
+                    b.Navigation("RentRealEstatePerDay");
+
+                    b.Navigation("RentRealEstatePerMounth");
                 });
 
             modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
-                {
-                    b.Navigation("ProductsRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.TransactionType", b =>
                 {
                     b.Navigation("ProductsRealEstate");
                 });

@@ -33,19 +33,19 @@ namespace Property.Services.OtherServices
 
 			try
 			{
-				var product = await _context.ProductsRealEstate.
-					Include(x => x.TransactionType)
-					.FirstOrDefaultAsync(x => x.Id == productId);
+				//var product = await _context.ProductsRealEstate.
+				//	Include(x => x.TransactionType)
+				//	.FirstOrDefaultAsync(x => x.Id == productId);
 
-				if (product != null)
-				{
-					var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(t => t.Id == product.TransactionType.Id);
-					if(transactionType != null)
-					{
-						serviceResponse.Data = transactionType;
-						return serviceResponse;
-					}
-				}
+				//if (product != null)
+				//{
+				//	var transactionType = await _context.TransactionTypes.FirstOrDefaultAsync(t => t.Id == product.TransactionType.Id);
+				//	if(transactionType != null)
+				//	{
+				//		serviceResponse.Data = transactionType;
+				//		return serviceResponse;
+				//	}
+				//}
 			}
 			catch (Exception ex)
 			{
