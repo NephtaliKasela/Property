@@ -28,7 +28,7 @@ namespace Property.Models
         public int Id { get; set; }
         public int RentRealEstateId { get; set; }
         public RentRealEstate RentRealEstate { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime? PaymentDate { get; set; }
         public int Days { get; set; }
     }
 }

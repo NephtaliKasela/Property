@@ -53,6 +53,34 @@ namespace Property.Controllers.Products
 			return View(products.Data);
         }
 
+        public IActionResult Choice(string option, string subOption)
+        {
+			if(option == null || option == string.Empty) 
+			{
+                return View();
+            }
+			else
+			{
+				if (option.ToLower() == "sell") 
+				{
+					return RedirectToAction("AddProductSell");
+				}
+				else if (option.ToLower() == "rent")
+				{
+                    if (subOption.ToUpper() == "RD")
+					{
+						return RedirectToAction("AddProductRentByDay");
+					}
+					else if(subOption.ToUpper() == "RM")
+					{
+						return RedirectToAction("AddProductRentByMonth");
+					}
+                }
+			}
+			return View();
+            
+        }
+
         public async Task<IActionResult> AddProduct()
         {
             var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
@@ -66,6 +94,51 @@ namespace Property.Controllers.Products
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.TransactionTypes = transactionTypes.Data;
+
+            return View(v);
+        }
+
+        public async Task<IActionResult> AddProductSell()
+        {
+            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var countries = await _countryServices.GetAllCountries();
+            var cities = await _cityServices.GetAllCities();
+
+            var v = new AddProductRealEstate_action();
+
+            v.Subcategories = subcategories.Data;
+            v.Countries = countries.Data;
+            v.Cities = cities.Data;
+
+            return View(v);
+        }
+
+        public async Task<IActionResult> AddProductRentByDay()
+        {
+            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var countries = await _countryServices.GetAllCountries();
+            var cities = await _cityServices.GetAllCities();
+
+            var v = new AddProductRealEstate_action();
+
+            v.Subcategories = subcategories.Data;
+            v.Countries = countries.Data;
+            v.Cities = cities.Data;
+
+            return View(v);
+        }
+
+        public async Task<IActionResult> AddProductRentByMonth()
+        {
+            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var countries = await _countryServices.GetAllCountries();
+            var cities = await _cityServices.GetAllCities();
+
+            var v = new AddProductRealEstate_action();
+
+            v.Subcategories = subcategories.Data;
+            v.Countries = countries.Data;
+            v.Cities = cities.Data;
 
             return View(v);
         }
@@ -91,7 +164,7 @@ namespace Property.Controllers.Products
         }
 
 		[HttpPost]
-		public async Task<IActionResult> SaveAddProduct(AddProductRealEstateDTO newProduct)
+		public async Task<IActionResult> SaveAddProductRentByDay(AddProductRentByDayRealEstateDTO newProduct)
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user != null)
@@ -99,7 +172,7 @@ namespace Property.Controllers.Products
 				newProduct.User = user;
             }
 
-            await _productServicesRealEstate.AddProduct(newProduct);
+            await _productServicesRealEstate.AddProductRentByDay(newProduct);
 
 			return RedirectToAction("Dashboard", "Agent");
 		}

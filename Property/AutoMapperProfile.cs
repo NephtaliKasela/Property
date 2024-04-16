@@ -52,7 +52,7 @@ namespace Property
 			// Product Real Estate
 			CreateMap<ProductRealEstate, GetProductRealEstateDTO>();
 			CreateMap<UpdateProductRealEsteDTO, ProductRealEstate>();
-			CreateMap<AddProductRealEstateDTO, ProductRealEstate>();
+			CreateMap<AddProductRentByDayRealEstateDTO, ProductRealEstate>();
 
 			// Transaction Type
 			CreateMap<TransactionType, GetTransactionTypeDTO>();
