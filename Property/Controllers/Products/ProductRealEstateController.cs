@@ -164,6 +164,20 @@ namespace Property.Controllers.Products
         }
 
 		[HttpPost]
+		public async Task<IActionResult> SaveAddProductSell(AddProductSellRealEstateDTO newProduct)
+		{
+			ApplicationUser user = await _userManager.GetUserAsync(User);
+			if (user != null)
+			{
+				newProduct.User = user;
+			}
+
+			await _productServicesRealEstate.AddProductSell(newProduct);
+
+			return RedirectToAction("Dashboard", "Agent");
+		}
+
+		[HttpPost]
 		public async Task<IActionResult> SaveAddProductRentByDay(AddProductRentByDayRealEstateDTO newProduct)
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -173,6 +187,20 @@ namespace Property.Controllers.Products
             }
 
             await _productServicesRealEstate.AddProductRentByDay(newProduct);
+
+			return RedirectToAction("Dashboard", "Agent");
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> SaveAddProductRentByMonth(AddProductRentByMonthRealEstateDTO newProduct)
+		{
+			ApplicationUser user = await _userManager.GetUserAsync(User);
+			if (user != null)
+			{
+				newProduct.User = user;
+			}
+
+			await _productServicesRealEstate.AddProductRentByMonth(newProduct);
 
 			return RedirectToAction("Dashboard", "Agent");
 		}

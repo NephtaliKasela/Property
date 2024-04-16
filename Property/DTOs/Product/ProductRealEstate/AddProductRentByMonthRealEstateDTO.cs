@@ -8,8 +8,6 @@ namespace Property.DTOs.Product.ProductRealEstate
 		public string Description { get; set; } = string.Empty;
 		public double Price { get; set; }
 
-		// Other properties specific to the product
-		//public string Category { get; set; }
 		public int Room { get; set; }
 		public string Address { get; set; }
 		public DateTime YearOfConstruction { get; set; }
