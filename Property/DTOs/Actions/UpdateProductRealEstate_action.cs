@@ -12,7 +12,6 @@ namespace Property.DTOs.Actions
 		public List<GetSubcategoryRealEstateDTO> Subcategories { get; set; }
 		public List<GetCountryDTO> Countries { get; set; }
 		public List<GetCityDTO> Cities { get; set; }
-		public List<GetTransactionTypeDTO> TransactionTypes { get; set; }
 
 		public UpdateProductRealEstate_action()
 		{
@@ -20,7 +19,6 @@ namespace Property.DTOs.Actions
 			Subcategories = new List<GetSubcategoryRealEstateDTO>();
 			Countries = new List<GetCountryDTO>();
 			Cities = new List<GetCityDTO>();
-			TransactionTypes = new List<GetTransactionTypeDTO>();
 		}
 	}
 }

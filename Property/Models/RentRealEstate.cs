@@ -8,7 +8,7 @@ namespace Property.Models
         public int ProductRealEstateId { get; set; }
         public ProductRealEstate ProductRealEstate { get; set; }
         public RentRealEstatePerDay? RentRealEstatePerDay { get; set; } // Day
-        public RentRealEstatePerMounth? RentRealEstatePerMounth { get; set; } // Mounth
+        public RentRealEstatePerMonth? RentRealEstatePerMounth { get; set; } // Mounth
     }
 
     public class RentRealEstatePerDay
@@ -23,7 +23,7 @@ namespace Property.Models
         public double Penality { get; set; }
     }
 
-    public class RentRealEstatePerMounth
+    public class RentRealEstatePerMonth
     {
         public int Id { get; set; }
         public int RentRealEstateId { get; set; }

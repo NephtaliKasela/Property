@@ -1,4 +1,4 @@
-﻿@model Property.DTOs.Agent.GetAgentDTO
+﻿@model Property.DTOs.Actions.AgentDashboard_action
 @{
 	Layout = "~/Views/Shared/_Layout2.cshtml";
 }
@@ -18,11 +18,11 @@
 					</div>
 					<div class="profile-details">
 						<div class="profile-name px-3 pt-2">
-							<h4 class="text-primary mb-0">@Model.Name</h4>
-							<p>@Model.Profession</p>
+							<h4 class="text-primary mb-0">@Model.Agent.Name</h4>
+							<p>@Model.Agent.Profession</p>
 						</div>
 						<div class="profile-email px-2 pt-2">
-							<h4 class="text-muted mb-0">@Model.ApplicationUser.Email</h4>
+							<h4 class="text-muted mb-0">@Model.Agent.ApplicationUser.Email</h4>
 							<p>Email</p>
 						</div>
 						<div class="dropdown ms-auto">
@@ -41,7 +41,7 @@
 	</div>
 </div>
 
-<div class="container-fluid">
+<div class="">
 	<div class="project-page d-flex justify-content-between align-items-center flex-wrap">
 		<div class="project mb-4">
 			<ul class="nav nav-tabs" role="tablist">
@@ -69,7 +69,7 @@
 			<div class="tab-content">
 				<div class="tab-pane fade active show" id="AllStatus">
 					@{
-						foreach(var product in Model.ProductsRealEstate)
+						foreach(var product in Model.Products.Where(x => x.Sell != null))
 						{
 							@if(product != null)
 							{
@@ -210,7 +210,7 @@
 					}
 				<div class="tab-pane fade" id="Rent">
 						@{
-							foreach (var product in Model.ProductsRealEstate)
+							foreach (var product in Model.Products.Where(x => x.Rent != null))
 							{
 								<div class="card">
 									<div class="card-body">
@@ -279,7 +279,7 @@
 						}
 				<div class="tab-pane fade" id="Sell">
 							@{
-								foreach (var product in Model.ProductsRealEstate)
+								foreach (var product in Model.Products.Where(x => x.Sell != null))
 								{
 									<div class="card">
 										<div class="card-body">

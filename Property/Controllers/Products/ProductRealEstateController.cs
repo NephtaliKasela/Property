@@ -22,9 +22,8 @@ namespace Property.Controllers.Products
 		private readonly ICityServices _cityServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
 		private readonly ISubCategoryServicesRealEstate _subCategoryServicesRealEstate;
-		private readonly ITransactionTypeServices _transactionTypeServices;
 
-        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices, ITransactionTypeServices transactionTypeServices)
+        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices)
         {
             _userManager = userManager;
 			_agentServices = agentServices;
@@ -32,7 +31,6 @@ namespace Property.Controllers.Products
 			_subCategoryServicesRealEstate = subCategoryServicesRealEstate;
 			_countryServices = countryServices;
 			_cityServices = cityServices;
-            _transactionTypeServices = transactionTypeServices;
 		}
 
 		[HttpGet]
@@ -78,24 +76,6 @@ namespace Property.Controllers.Products
                 }
 			}
 			return View();
-            
-        }
-
-        public async Task<IActionResult> AddProduct()
-        {
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
-            var countries = await _countryServices.GetAllCountries();
-            var cities = await _cityServices.GetAllCities();
-            var transactionTypes = await _transactionTypeServices.GetAllTransactionTypes();
-
-			var v = new AddProductRealEstate_action();
-
-            v.Subcategories = subcategories.Data;
-            v.Countries = countries.Data;
-            v.Cities = cities.Data;
-            v.TransactionTypes = transactionTypes.Data;
-
-            return View(v);
         }
 
         public async Task<IActionResult> AddProductSell()
@@ -147,23 +127,77 @@ namespace Property.Controllers.Products
         {
             var product = await _productServicesRealEstate.GetProductById(id);
 
+            if(product.Data.Rent != null && product.Data.Rent.RentRealEstatePerDay != null)
+            {
+                return RedirectToAction("UpdateProductRentByDay", new { id = id });
+            }
+			else if (product.Data.Rent != null && product.Data.Rent.RentRealEstatePerMounth != null)
+			{
+				return RedirectToAction("UpdateProductRentByMonth", new { id = id });
+			}
+			else if (product.Data.Sell != null)
+			{
+                return RedirectToAction("UpdateProductSell", new { id = id });
+			}
+
+			return RedirectToAction("Dashboard", "Agent");
+		}
+
+        public async Task<IActionResult> UpdateProductSell(int id)
+        {
+            var product = await _productServicesRealEstate.GetProductById(id);
+
             var v = new UpdateProductRealEstate_action();
 
             var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
-			var transactionTypes = await _transactionTypeServices.GetAllTransactionTypes();
 
-			v.Subcategories = subcategories.Data;
+            v.Subcategories = subcategories.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
-			v.TransactionTypes = transactionTypes.Data;
 
-			return View(v);
+            return View(v);
         }
 
-		[HttpPost]
+        public async Task<IActionResult> UpdateProductRentByDay(int id)
+        {
+            var product = await _productServicesRealEstate.GetProductById(id);
+
+            var v = new UpdateProductRealEstate_action();
+
+            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var countries = await _countryServices.GetAllCountries();
+            var cities = await _cityServices.GetAllCities();
+
+            v.Subcategories = subcategories.Data;
+            v.Countries = countries.Data;
+            v.Cities = cities.Data;
+            v.Product = product.Data;
+
+            return View(v);
+        }
+
+		public async Task<IActionResult> UpdateProductRentByMonth(int id)
+		{
+			var product = await _productServicesRealEstate.GetProductById(id);
+
+			var v = new UpdateProductRealEstate_action();
+
+			var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+			var countries = await _countryServices.GetAllCountries();
+			var cities = await _cityServices.GetAllCities();
+
+			v.Subcategories = subcategories.Data;
+			v.Countries = countries.Data;
+			v.Cities = cities.Data;
+			v.Product = product.Data;
+
+			return View(v);
+		}
+
+        [HttpPost]
 		public async Task<IActionResult> SaveAddProductSell(AddProductSellRealEstateDTO newProduct)
 		{
 			ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -205,20 +239,47 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Dashboard", "Agent");
 		}
 
-		[Authorize]
+
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SaveUpdateProductSell(UpdateProductSellRealEstateDTO updatedProduct)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                updatedProduct.User = user;
+            }
+            await _productServicesRealEstate.UpdateProductSell(updatedProduct);
+            return RedirectToAction("Dashboard", "Agent");
+        }
+
+        [Authorize]
 		[HttpPost]
-		public async Task<IActionResult> SaveUpdateProduct(UpdateProductRealEsteDTO updatedProduct)
+		public async Task<IActionResult> SaveUpdateProductRentByDay(UpdateProductRentByDayRealEstateDTO updatedProduct)
 		{
 			ApplicationUser user = await _userManager.GetUserAsync(User);
 			if (user != null)
 			{
 				updatedProduct.User = user;
 			}
-			await _productServicesRealEstate.UpdateProduct(updatedProduct);
+			await _productServicesRealEstate.UpdateProductRentByDay(updatedProduct);
 			return RedirectToAction("Dashboard", "Agent");
 		}
 
-		public async Task<IActionResult> DeleteProduct(int id)
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> SaveUpdateProductRentByMonth(UpdateProductRentByMonthRealEstateDTO updatedProduct)
+        {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                updatedProduct.User = user;
+            }
+            await _productServicesRealEstate.UpdateProductRentByMonth(updatedProduct);
+            return RedirectToAction("Dashboard", "Agent");
+        }
+
+        public async Task<IActionResult> DeleteProduct(int id)
 		{
 			await _productServicesRealEstate.DeleteProduct(id);
 			return RedirectToAction("GetProduct");

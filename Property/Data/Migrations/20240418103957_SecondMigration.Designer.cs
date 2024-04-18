@@ -12,7 +12,7 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240415195612_SecondMigration")]
+    [Migration("20240418103957_SecondMigration")]
     partial class SecondMigration
     {
         /// <inheritdoc />
@@ -498,7 +498,7 @@ namespace Property.Data.Migrations
                     b.ToTable("rentsRealEstatePerDay");
                 });
 
-            modelBuilder.Entity("Property.Models.RentRealEstatePerMounth", b =>
+            modelBuilder.Entity("Property.Models.RentRealEstatePerMonth", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -509,7 +509,7 @@ namespace Property.Data.Migrations
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PaymentDate")
+                    b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("RentRealEstateId")
@@ -520,7 +520,7 @@ namespace Property.Data.Migrations
                     b.HasIndex("RentRealEstateId")
                         .IsUnique();
 
-                    b.ToTable("rentsRealEstatePerMounth");
+                    b.ToTable("rentsRealEstatePerMonth");
                 });
 
             modelBuilder.Entity("Property.Models.SellRealEstate", b =>
@@ -534,7 +534,7 @@ namespace Property.Data.Migrations
                     b.Property<int>("Days")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PaymentDate")
+                    b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("ProductRealEstateId")
@@ -722,11 +722,11 @@ namespace Property.Data.Migrations
                     b.Navigation("RentRealEstate");
                 });
 
-            modelBuilder.Entity("Property.Models.RentRealEstatePerMounth", b =>
+            modelBuilder.Entity("Property.Models.RentRealEstatePerMonth", b =>
                 {
                     b.HasOne("Property.Models.RentRealEstate", "RentRealEstate")
                         .WithOne("RentRealEstatePerMounth")
-                        .HasForeignKey("Property.Models.RentRealEstatePerMounth", "RentRealEstateId")
+                        .HasForeignKey("Property.Models.RentRealEstatePerMonth", "RentRealEstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

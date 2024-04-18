@@ -219,7 +219,7 @@ namespace Property.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductRealEstateId = table.Column<int>(type: "int", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Days = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -258,20 +258,20 @@ namespace Property.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "rentsRealEstatePerMounth",
+                name: "rentsRealEstatePerMonth",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RentRealEstateId = table.Column<int>(type: "int", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Days = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_rentsRealEstatePerMounth", x => x.Id);
+                    table.PrimaryKey("PK_rentsRealEstatePerMonth", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_rentsRealEstatePerMounth_RentsRealEstate_RentRealEstateId",
+                        name: "FK_rentsRealEstatePerMonth_RentsRealEstate_RentRealEstateId",
                         column: x => x.RentRealEstateId,
                         principalTable: "RentsRealEstate",
                         principalColumn: "Id",
@@ -333,8 +333,8 @@ namespace Property.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_rentsRealEstatePerMounth_RentRealEstateId",
-                table: "rentsRealEstatePerMounth",
+                name: "IX_rentsRealEstatePerMonth_RentRealEstateId",
+                table: "rentsRealEstatePerMonth",
                 column: "RentRealEstateId",
                 unique: true);
 
@@ -360,7 +360,7 @@ namespace Property.Data.Migrations
                 name: "rentsRealEstatePerDay");
 
             migrationBuilder.DropTable(
-                name: "rentsRealEstatePerMounth");
+                name: "rentsRealEstatePerMonth");
 
             migrationBuilder.DropTable(
                 name: "sellsRealEstate");

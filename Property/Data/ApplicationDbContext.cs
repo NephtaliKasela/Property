@@ -26,7 +26,7 @@ namespace Property.Data
         public DbSet<Agent> Agents => Set<Agent>();
         public DbSet<RentRealEstate> RentsRealEstate => Set<RentRealEstate>();
         public DbSet<RentRealEstatePerDay> rentsRealEstatePerDay => Set<RentRealEstatePerDay>();
-        public DbSet<RentRealEstatePerMounth> rentsRealEstatePerMounth => Set<RentRealEstatePerMounth>();
+        public DbSet<RentRealEstatePerMonth> rentsRealEstatePerMonth => Set<RentRealEstatePerMonth>();
         public DbSet<SellRealEstate> sellsRealEstate => Set<SellRealEstate>();
 
 

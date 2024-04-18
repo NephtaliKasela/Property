@@ -20,8 +20,9 @@ namespace Property.DTOs.Product.ProductRealEstate
         // Foreign Keys
         public Models.Country Country { get; set; }
         public Models.City? City { get; set; }
+        public Models.RentRealEstate? Rent { get; set; }
+        public Models.SellRealEstate? Sell { get; set; }
         public Models.Subcategories.SubcategoryRealEstate SubcategoryRealEstate { get; set; }
-		public Models.TransactionType TransactionType { get; set; }
 		public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
 		public Models.Agent Agent { get; set; }
 	}
