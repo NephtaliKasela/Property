@@ -332,13 +332,15 @@
                     {
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <div class="property-item mb-30">
-                                <a asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id" target="_blank" class="img">
-                                    @if(product.ProductImages.Count > 0)
-                                    {
-                                        var image = product.ProductImages[0];
-                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" />
-                                    }
-                                </a>
+                                <div style="text-align: center;">
+                                    <a asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id" target="_blank" class="img">
+                                        @if (product.ProductImages.Count > 0)
+                                        {
+                                            var image = product.ProductImages[0];
+                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" />
+                                        }
+                                    </a>
+                                </div>
 
                                 <div class="property-content">
                                     <div class="row">
