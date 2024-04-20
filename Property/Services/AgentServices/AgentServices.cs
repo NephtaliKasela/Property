@@ -143,7 +143,5 @@ namespace Property.Services.AgentServices
 			}
 			return serviceResponse;
 		}
-
-		
 	}
 }

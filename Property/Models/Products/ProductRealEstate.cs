@@ -24,6 +24,7 @@ namespace Property.Models.Products
         public Agent Agent { get; set; }
         public RentRealEstate? Rent { get; set; }
         public SellRealEstate? Sell { get; set; }
+        public List<Reservation>? Reservations { get; set; }
        
     }
 }

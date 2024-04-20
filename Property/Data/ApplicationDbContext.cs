@@ -28,6 +28,7 @@ namespace Property.Data
         public DbSet<RentRealEstatePerDay> rentsRealEstatePerDay => Set<RentRealEstatePerDay>();
         public DbSet<RentRealEstatePerMonth> rentsRealEstatePerMonth => Set<RentRealEstatePerMonth>();
         public DbSet<SellRealEstate> sellsRealEstate => Set<SellRealEstate>();
+        public DbSet<Reservation> Reservations => Set<Reservation>();
 
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -8,5 +8,6 @@ namespace Property.Models
     {
         //public int AgentId { get; set; }
         public Agent? Agent { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }

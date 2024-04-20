@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Property.Data;
 
@@ -11,9 +12,11 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240420115446_AddReservation")]
+    partial class AddReservation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -552,14 +555,9 @@ namespace Property.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("applicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductRealEstateId");
-
-                    b.HasIndex("applicationUserId");
 
                     b.ToTable("Reservations");
                 });
@@ -782,13 +780,7 @@ namespace Property.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Property.Models.ApplicationUser", "applicationUser")
-                        .WithMany("Reservations")
-                        .HasForeignKey("applicationUserId");
-
                     b.Navigation("ProductRealEstate");
-
-                    b.Navigation("applicationUser");
                 });
 
             modelBuilder.Entity("Property.Models.SellRealEstate", b =>
@@ -821,8 +813,6 @@ namespace Property.Data.Migrations
             modelBuilder.Entity("Property.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Agent");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Property.Models.Category", b =>

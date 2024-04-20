@@ -10,6 +10,7 @@ using Property.Services.CountryServices;
 using Property.Services.ImageServices;
 using Property.Services.OtherServices;
 using Property.Services.ProductService.ProductServicesRealEstate;
+using Property.Services.ReservationServices;
 using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
 using Property.Services.TransactionTypeServices;
@@ -40,6 +41,7 @@ builder.Services.AddScoped<ITransactionTypeServices, TransactionTypeServices>();
 builder.Services.AddScoped<IAgentServices, AgentServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 builder.Services.AddScoped<IProductImageServicesRealEstate, ProductImageServicesRealEstate>();
+builder.Services.AddScoped<IReservationServices, ReservationServices>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();

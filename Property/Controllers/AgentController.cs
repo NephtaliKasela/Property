@@ -19,16 +19,12 @@ namespace Property.Controllers
 		private readonly UserManager<ApplicationUser> _userManager;
 		private readonly IAgentServices _agentServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
-		private readonly IProductImageServicesRealEstate _productImageServicesRealEstate;
-		private readonly IOtherServices _otherServices;
 
-		public AgentController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, IProductImageServicesRealEstate productImageServicesRealEstate, IOtherServices otherServices)
+		public AgentController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate)
 		{
 			_userManager = userManager;
 			_agentServices = agentServices;
 			_productServicesRealEstate = productServicesRealEstate;
-			_productImageServicesRealEstate = productImageServicesRealEstate;
-			_otherServices = otherServices;
 		}
 
         [Authorize]
@@ -44,28 +40,6 @@ namespace Property.Controllers
 				if (agent.Data != null)
 				{
 					var AgentProducts = await _productServicesRealEstate.GetProductByAgentId(agent.Data.Id);
-
-					////Check if agent has products
-					//if(agent.Data.ProductsRealEstate.Count > 0)
-					//{
-					//	//Go through each agent product and add all images related to it
-					//	foreach(var product in  agent.Data.ProductsRealEstate)
-					//	{
-					//		//Get images
-					//		var images = await _productImageServicesRealEstate.GetImageByProductId(product.Id);
-					//		if(images.Data != null)
-					//		{
-					//			product.ProductImages = images.Data;
-					//		}
-
-					//		////Get transaction type
-					//		//var transactionType = await _otherServices.GetTransactionTyoeByProductRealEstateId(product.Id);
-					//		//if(transactionType.Data != null)
-					//		//{
-					//		//	product.TransactionType = transactionType.Data;
-					//		//}
-					//	}
-					//}
 
 					var v = new AgentDashboard_action();
 					v.Agent = agent.Data;

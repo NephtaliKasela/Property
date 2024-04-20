@@ -95,8 +95,17 @@
                 </p>
 
                 <div>
-                    <a asp-controller="" asp-action=""
-                       class="btn btn-primary py-2 px-3"><i class="icon-perm_phone_msg"></i> Get the number</a> 
+                    @if(Model.Rent != null && Model.Rent.RentRealEstatePerDay != null)
+                    {
+                        <a asp-controller="Reservation" asp-action="Index" asp-route-id="@Model.Id"
+                        class="btn btn-primary py-2 px-3"><i class="icon-calendar-check-o"></i> Booking</a>
+                    }
+                    else
+                    {
+                        
+                        <a asp-controller="" asp-action=""
+                        class="btn btn-primary py-2 px-3"><i class="icon-perm_phone_msg"></i> Get phone number</a>
+                    }
                 </div>
 
                 <div class="d-block agent-box p-5">
