@@ -26,7 +26,7 @@ namespace Property.Controllers
         public async Task<IActionResult> Index(int id)
         {
             var product = await _productServicesRealEstate.GetProductById(id);
-            if(product != null)
+            if(product.Data != null)
             {
                 return View(product.Data);
             }

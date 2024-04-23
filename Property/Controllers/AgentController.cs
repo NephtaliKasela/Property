@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Actions;
 using Property.DTOs.Agent;
-using Property.DTOs.City;
 using Property.Models;
 using Property.Services.AgentServices;
 using Property.Services.CityServices;
