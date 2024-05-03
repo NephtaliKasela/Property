@@ -51,6 +51,28 @@ namespace Property.Controllers
         }
 
         [Authorize]
+        public async Task<IActionResult> GetAgentProductRentByDay(int id)
+        {
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                //Get specific agent by user id
+                var agent = await _agentServices.GetAgentByUserId(user.Id);
+                if (agent.Data != null)
+                {
+                    var agentProduct = await _productServicesRealEstate.GetProductById(id);
+					if(agentProduct.Data != null)
+					{
+						return View(agentProduct.Data);
+					}
+                }
+            }
+            return RedirectToAction("AddAgent");
+        }
+
+        [Authorize]
         public async Task<IActionResult> AddAgent()
 		{
             return View();
@@ -60,24 +82,28 @@ namespace Property.Controllers
 		public async Task<IActionResult> GetAgents()
 		{
 			var agents = await _agentServices.GetAllAgents();
-			return View(agents.Data);
+			if(agents.Data is not null)
+			{
+				return View(agents.Data);
+			}
+			return View("Index", "Home");
 		}
 
-		[Authorize]
-		[HttpGet]
-		public async Task<IActionResult> GetAgent()
-		{
-			ApplicationUser user = await _userManager.GetUserAsync(User);
-            if (user != null)
-            {
-				// Access user properties
-				string userId = user.Id;
-				string email = user.Email;
-				// ...
-			}
-			var agents = await _agentServices.GetAgentById(1);
-			return View(agents.Data);
-		}
+		//[Authorize]
+		//[HttpGet]
+		//public async Task<IActionResult> GetAgent()
+		//{
+		//	ApplicationUser user = await _userManager.GetUserAsync(User);
+  //          if (user != null)
+  //          {
+		//		// Access user properties
+		//		string userId = user.Id;
+		//		string email = user.Email;
+		//		// ...
+		//	}
+		//	var agents = await _agentServices.GetAgentById(1);
+		//	return View(agents.Data);
+		//}
 
 		public async Task<IActionResult> UpdateAgent(int id)
 		{

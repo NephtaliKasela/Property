@@ -14,6 +14,7 @@ using Property.DTOs.Product.ProductRealEstate;
 using Property.DTOs.Reservation;
 using Property.DTOs.Subcategories.SubcategoryRealEstate;
 using Property.DTOs.TransactionType;
+using Property.DTOs.UserApplication;
 using Property.Models;
 using Property.Models.Products;
 using Property.Models.Subcategories;
@@ -24,6 +25,9 @@ namespace Property
     {
         public AutoMapperProfile()
         {
+			// User
+			CreateMap<ApplicationUser, GetUserApplicationDTO>();
+
 			// Continent
 			CreateMap<Continent, GetContinentDTO>();
 			CreateMap<UpdateContinentDTO, Continent>();

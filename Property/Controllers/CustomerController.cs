@@ -1,0 +1,26 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Property.Models;
+using Property.Services.UserApplicationServices;
+
+namespace Property.Controllers
+{
+    public class CustomerController : Controller
+    {
+        private readonly IUserApplicationServices _userApplication;
+        public CustomerController(IUserApplicationServices userApplication)
+        {
+            _userApplication = userApplication;
+        }
+        public async Task<IActionResult> Index()
+        {
+            var v = await _userApplication.GetAllUsers(); 
+            if(v.Data is not null)
+            {
+				return View(v.Data);
+			}
+			return RedirectToAction("Index", "Admin");
+		}
+    }
+}

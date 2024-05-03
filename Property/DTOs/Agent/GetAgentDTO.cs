@@ -9,7 +9,8 @@ namespace Property.DTOs.Agent
         public string Name { get; set; }
         public string Profession { get; set; }
         public string ApplicationUserId { get; set; }
-		public ApplicationUser ApplicationUser { get; set; }
+        public DateTime RegistrationDate { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
 		public List<ProductRealEstate>? ProductsRealEstate { get; set; }
 	}
 }

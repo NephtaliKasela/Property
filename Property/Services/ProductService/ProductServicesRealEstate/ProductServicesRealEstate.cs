@@ -35,6 +35,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                                     .Include(p => p.Sell)
                                     .Include(p => p.ProductImages)
                                     .Include(p => p.Agent)
+                                    .Include(p => p.Reservations)
                                     .ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetProductRealEstateDTO>>()
             {
@@ -58,6 +59,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 					.Include(p => p.Sell)
                     .Include(p => p.ProductImages)
                     .Include(p => p.Agent)
+                    .Include(p => p.Reservations)
                     .FirstOrDefaultAsync(p => p.Id == id);
                 if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
 
@@ -90,6 +92,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 					.Include(p => p.Sell)
 					.Include(p => p.ProductImages)
 					.Include(p => p.Agent)
+					.Include(p => p.Reservations)
 					.Where(p => p.Agent.Id == agent.Id).ToListAsync();
 					if (product is null) { throw new Exception($"Agent Product with Id '{agentId}' not found"); }
 

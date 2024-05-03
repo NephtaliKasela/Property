@@ -11,6 +11,9 @@ namespace Property.DTOs.Reservation
         public string NumberOfGuest { get; set; }
         public DateOnly CheckIn { get; set; }
         public DateOnly CheckOut { get; set; }
+        public double Amount { get; set; }
+        public double ReservationFee { get; set; }
+        public DateTime Date { get; set; }
 
         // Foreign key
         public Models.ApplicationUser applicationUser { get; set; }

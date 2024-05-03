@@ -4,6 +4,7 @@ using Property.Data;
 using Property.DTOs.Agent;
 using Property.DTOs.Reservation;
 using Property.Models;
+using Property.Services.OtherServices;
 
 namespace Property.Services.ReservationServices
 {
@@ -11,11 +12,13 @@ namespace Property.Services.ReservationServices
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IOtherServices _otherServices;
 
-        public ReservationServices(ApplicationDbContext context, IMapper mapper)
+        public ReservationServices(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
         {
             _context = context;
             _mapper = mapper;
+            _otherServices = otherServices;
         }
 
         public async Task<ServiceResponse<List<GetReservationDTO>>> AddReservation(AddReservationDTO newReservation)
@@ -26,11 +29,33 @@ namespace Property.Services.ReservationServices
             bool result; int number;
 
             // Get Agent
-            var product = await _context.ProductsRealEstate.FirstOrDefaultAsync(x => x.Id == newReservation.ProductRealEstateId);
+            var product = await _context.ProductsRealEstate
+                .Include(x => x.Rent)
+                .Include(x => x.Rent.RentRealEstatePerDay)
+                .Include(x => x.Rent.RentRealEstatePerMounth)
+                .FirstOrDefaultAsync(x => x.Id == newReservation.ProductRealEstateId);
             if (product is not null)
             {
                 reservation.ProductRealEstate = product;
             }
+
+            DateTime checkInDateTime = newReservation.CheckIn.ToDateTime(new TimeOnly());
+            DateTime checkOutDateTime = newReservation.CheckOut.ToDateTime(new TimeOnly());
+
+            TimeSpan difference = checkOutDateTime - checkInDateTime;
+            reservation.Amount = difference.TotalDays * product.Price;
+            reservation.ReservationFee = 5;
+
+            (result, number) = _otherServices.CheckIfInteger(reservation.NumberOfGuest);
+            if (result)
+            {
+                if (number > 0)
+                {
+                    reservation.Amount += product.Rent.RentRealEstatePerDay.AdditionalPrice;
+                }
+            }
+
+            reservation.Date = DateTime.Now;
 
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();

@@ -50,11 +50,12 @@
                                         </div>
                                         <div class="col-6">
                                             <div class="amount" style="text-align: right; color: white;">
-                                                <h5 id="amount" style="color: white;"></h5>
+                                                <h5 id="amount" style="color: white;">$0</h5>
                                                 <script>
                                                     function calculateTotal() {
                                                         var startDate = new Date(document.getElementById('CheckIn').value);
                                                         var endDate = new Date(document.getElementById('CheckOut').value);
+                                                        var guest = new Date(document.getElementById('NumberOfGuest'));
 
                                                         // Calculate the difference in days
                                                         var differenceInTime = endDate.getTime() - startDate.getTime();
@@ -64,7 +65,14 @@
                                                         var total = differenceInDays * @Model.Price;
 
                                                         // Display the multiplied value
-                                                        document.getElementById('amount').textContent = '$' + total;
+                                                        // Check if the total value is a number and not NaN
+                                                        if (typeof total === 'number' && !isNaN(total)) {
+                                                            // The total value is valid
+                                                            document.getElementById('amount').textContent = '$' + total;
+                                                        } else {
+                                                            // The total value is not a valid number
+                                                            document.getElementById('amount').textContent = '$' + 0;
+                                                        }
                                                     }
 
                                                     // Add event listeners to the date input elements

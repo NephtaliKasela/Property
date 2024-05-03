@@ -25,5 +25,6 @@ namespace Property.DTOs.Product.ProductRealEstate
         public Models.Subcategories.SubcategoryRealEstate SubcategoryRealEstate { get; set; }
 		public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
 		public Models.Agent Agent { get; set; }
+		public List<Models.Reservation>? Reservations { get; set; }
 	}
 }

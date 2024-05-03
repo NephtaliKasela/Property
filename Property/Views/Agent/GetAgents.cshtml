@@ -1,0 +1,50 @@
+﻿@model List<Property.DTOs.Agent.GetAgentDTO>
+
+@{
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row page-titles">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
+		<li class="breadcrumb-item"><a href="javascript:void(0)">Agents</a></li>
+	</ol>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Table Hover</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-responsive-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Profession</th>
+                        <th>Property</th>
+                        <th>Registration date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        if(Model.Count > 0)
+                        {
+                            foreach(var agent in Model)
+                            {
+                                <tr>
+                                    <th>@agent.Id</th>
+                                    <td>@agent.Name</td>
+                                    <td>@agent.Profession</td>
+                                    <td>@agent.ProductsRealEstate.Count</td>
+                                    <td>@agent.RegistrationDate.ToLongDateString()</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

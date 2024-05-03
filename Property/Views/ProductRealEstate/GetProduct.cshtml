@@ -23,12 +23,11 @@
 						<thead>
 							<tr style="border: 0px;">
 								<th>Id</th>
-								<th style="text-align:left;">Name</th>
-								<th style="text-align:left;">SubCategory</th>
-								<th style="text-align:left;">Store</th>
-								<th>Status</th>
-								<th>Date</th>
+								<th style="text-align:left;">Title</th>
+								<th style="text-align:left;">Property type</th>
 								<th>Price</th>
+								<th>Country</th>
+								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -38,18 +37,16 @@
 									<th>@product.Id</th>
 									<td style="text-align:left;">@product.Name</td>
 									<td style="text-align:left;">@product.SubcategoryRealEstate.Name</td>
-									<td>
-										<span class="badge badge-primary light">Sale</span>
-									</td>
-									<td>January 22</td>
-									<td class="color-primary">$@product.Price</td>
+									<td>@product.Price $</td>
+									<td>@product.Country.Name</td>
+									<td>@product.PublicationDate.ToLongDateString()</td>
 									<td>
 										<div class="dropdown">
 											<button type="button" class="btn btn-warning light sharp" data-bs-toggle="dropdown">
 												<svg width="20px" height="20px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="5" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="19" cy="12" r="2"></circle></g></svg>
 											</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" asp-controller="Product" asp-action="Index" asp-route-productId="@product.Id">View</a>
+												<a class="dropdown-item" asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id">View</a>
 												<a class="dropdown-item" asp-controller="ProductRealEstate" asp-action="UpdateProduct" asp-route-id="@product.Id">Edit</a>
 												<a class="dropdown-item" asp-controller="ProductRealEstate" asp-action="DeleteProduct" asp-route-id="@product.Id">Delete</a>
 											</div>

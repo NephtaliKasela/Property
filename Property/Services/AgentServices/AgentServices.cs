@@ -39,13 +39,15 @@ namespace Property.Services.AgentServices
 				}
 				if (!flag)
 				{
+					agent.RegistrationDate = DateTime.Now;
 					_context.Agents.Add(agent);
 					await _context.SaveChangesAsync();
 				}
 			}
 			else
 			{
-				_context.Agents.Add(agent);
+                agent.RegistrationDate = DateTime.Now;
+                _context.Agents.Add(agent);
 				await _context.SaveChangesAsync();
 			}
 

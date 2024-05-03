@@ -14,6 +14,7 @@ using Property.Services.ReservationServices;
 using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
 using Property.Services.TransactionTypeServices;
+using Property.Services.UserApplicationServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,6 +43,7 @@ builder.Services.AddScoped<IAgentServices, AgentServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 builder.Services.AddScoped<IProductImageServicesRealEstate, ProductImageServicesRealEstate>();
 builder.Services.AddScoped<IReservationServices, ReservationServices>();
+builder.Services.AddScoped<IUserApplicationServices, UserApplicationServices>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();

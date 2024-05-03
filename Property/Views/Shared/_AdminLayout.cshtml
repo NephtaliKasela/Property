@@ -38,7 +38,7 @@
 	<link href="~/AdminDashboard/css/style.css" rel="stylesheet">
 
 </head>
-<body>
+<body style="background-color: white;">
 
 	<!--*******************
 		Preloader start
@@ -862,6 +862,22 @@
 						</ul>
 						<ul aria-expanded="false">
 							<li>
+								<a class="has-arrow" href="javascript:void()" aria-expanded="false">Customers</a>
+								<ul aria-expanded="false">
+									<li><a asp-controller="Customer" asp-action="Index">Customers</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul aria-expanded="false">
+							<li>
+								<a class="has-arrow" href="javascript:void()" aria-expanded="false">Agents</a>
+								<ul aria-expanded="false">
+									<li><a asp-controller="Agent" asp-action="GetAgents">Agents</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul aria-expanded="false">
+							<li>
 								<a class="has-arrow" href="javascript:void()" aria-expanded="false">Product Real Estate</a>
 								<ul aria-expanded="false">
 									<li><a asp-controller="ProductRealEstate" asp-action="GetProduct">Products</a></li>
@@ -884,6 +900,14 @@
 								<ul aria-expanded="false">
 									<li><a asp-controller="TransactionType" asp-action="GetTransactionType">Transaction Types</a></li>
 									<li><a asp-controller="TransactionType" asp-action="AddTransactionType"> Add Transaction Type</a></li>
+								</ul>
+							</li>
+						</ul>
+						<ul aria-expanded="false">
+							<li>
+								<a class="has-arrow" href="javascript:void()" aria-expanded="false">Reservation</a>
+								<ul aria-expanded="false">
+									<li><a asp-controller="Reservation" asp-action="GetReservation">Reservations</a></li>
 								</ul>
 							</li>
 						</ul>
