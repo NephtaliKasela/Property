@@ -1,10 +1,10 @@
 ﻿@model Property.DTOs.Product.ProductRealEstate.GetProductRealEstateDTO
 
 @{
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_AgentLayout.cshtml";
 }
 
-<div class="hero page-inner overlay"
+@* <div class="hero page-inner overlay"
 	style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")')">
 	<div class="container">
 		<div class="row justify-content-center align-items-center">
@@ -96,10 +96,121 @@
 	</div>
 </div>
 <br />
+ *@
+
+<div class="card mb-3 mt-5">
+    <div class="row g-0">
+        <div class="col-md-4">
+            @if (@Model.ProductImages.Count > 0)
+            {
+                var image = @Model.ProductImages[0];
+                <div class="gallery-item">
+                    <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Product Image">
+                </div>
+            }
+            else
+            {
+                <img src="https://mdbcdn.b-cdn.net/wp-content/uploads/2020/06/vertical.webp"
+                     alt="Trendy Pants and Shoes"
+                     class="img-fluid rounded-start"
+                     style="max-height: 200px;" />
+            }
+
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title mb-3">@Model.Name</h5>
+                <p class="card-text">
+                    @Model.Description
+                </p>
+                <p class="card-text">
+                    <small class="text-muted">Published : @Model.PublicationDate.ToLongDateString()</small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <ul class="nav nav-tabs nav-tabs-top">
+        <li class="nav-item"><a class="nav-link active" href="#booking" data-toggle="tab"><i class="fas fa-suitcase"></i> <span> Booking </span></a></li>
+        <li class="nav-item"><a class="nav-link" href="#review" data-toggle="tab">Review</a></li>
+    </ul>
+<div class="tab-content">
+    <div class="tab-pane show active" id="booking">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card card-table">
+                        <div class="card-body booking_card">
+                            <div class="table-responsive">
+                                <table class="datatable table table-stripped table table-hover table-center mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking ID</th>
+                                            <th>Name</th>
+                                            <th>Room Type</th>
+                                            <th>Total Numbers</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Arrival Date</th>
+                                            <th>Depature Date</th>
+                                            <th>Email</th>
+                                            <th>Ph.Number</th>
+                                            <th>Status</th>
+                                            <th class="text-right">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+			                                if(Model.Reservations.Count > 0)
+			                                {
+                                                @for(int i = Model.Reservations.Count-1; i >= 0; i--)
+				                                {
+					                                var reservation = Model.Reservations[i];
+                                                    <tr>
+                                                        <td>BKG-0001</td>
+                                                        <td>
+                                                            <h2 class="table-avatar">
+                                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/admin_dashbaord-_hotel_bootstrap5/assets/img/profiles/avatar-03.jpg" alt="User Image"></a>
+                                                                @reservation.UserName
+                                                            </h2>
+                                                        </td>
+                                                        <td>Double</td>
+                                                        <td>@reservation.NumberOfPeople</td>
+                                                        <td>@reservation.Date.ToShortDateString()</td>
+                                                        <td>@reservation.Date.ToString("hh:mm tt")</td>
+                                                        <td>@reservation.CheckIn</td>
+                                                        <td>@reservation.CheckOut</td>
+                                                        <td>@reservation.UserEmail</td>
+                                                        <td>631-254-6480</td>
+                                                        <td>
+                                                            <div class="actions"> <a href="#" class="btn btn-sm bg-success-light mr-2">Active</a> </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="dropdown dropdown-action">
+                                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i></a>
+                                                                <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="edit-booking.html"><i class="fas fa-pencil-alt m-r-5"></i> Edit</a> <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_asset"><i class="fas fa-trash-alt m-r-5"></i> Delete</a> </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>                                                    
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="tab-pane" id="review">
+        Tab content 2
+    </div>
+</div>
 
 
-
-<div class="container justify-content-center">
+<div class="container justify-content-center" style="margin-top: 500px;">
 	<!doctype html>
 <html>
 <head>

@@ -50,6 +50,29 @@ namespace Property.Controllers
 			return RedirectToAction("AddAgent");
         }
 
+        public async Task<IActionResult> Properties()
+		{
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                //Get specific agent by user id
+                var agent = await _agentServices.GetAgentByUserId(user.Id);
+                if (agent.Data != null)
+                {
+                    var AgentProducts = await _productServicesRealEstate.GetProductByAgentId(agent.Data.Id);
+
+                    var v = new AgentDashboard_action();
+                    v.Agent = agent.Data;
+                    v.Products = AgentProducts.Data;
+
+                    return View(v);
+                }
+            }
+            return RedirectToAction("AddAgent");
+        }
+
         [Authorize]
         public async Task<IActionResult> GetAgentProductRentByDay(int id)
         {
