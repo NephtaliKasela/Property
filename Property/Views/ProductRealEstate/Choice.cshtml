@@ -1,4 +1,6 @@
-﻿
+﻿@{
+    Layout = "~/Views/Shared/_AgentLayout.cshtml";
+}
 
 
 <div class="container" style="margin-top: 200px; margin-bottom: 100px;">
@@ -42,3 +44,127 @@
       }
     }
 </script>
+
+
+
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="mt-5">
+                <h4 class="card-title float-left mt-2">Pricing</h4>
+                <a href="add-pricing.html" class="btn btn-primary float-right veiwbutton">
+                    Add
+                    Pricing
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <section class="pricing py-5">
+            <div class="container">
+                <div class="row  mt-5">
+
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">FOR RENT</h5>
+                                <h6 class="card-price text-center mt-3">
+                                    DAY<span class="period"></span>
+                                </h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free
+                                        Breakfast
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free Wifi
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Air
+                                        Conditioning
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Laundry
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Parking
+                                    </li>
+                                </ul>
+                                <a asp-controller="ProductRealEstate" asp-action="AddProductRentByDay" class="btn btn-block btn-primary text-uppercase"><i class="fas fa-plus"></i> Add</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card mb-5 mb-lg-0">
+                            <div class="card-body">
+                                <h5 class="card-title text-muted text-uppercase text-center">FOR RENT</h5>
+                                <h6 class="card-price text-center mt-3">
+                                    MONTH<span class="period"></span>
+                                </h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free
+                                        Breakfast
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free Wifi
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Air
+                                        Conditioning
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Laundry
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Parking
+                                    </li>
+                                </ul>
+                                <a asp-controller="ProductRealEstate" asp-action="AddProductRentByMonth" class="btn btn-block btn-primary text-uppercase"><i class="fas fa-plus"></i> Add</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title text-muted text-uppercase text-center" style="margin-bottom: 70px;">FOR SALE</h2>
+                                <h6 class="card-price text-center">
+                                    <span class="period"></span>
+                                </h6>
+                                <hr>
+                                <ul class="fa-ul">
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free
+                                        Breakfast
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Free Wifi
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Air
+                                        Conditioning
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Laundry
+                                    </li>
+                                    <li>
+                                        <span class="fa-li"><i class="fas fa-check"></i></span>Parking
+                                    </li>
+                                </ul>
+                                <a asp-controller="ProductRealEstate" asp-action="AddProductSell" class="btn btn-block btn-primary text-uppercase"><i class="fas fa-plus"></i> Add</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+

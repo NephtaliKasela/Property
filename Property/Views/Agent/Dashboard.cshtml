@@ -299,19 +299,23 @@
 					<div>
 						@{
 							int booking = 0;
-							if (Model.Products.Count > 0)
+							if (Model.Products is not null)
 							{
-								foreach (var product in Model.Products)
+								if (Model.Products.Count > 0)
 								{
-									if (product.Reservations is not null)
+									foreach (var product in Model.Products)
 									{
-										if (product.Reservations.Count > 0)
+										if (product.Reservations is not null)
 										{
-											booking += product.Reservations.Count;
+											if (product.Reservations.Count > 0)
+											{
+												booking += product.Reservations.Count;
+											}
 										}
 									}
 								}
 							}
+							
 							<h3 class="card_widget_header">@booking</h3>
 						}
 						
