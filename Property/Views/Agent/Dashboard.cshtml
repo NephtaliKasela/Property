@@ -297,7 +297,24 @@
 			<div class="card-body">
 				<div class="dash-widget-header">
 					<div>
-						<h3 class="card_widget_header">236</h3>
+						@{
+							int booking = 0;
+							if (Model.Products.Count > 0)
+							{
+								foreach (var product in Model.Products)
+								{
+									if (product.Reservations is not null)
+									{
+										if (product.Reservations.Count > 0)
+										{
+											booking += product.Reservations.Count;
+										}
+									}
+								}
+							}
+							<h3 class="card_widget_header">@booking</h3>
+						}
+						
 						<h6 class="text-muted">Total Booking</h6>
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
