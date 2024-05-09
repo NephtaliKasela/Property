@@ -3,7 +3,7 @@
 	Layout = "~/Views/Shared/_AgentLayout.cshtml";
 }
 
-<div class="mt-3">
+<div class="mt-5">
 	<ul class="nav nav-tabs nav-tabs-bottom">
 		<li class="nav-item"><a class="nav-link active" href="#forRent" data-toggle="tab">FOR RENT</a></li>
 		<li class="nav-item"><a class="nav-link" href="#forSale" data-toggle="tab">FOR SALE</a></li>
@@ -45,9 +45,6 @@
                                     <h6>@product.Price$ / month</h6>
                                 }
                                 <h5 class="card-title mb-3">@product.Name</h5>
-                                <p class="card-text">
-                                    @product.Description
-                                </p>
                                 <p class="card-text">
                                     <small class="text-muted">Published : @product.PublicationDate.ToLongDateString()</small>
                                 </p>
@@ -105,11 +102,9 @@
                                 <h6>@product.Price $</h6>
                                 <h5 class="card-title mb-3">@product.Name</h5>
                                 <p class="card-text">
-                                    @product.Description
-                                </p>
-                                <p class="card-text">
                                     <small class="text-muted">Published : @product.PublicationDate.ToLongDateString()</small>
                                 </p>
+                                <a class="btn btn-primary" asp-controller="Agent" asp-action="GetAgentProductRentByDay" asp-route-id="@product.Id">See Details</a>
                             </div>
                         </div>
                     </div>

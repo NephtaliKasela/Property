@@ -119,13 +119,22 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-                @if (Model.Rent.RentRealEstatePerDay is not null)
-                {
-                    <h4>@Model.Price$ / night</h4>
-                }
-                else if (Model.Rent.RentRealEstatePerMounth is not null)
-                {
-                    <h4>@Model.Price$ / month</h4>
+                @{
+                    if (Model.Rent is not null)
+                    {
+                        @if (Model.Rent.RentRealEstatePerDay != null)
+                        {
+                            <h4>@Model.Price$ / night</h4>
+                        }
+                        else if (Model.Rent.RentRealEstatePerMounth != null)
+                        {
+                            <h4>@Model.Price$ / month</h4>
+                        }
+                    }
+                    else if (Model.Sell != null)
+                    {
+                        <h4>@Model.Price $</h4>
+                    }
                 }
                 <h5 class="card-title mb-3">@Model.Name</h5>
                 <p class="card-text">
