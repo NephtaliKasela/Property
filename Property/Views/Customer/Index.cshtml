@@ -1,4 +1,4 @@
-﻿@model List<Property.DTOs.UserApplication.GetUserApplicationDTO>
+﻿@model List<Property.DTOs.UserApplication.GetApplicationUserDTO>
 
 @{
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -38,8 +38,8 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
-                                <th>Agent</th>
-                                <th>Booking</th>
+                                <th class="text-center">Agent</th>
+                                <th class="text-center">Booking</th>
                                 <th style="text-align: right;">Actions</th>
                             </tr>
                         </thead>
@@ -56,7 +56,7 @@
                                             </h2>
                                         </td>
                                         <td>@user.Email</td>
-                                        <td>@user.Email</td>
+                                        <td>@user.PhoneNumber</td>
                                         @if (user.Agent is not null)
                                         {
                                             <td class="text-center">Yes</td>

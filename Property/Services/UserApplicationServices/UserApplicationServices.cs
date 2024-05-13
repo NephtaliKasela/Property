@@ -21,15 +21,15 @@ namespace Property.Services.UserApplicationServices
 			_mapper = mapper;
 		}
 
-		public async Task<ServiceResponse<List<GetUserApplicationDTO>>> GetAllUsers()
+		public async Task<ServiceResponse<List<GetApplicationUserDTO>>> GetAllUsers()
 		{
 			var users = await _context.Users
 									.Include(p => p.Agent)
 									.Include(p => p.Reservations)
 									.ToListAsync();
-			var serviceResponse = new ServiceResponse<List<GetUserApplicationDTO>>()
+			var serviceResponse = new ServiceResponse<List<GetApplicationUserDTO>>()
 			{
-				Data = users.Select(p => _mapper.Map<GetUserApplicationDTO>(p)).ToList()
+				Data = users.Select(p => _mapper.Map<GetApplicationUserDTO>(p)).ToList()
 			};
 			return serviceResponse;
 		}

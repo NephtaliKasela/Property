@@ -4,17 +4,16 @@
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row page-titles">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item active"><a href="javascript:void(0)">Dashboard</a></li>
-		<li class="breadcrumb-item"><a href="javascript:void(0)">Agents</a></li>
-	</ol>
+<div class="mt-5 mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Agents</li>
+        </ol>
+    </nav>
 </div>
 
 <div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Table Hover</h4>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-hover table-responsive-sm">
@@ -23,7 +22,7 @@
                         <th>#</th>
                         <th>Name</th>
                         <th>Profession</th>
-                        <th>Property</th>
+                        <th class="text-center">Property</th>
                         <th>Registration date</th>
                     </tr>
                 </thead>
@@ -37,7 +36,7 @@
                                     <th>@agent.Id</th>
                                     <td>@agent.Name</td>
                                     <td>@agent.Profession</td>
-                                    <td>@agent.ProductsRealEstate.Count</td>
+                                    <td class="text-center">@agent.ProductsRealEstate.Count</td>
                                     <td>@agent.RegistrationDate.ToLongDateString()</td>
                                 </tr>
                             }

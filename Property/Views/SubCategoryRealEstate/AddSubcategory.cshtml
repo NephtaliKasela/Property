@@ -4,40 +4,40 @@
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div class="row page-titles">
-	<ol class="breadcrumb">
-		<li class="breadcrumb-item active"><a href="javascript:void(0)">Subcategory Real Estate</a></li>
-		<li class="breadcrumb-item"><a href="javascript:void(0)">Add</a></li>
-	</ol>
+<div class="mt-5 mb-4">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb mb-0">
+			<li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+			<li class="breadcrumb-item"><a asp-controller="SubCategoryRealEstate" asp-action="GetSubCategory">SubCategories</a></li>  
+			<li class="breadcrumb-item active" aria-current="page">new Subcategory</li>
+		</ol>
+	</nav>
 </div>
 
-<div class="container">
-	<h2>Add SubCategory</h2>
+<div class="card py-5">
+	<div class="container">
+		<form method="post" asp-controller="SubCategoryRealEstate" asp-action="SaveAddSubcategory">
 
-	<form method="post" asp-controller="SubCategoryRealEstate" asp-action="SaveAddSubcategory">
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input type="text" class="form-control" id="name" name="Name" required>
+			</div>
+			<div class="form-group">
+				<label for="description">Description:</label>
+				<textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
+			</div>
 
-		<div class="form-group">
-			<label for="name">Name:</label>
-			<input type="text" class="form-control" id="name" name="Name" required>
-		</div>
-		<div class="form-group">
-			<label for="description">Description:</label>
-			<textarea class="form-control" id="description" name="Description" rows="4" required></textarea>
-		</div>
-		<!-- Other properties specific to the category -->
+			<div class="form-group">
+				<label for="CategoryId">Catégorie:</label>
+				<select id="CategoryId" name="CategoryId" class="form-control" required>
+					@foreach (var c in Model)
+					{
+						<option value="@c.Id">@c.Name</option>
+					}
+				</select>
+			</div>
 
-		<div class="form-group">
-			<label for="CategoryId">Catégorie:</label>
-			<select id="CategoryId" name="CategoryId" class="form-control" required>
-				@* <option value="">Sélectionner une catégorie</option> *@
-				<!-- Ajoutez ici les options de catégorie en fonction de votre logique -->
-				@foreach (var c in Model)
-				{
-					<option value="@c.Id">@c.Name</option>
-				}
-			</select>
-		</div>
-
-		<button type="submit" value="Add SubCategory" class="btn btn btn-sm">Add Subcategory</button>
-	</form>
+			<input type="submit" value="Add Subcategory" class="btn btn-primary mt-4">
+		</form>
+	</div>
 </div>

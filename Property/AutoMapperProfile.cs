@@ -26,7 +26,7 @@ namespace Property
         public AutoMapperProfile()
         {
 			// User
-			CreateMap<ApplicationUser, GetUserApplicationDTO>();
+			CreateMap<ApplicationUser, GetApplicationUserDTO>();
 
 			// Continent
 			CreateMap<Continent, GetContinentDTO>();
