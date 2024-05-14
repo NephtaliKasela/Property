@@ -20,7 +20,7 @@
 		<div class="header">
 			<div class="header-left">
 				<a asp-controller="Home" asp-action="Index" class="logo"> <img src="~/admin_dashbaord-_hotel_bootstrap5/assets/img/hotel_logo.png" width="50" height="70" alt="logo"> <span class="logoclass">Logo</span> </a>
-				<a asp-controller="Home" asp-action="Index" class="logo"> class="logo logo-small"> <img src="~/admin_dashbaord-_hotel_bootstrap5/assets/img/hotel_logo.png" alt="Logo" width="30" height="30"> </a>
+				@* <a asp-controller="Home" asp-action="Index" class="logo"> class="logo logo-small"> <img src="~/admin_dashbaord-_hotel_bootstrap5/assets/img/hotel_logo.png" alt="Logo" width="30" height="30"> </a> *@
 			</div>
 			<a href="javascript:void(0);" id="toggle_btn"> <i class="fe fe-text-align-left"></i> </a>
 			<a class="mobile_btn" id="mobile_btn"> <i class="fas fa-bars"></i> </a>
@@ -134,6 +134,7 @@
 						<li class="list-divider"></li>
 						<li> <a asp-controller="Agent" asp-action="Properties"><i class="fas fa-home"></i> <span> Properties </span></a> </li>
 						<li> <a asp-controller="ProductRealEstate" asp-action="Choice"><i class="fas fa-plus"></i> <span> Add Property </span></a> </li>
+						<li> <a asp-controller="Home" asp-action="Index"><i class="fas fa-sign-out-alt"></i> <span> Exit </span></a> </li>
 						
 					</ul>
 				</div>

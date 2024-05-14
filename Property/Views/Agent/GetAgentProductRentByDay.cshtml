@@ -4,107 +4,13 @@
     Layout = "~/Views/Shared/_AgentLayout.cshtml";
 }
 
-@* <div class="hero page-inner overlay"
-	style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")')">
-	<div class="container">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-lg-9 text-center mt-5">
-				<h1 class="heading" data-aos="fade-up">@Model.Name</h1>
-
-				<nav aria-label="breadcrumb"
-					 data-aos="fade-up"
-					 data-aos-delay="200">
-					<ol class="breadcrumb text-center justify-content-center">
-						<li class="breadcrumb-item"><a asp-controller="Agent" asp-action="Dashboard">Dashboard</a></li>
-						<li class="breadcrumb-item active text-white-50"
-							aria-current="page">
-							Reservations
-						</li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="container" style="margin-top: 20px">
-	<div class="row">
-		@{
-			if(Model.Reservations.Count > 0)
-			{
-				@for(int i = Model.Reservations.Count-1; i >= 0; i--)
-				{
-					var reservation = Model.Reservations[i];
-					<div class="col-md-3">
-						<div class="card mb-3">
-							<div class="card-header">
-								<h5 class="card-title">@reservation.UserName</h5>
-							</div>
-							<div class="card-body">
-
-								<p class="card-text"><strong>Check-in:</strong> @reservation.CheckIn.ToLongDateString()</p>
-								<p class="card-text"><strong>Check-out:</strong> @reservation.CheckOut.ToLongDateString()</p>
-								<p class="card-text"><strong>Email:</strong> @reservation.UserEmail</p>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="card-text"><strong>People:</strong> @reservation.NumberOfPeople</p>
-									</div>
-									<div class="col-md-6">
-										<p class="card-text"><strong>Guest:</strong> @reservation.NumberOfGuest</p>
-									</div>
-								</div>
-								<p class="card-text"><strong>Amount:</strong> @reservation.Amount $</p>
-							</div>
-							<div class="card-footer">
-                                <button class="btn btn-warning py-2 px-3"><i class="icon-fingerprint"></i> Validate</button>
-                                <button class="btn btn-danger py-2 px-3"><i class="icon-cancel"></i> Cancel</button>
-							</div>
-						</div>
-					</div>
-				}
-				@foreach (var reservation in Model.Reservations)
-				{
-					<div class="col-md-3">
-						<div class="card mb-3">
-							<div class="card-header">
-								<h5 class="card-title">@reservation.UserName</h5>
-							</div>
-							<div class="card-body">
-
-								<p class="card-text"><strong>Check-in:</strong> @reservation.CheckIn.ToLongDateString()</p>
-								<p class="card-text"><strong>Check-out:</strong> @reservation.CheckOut.ToLongDateString()</p>
-								<p class="card-text"><strong>Email:</strong> @reservation.UserEmail</p>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="card-text"><strong>People:</strong> @reservation.NumberOfPeople</p>
-									</div>
-									<div class="col-md-6">
-										<p class="card-text"><strong>Guest:</strong> @reservation.NumberOfGuest</p>
-									</div>
-								</div>
-								<p class="card-text"><strong>Amount:</strong> @reservation.Amount $</p>
-							</div>
-							<div class="card-footer">
-                                <button class="btn btn-warning py-2 px-3"><i class="icon-fingerprint"></i> Validate</button>
-								<button class="btn btn-danger py-2 px-3"><i class="icon-cancel"></i> Cancel</button>
-							</div>
-						</div>
-					</div>
-				}
-			}
-		}
-	</div>
-</div>
-<br />
- *@
-
 <div class="card mb-3 mt-5">
     <div class="row g-0">
         <div class="col-md-4">
             @if (@Model.ProductImages.Count > 0)
             {
                 var image = @Model.ProductImages[0];
-                <div class="gallery-item">
+                <div class="gallery-item m-2">
                     <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Product Image">
                 </div>
             }

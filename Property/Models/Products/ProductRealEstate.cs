@@ -16,6 +16,12 @@ namespace Property.Models.Products
         public bool Availability { get; set; }
         public DateTime PublicationDate { get; set; }
 
+        //public int BedRoom { get; set; }
+        //public int BathRoom { get; set; }
+        //public int Garage { get; set; }
+        //public double Area { get; set; }
+        //public bool Active { get; set; }
+
         // Foreign Keys
         public Country Country { get; set; }
         public City? City { get; set; }

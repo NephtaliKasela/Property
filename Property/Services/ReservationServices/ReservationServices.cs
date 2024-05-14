@@ -41,19 +41,17 @@ namespace Property.Services.ReservationServices
 
             DateTime checkInDateTime = newReservation.CheckIn.ToDateTime(new TimeOnly());
             DateTime checkOutDateTime = newReservation.CheckOut.ToDateTime(new TimeOnly());
-
             TimeSpan difference = checkOutDateTime - checkInDateTime;
+
             reservation.Amount = difference.TotalDays * product.Price;
             reservation.ReservationFee = 5;
 
-            (result, number) = _otherServices.CheckIfInteger(reservation.NumberOfGuest);
-            if (result)
-            {
-                if (number > 0)
+            reservation.NumberOfGuest = newReservation.NumberOfGuest.ToString();
+
+            if (newReservation.NumberOfGuest > 0)
                 {
                     reservation.Amount += product.Rent.RentRealEstatePerDay.AdditionalPrice;
                 }
-            }
 
             reservation.Date = DateTime.Now;
 

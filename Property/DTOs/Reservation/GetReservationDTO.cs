@@ -8,7 +8,7 @@ namespace Property.DTOs.Reservation
         public string UserName { get; set; }
         public string UserEmail { get; set; }
         public int NumberOfPeople { get; set; }
-        public string NumberOfGuest { get; set; }
+        public int NumberOfGuest { get; set; }
         public DateOnly CheckIn { get; set; }
         public DateOnly CheckOut { get; set; }
         public double Amount { get; set; }
