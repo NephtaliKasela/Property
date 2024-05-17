@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Property.Models;
 using Property.Models.Images;
 using Property.Models.Products;
-using Property.Models.Subcategories;
 using System.Reflection.Emit;
 
 namespace Property.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 	{
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -19,10 +18,9 @@ namespace Property.Data
         public DbSet<Continent> Continents => Set<Continent>();
         public DbSet<Country> Countries => Set<Country>();
         public DbSet<City> Cities => Set<City>();
-        public DbSet<Category> Categories => Set<Category>();
-        public DbSet<SubcategoryRealEstate> SubcategoriesRealEstate => Set<SubcategoryRealEstate>();
+        public DbSet<PropertyTypeRealEstate> PropertyTypeRealEstate => Set<PropertyTypeRealEstate>();
         public DbSet<ProductRealEstate> ProductsRealEstate => Set<ProductRealEstate>();
-        public DbSet<ProductImageRealEstate> productImagesRealEstate => Set<ProductImageRealEstate>();
+        public DbSet<ProductImageRealEstate> ProductImagesRealEstate => Set<ProductImageRealEstate>();
         public DbSet<Agent> Agents => Set<Agent>();
         public DbSet<RentRealEstate> RentsRealEstate => Set<RentRealEstate>();
         public DbSet<RentRealEstatePerDay> rentsRealEstatePerDay => Set<RentRealEstatePerDay>();

@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Property.Data;
 using Property.Models;
 using Property.Services.AgentServices;
-using Property.Services.CategoryServices;
 using Property.Services.CityServices;
 using Property.Services.ContinentServices;
 using Property.Services.CountryServices;
@@ -13,7 +12,6 @@ using Property.Services.ProductService.ProductServicesRealEstate;
 using Property.Services.ReservationServices;
 using Property.Services.SubCategoryServices;
 using Property.Services.SubCategoryServicesRealEstate;
-using Property.Services.TransactionTypeServices;
 using Property.Services.UserApplicationServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,8 +23,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 // Add dbContext
-builder.Services.AddDbContext<DataContext>(options =>
-    options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<DataContext>(options =>
+//    options.UseSqlServer(connectionString));
 
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
@@ -35,15 +33,13 @@ builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<IContinentServices, ContinentServices>();
 builder.Services.AddScoped<ICountryServices, CountryServices>();
 builder.Services.AddScoped<ICityServices, CityServices>();
-builder.Services.AddScoped<ICategoryServices, CategoryServices>();
-builder.Services.AddScoped<ISubCategoryServicesRealEstate, SubCategoryServicesRealEstate>();
+builder.Services.AddScoped<IPropertyTypeServicesRealEstate, PropertyTypeServicesRealEstate>();
 builder.Services.AddScoped<IProductServicesRealEstate, ProductServicesRealEstate>();
-builder.Services.AddScoped<ITransactionTypeServices, TransactionTypeServices>();
 builder.Services.AddScoped<IAgentServices, AgentServices>();
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 builder.Services.AddScoped<IProductImageServicesRealEstate, ProductImageServicesRealEstate>();
 builder.Services.AddScoped<IReservationServices, ReservationServices>();
-builder.Services.AddScoped<IUserApplicationServices, UserApplicationServices>();
+builder.Services.AddScoped<IApplicationUserServices, ApplicationUserServices>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();

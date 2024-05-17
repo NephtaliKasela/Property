@@ -11,41 +11,24 @@ namespace Property.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Agents",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Debt = table.Column<double>(type: "float", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Agents", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Agents_Users_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                table: "AspNetUserClaims");
 
-            migrationBuilder.CreateTable(
-                name: "Categories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Categories", x => x.Id);
-                });
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                table: "AspNetUserLogins");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                table: "AspNetUserRoles");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                table: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
 
             migrationBuilder.CreateTable(
                 name: "Continents",
@@ -62,24 +45,42 @@ namespace Property.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SubcategoriesRealEstate",
+                name: "PropertyTypeRealEstate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SubcategoriesRealEstate", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SubcategoriesRealEstate_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_PropertyTypeRealEstate", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,6 +102,29 @@ namespace Property.Data.Migrations
                         principalTable: "Continents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Agents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Profession = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Agents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Agents_Users_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -135,12 +159,17 @@ namespace Property.Data.Migrations
                     Price = table.Column<double>(type: "float", nullable: false),
                     Room = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    YearOfConstruction = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    YearOfConstruction = table.Column<DateOnly>(type: "date", nullable: false),
                     Availability = table.Column<bool>(type: "bit", nullable: false),
                     PublicationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BedRoom = table.Column<int>(type: "int", nullable: false),
+                    BathRoom = table.Column<int>(type: "int", nullable: false),
+                    Garage = table.Column<int>(type: "int", nullable: false),
+                    Area = table.Column<double>(type: "float", nullable: false),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
                     CountryId = table.Column<int>(type: "int", nullable: false),
                     CityId = table.Column<int>(type: "int", nullable: true),
-                    SubcategoryRealEstateId = table.Column<int>(type: "int", nullable: false),
+                    PropertyTypeId = table.Column<int>(type: "int", nullable: false),
                     AgentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -164,15 +193,15 @@ namespace Property.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductsRealEstate_SubcategoriesRealEstate_SubcategoryRealEstateId",
-                        column: x => x.SubcategoryRealEstateId,
-                        principalTable: "SubcategoriesRealEstate",
+                        name: "FK_ProductsRealEstate_PropertyTypeRealEstate_PropertyTypeId",
+                        column: x => x.PropertyTypeId,
+                        principalTable: "PropertyTypeRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "productImagesRealEstate",
+                name: "ProductImagesRealEstate",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -184,9 +213,9 @@ namespace Property.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_productImagesRealEstate", x => x.Id);
+                    table.PrimaryKey("PK_ProductImagesRealEstate", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_productImagesRealEstate_ProductsRealEstate_ProductRealEstateId",
+                        name: "FK_ProductImagesRealEstate_ProductsRealEstate_ProductRealEstateId",
                         column: x => x.ProductRealEstateId,
                         principalTable: "ProductsRealEstate",
                         principalColumn: "Id",
@@ -210,6 +239,39 @@ namespace Property.Data.Migrations
                         principalTable: "ProductsRealEstate",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumberOfPeople = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<double>(type: "float", nullable: false),
+                    ReservationFee = table.Column<double>(type: "float", nullable: false),
+                    Arrival = table.Column<DateOnly>(type: "date", nullable: false),
+                    Departure = table.Column<DateOnly>(type: "date", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    applicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProductRealEstateId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_ProductsRealEstate_ProductRealEstateId",
+                        column: x => x.ProductRealEstateId,
+                        principalTable: "ProductsRealEstate",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Users_applicationUserId",
+                        column: x => x.applicationUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -296,8 +358,8 @@ namespace Property.Data.Migrations
                 column: "ContinentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_productImagesRealEstate_ProductRealEstateId",
-                table: "productImagesRealEstate",
+                name: "IX_ProductImagesRealEstate_ProductRealEstateId",
+                table: "ProductImagesRealEstate",
                 column: "ProductRealEstateId");
 
             migrationBuilder.CreateIndex(
@@ -316,9 +378,9 @@ namespace Property.Data.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductsRealEstate_SubcategoryRealEstateId",
+                name: "IX_ProductsRealEstate_PropertyTypeId",
                 table: "ProductsRealEstate",
-                column: "SubcategoryRealEstateId");
+                column: "PropertyTypeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentsRealEstate_ProductRealEstateId",
@@ -339,28 +401,96 @@ namespace Property.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Reservations_applicationUserId",
+                table: "Reservations",
+                column: "applicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_ProductRealEstateId",
+                table: "Reservations",
+                column: "ProductRealEstateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_sellsRealEstate_ProductRealEstateId",
                 table: "sellsRealEstate",
                 column: "ProductRealEstateId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubcategoriesRealEstate_CategoryId",
-                table: "SubcategoriesRealEstate",
-                column: "CategoryId");
+                name: "EmailIndex",
+                table: "Users",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "Users",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserClaims_Users_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserLogins_Users_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserRoles_Users_UserId",
+                table: "AspNetUserRoles",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserTokens_Users_UserId",
+                table: "AspNetUserTokens",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserClaims_Users_UserId",
+                table: "AspNetUserClaims");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserLogins_Users_UserId",
+                table: "AspNetUserLogins");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserRoles_Users_UserId",
+                table: "AspNetUserRoles");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AspNetUserTokens_Users_UserId",
+                table: "AspNetUserTokens");
+
             migrationBuilder.DropTable(
-                name: "productImagesRealEstate");
+                name: "ProductImagesRealEstate");
 
             migrationBuilder.DropTable(
                 name: "rentsRealEstatePerDay");
 
             migrationBuilder.DropTable(
                 name: "rentsRealEstatePerMonth");
+
+            migrationBuilder.DropTable(
+                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "sellsRealEstate");
@@ -378,16 +508,85 @@ namespace Property.Data.Migrations
                 name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "SubcategoriesRealEstate");
+                name: "PropertyTypeRealEstate");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
                 name: "Continents");
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserClaims_AspNetUsers_UserId",
+                table: "AspNetUserClaims",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserLogins_AspNetUsers_UserId",
+                table: "AspNetUserLogins",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserRoles_AspNetUsers_UserId",
+                table: "AspNetUserRoles",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AspNetUserTokens_AspNetUsers_UserId",
+                table: "AspNetUserTokens",
+                column: "UserId",
+                principalTable: "AspNetUsers",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }

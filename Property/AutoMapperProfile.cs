@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Property.Controllers.Subcategories;
 using Property.DTOs.Agent;
-using Property.DTOs.Category;
 using Property.DTOs.City;
 using Property.DTOs.Continent;
 using Property.DTOs.Country;
 using Property.DTOs.Product;
 using Property.DTOs.Product.ProductRealEstate;
+using Property.DTOs.PropertyTypeRealEstate;
 using Property.DTOs.Reservation;
-using Property.DTOs.Subcategories.SubcategoryRealEstate;
-using Property.DTOs.TransactionType;
 using Property.DTOs.UserApplication;
 using Property.Models;
 using Property.Models.Products;
-using Property.Models.Subcategories;
 
 namespace Property
 {
@@ -43,16 +39,10 @@ namespace Property
 			CreateMap<UpdateCityDTO, City>();
 			CreateMap<AddCityDTO, City>();
 
-            // Category
-			//CreateMap<GetCategoryDTO, Category>();
-			CreateMap<AddCategoryDTO, Category>();
-			CreateMap<Category, GetCategoryDTO>();
-			CreateMap<UpdateCategoryDTO, Category>();
-
 			// SubCategory Real Estate
-			CreateMap<SubcategoryRealEstate, GetSubcategoryRealEstateDTO>();
-			CreateMap<UpdateSubcategoryRealEstateDTO, SubcategoryRealEstate>();
-			CreateMap<AddSubcategoryRealEstateDTO, SubcategoryRealEstate>();
+			CreateMap<PropertyTypeRealEstate, GetPropertyTypeRealEstateDTO>();
+			CreateMap<UpdatePropertyTypeRealEstateDTO, PropertyTypeRealEstate>();
+			CreateMap<AddPropertyTypeRealEstateDTO, PropertyTypeRealEstate>();
 
 			// Product Real Estate
 			CreateMap<ProductRealEstate, GetProductRealEstateDTO>();
@@ -62,11 +52,6 @@ namespace Property
             CreateMap<UpdateProductRentByDayRealEstateDTO, ProductRealEstate>();
             CreateMap<UpdateProductRentByMonthRealEstateDTO, ProductRealEstate>();
             CreateMap<UpdateProductSellRealEstateDTO, ProductRealEstate>();
-
-            // Transaction Type
-            CreateMap<TransactionType, GetTransactionTypeDTO>();
-			CreateMap<UpdateTransactionTypeDTO, TransactionType>();
-			CreateMap<AddTransactionTypeDTO, TransactionType>();
 
             // Agent
             CreateMap<Agent, GetAgentDTO>();

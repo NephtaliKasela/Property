@@ -12,13 +12,11 @@ namespace Property.Services.ReservationServices
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IOtherServices _otherServices;
 
-        public ReservationServices(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
+        public ReservationServices(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-            _otherServices = otherServices;
         }
 
         public async Task<ServiceResponse<List<GetReservationDTO>>> AddReservation(AddReservationDTO newReservation)
@@ -34,6 +32,7 @@ namespace Property.Services.ReservationServices
                 .Include(x => x.Rent.RentRealEstatePerDay)
                 .Include(x => x.Rent.RentRealEstatePerMounth)
                 .FirstOrDefaultAsync(x => x.Id == newReservation.ProductRealEstateId);
+            
             if (product is not null)
             {
                 reservation.ProductRealEstate = product;
@@ -46,12 +45,7 @@ namespace Property.Services.ReservationServices
             reservation.Amount = difference.TotalDays * product.Price;
             reservation.ReservationFee = 5;
 
-            reservation.NumberOfGuest = newReservation.NumberOfGuest.ToString();
-
-            if (newReservation.NumberOfGuest > 0)
-                {
-                    reservation.Amount += product.Rent.RentRealEstatePerDay.AdditionalPrice;
-                }
+            reservation.NumberOfPeople = newReservation.NumberOfPeople;
 
             reservation.Date = DateTime.Now;
 
@@ -103,9 +97,8 @@ namespace Property.Services.ReservationServices
                 reservation.UserName = updatedReservation.UserName;
                 reservation.UserEmail = updatedReservation.UserEmail;
                 reservation.NumberOfPeople = updatedReservation.NumberOfPeople;
-                reservation.NumberOfGuest = updatedReservation.NumberOfGuest;
-                reservation.CheckIn = updatedReservation.CheckIn;
-                reservation.CheckOut = updatedReservation.CheckOut;
+                reservation.Arrival = updatedReservation.CheckIn;
+                reservation.Departure = updatedReservation.CheckOut;
 
                 await _context.SaveChangesAsync();
 

@@ -8,8 +8,8 @@ namespace Property.Controllers
 {
     public class CustomerController : Controller
     {
-        private readonly IUserApplicationServices _userApplication;
-        public CustomerController(IUserApplicationServices userApplication)
+        private readonly IApplicationUserServices _userApplication;
+        public CustomerController(IApplicationUserServices userApplication)
         {
             _userApplication = userApplication;
         }

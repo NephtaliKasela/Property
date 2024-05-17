@@ -1,6 +1,4 @@
-﻿using Property.DTOs.Category;
-using Property.DTOs.Continent;
-using Property.Services.CategoryServices;
+﻿using Property.DTOs.Continent;
 using Property.Services.ContinentServices;
 using Microsoft.AspNetCore.Mvc;
 

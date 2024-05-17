@@ -1,22 +1,21 @@
 ﻿using Property.DTOs.City;
 using Property.DTOs.Country;
 using Property.DTOs.Product.ProductRealEstate;
-using Property.DTOs.Subcategories.SubcategoryRealEstate;
-using Property.DTOs.TransactionType;
+using Property.DTOs.PropertyTypeRealEstate;
 
 namespace Property.DTOs.Actions
 {
-	public class UpdateProductRealEstate_action
+    public class UpdateProductRealEstate_action
 	{
 		public GetProductRealEstateDTO Product {  get; set; }
-		public List<GetSubcategoryRealEstateDTO> Subcategories { get; set; }
+		public List<GetPropertyTypeRealEstateDTO> Subcategories { get; set; }
 		public List<GetCountryDTO> Countries { get; set; }
 		public List<GetCityDTO> Cities { get; set; }
 
 		public UpdateProductRealEstate_action()
 		{
 			Product = new GetProductRealEstateDTO();
-			Subcategories = new List<GetSubcategoryRealEstateDTO>();
+			Subcategories = new List<GetPropertyTypeRealEstateDTO>();
 			Countries = new List<GetCountryDTO>();
 			Cities = new List<GetCityDTO>();
 		}

@@ -13,7 +13,7 @@ namespace Property.DTOs.Product.ProductRealEstate
         public string Category { get; set; }
         public int Room { get; set; }
         public string Address { get; set; }
-        public DateTime YearOfConstruction { get; set; }
+        public DateOnly YearOfConstruction { get; set; }
         public bool Availability { get; set; }
         public DateTime PublicationDate { get; set; }
 
@@ -22,7 +22,7 @@ namespace Property.DTOs.Product.ProductRealEstate
         public Models.City? City { get; set; }
         public Models.RentRealEstate? Rent { get; set; }
         public Models.SellRealEstate? Sell { get; set; }
-        public Models.Subcategories.SubcategoryRealEstate SubcategoryRealEstate { get; set; }
+        public Models.PropertyTypeRealEstate PropertyTypeRealEstate { get; set; }
 		public List<Models.Images.ProductImageRealEstate>? ProductImages { get; set; }
 		public Models.Agent Agent { get; set; }
 		public List<Models.Reservation>? Reservations { get; set; }

@@ -8,13 +8,13 @@ using Property.Services.OtherServices;
 
 namespace Property.Services.UserApplicationServices
 {
-	public class UserApplicationServices: IUserApplicationServices
+	public class ApplicationUserServices: IApplicationUserServices
 	{
 		private readonly ApplicationDbContext _context;
 		private readonly IMapper _mapper;
 		private readonly IOtherServices _otherServices;
 
-		public UserApplicationServices(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
+		public ApplicationUserServices(ApplicationDbContext context, IMapper mapper, IOtherServices otherServices)
 		{
 			_otherServices = otherServices;
 			_context = context;

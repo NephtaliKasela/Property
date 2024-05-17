@@ -12,8 +12,8 @@ using Property.Data;
 namespace Property.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423143430_addAmountToReservation")]
-    partial class addAmountToReservation
+    [Migration("20240517144435_SecondMigration")]
+    partial class SecondMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -173,10 +173,15 @@ namespace Property.Data.Migrations
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<double>("Debt")
-                        .HasColumnType("float");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -259,27 +264,6 @@ namespace Property.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users", (string)null);
-                });
-
-            modelBuilder.Entity("Property.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Property.Models.City", b =>
@@ -382,7 +366,7 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("ProductRealEstateId");
 
-                    b.ToTable("productImagesRealEstate");
+                    b.ToTable("ProductImagesRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.Products.ProductRealEstate", b =>
@@ -393,6 +377,9 @@ namespace Property.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -400,8 +387,17 @@ namespace Property.Data.Migrations
                     b.Property<int>("AgentId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Area")
+                        .HasColumnType("float");
+
                     b.Property<bool>("Availability")
                         .HasColumnType("bit");
+
+                    b.Property<int>("BathRoom")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BedRoom")
+                        .HasColumnType("int");
 
                     b.Property<int?>("CityId")
                         .HasColumnType("int");
@@ -413,6 +409,9 @@ namespace Property.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Garage")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -420,17 +419,17 @@ namespace Property.Data.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<int>("PropertyTypeId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Room")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubcategoryRealEstateId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("YearOfConstruction")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("YearOfConstruction")
+                        .HasColumnType("date");
 
                     b.HasKey("Id");
 
@@ -440,9 +439,30 @@ namespace Property.Data.Migrations
 
                     b.HasIndex("CountryId");
 
-                    b.HasIndex("SubcategoryRealEstateId");
+                    b.HasIndex("PropertyTypeId");
 
                     b.ToTable("ProductsRealEstate");
+                });
+
+            modelBuilder.Entity("Property.Models.PropertyTypeRealEstate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PropertyTypeRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.RentRealEstate", b =>
@@ -534,18 +554,14 @@ namespace Property.Data.Migrations
                     b.Property<double>("Amount")
                         .HasColumnType("float");
 
-                    b.Property<DateOnly>("CheckIn")
-                        .HasColumnType("date");
-
-                    b.Property<DateOnly>("CheckOut")
+                    b.Property<DateOnly>("Arrival")
                         .HasColumnType("date");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("NumberOfGuest")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateOnly>("Departure")
+                        .HasColumnType("date");
 
                     b.Property<int>("NumberOfPeople")
                         .HasColumnType("int");
@@ -599,32 +615,6 @@ namespace Property.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("sellsRealEstate");
-                });
-
-            modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("SubcategoriesRealEstate");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -738,9 +728,9 @@ namespace Property.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Property.Models.Subcategories.SubcategoryRealEstate", "SubcategoryRealEstate")
+                    b.HasOne("Property.Models.PropertyTypeRealEstate", "PropertyType")
                         .WithMany("ProductsRealEstate")
-                        .HasForeignKey("SubcategoryRealEstateId")
+                        .HasForeignKey("PropertyTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -750,7 +740,7 @@ namespace Property.Data.Migrations
 
                     b.Navigation("Country");
 
-                    b.Navigation("SubcategoryRealEstate");
+                    b.Navigation("PropertyType");
                 });
 
             modelBuilder.Entity("Property.Models.RentRealEstate", b =>
@@ -814,17 +804,6 @@ namespace Property.Data.Migrations
                     b.Navigation("ProductRealEstate");
                 });
 
-            modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
-                {
-                    b.HasOne("Property.Models.Category", "Category")
-                        .WithMany("SubcategoriesRealEstate")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-                });
-
             modelBuilder.Entity("Property.Models.Agent", b =>
                 {
                     b.Navigation("ProductsRealEstate");
@@ -835,11 +814,6 @@ namespace Property.Data.Migrations
                     b.Navigation("Agent");
 
                     b.Navigation("Reservations");
-                });
-
-            modelBuilder.Entity("Property.Models.Category", b =>
-                {
-                    b.Navigation("SubcategoriesRealEstate");
                 });
 
             modelBuilder.Entity("Property.Models.City", b =>
@@ -870,16 +844,16 @@ namespace Property.Data.Migrations
                     b.Navigation("Sell");
                 });
 
+            modelBuilder.Entity("Property.Models.PropertyTypeRealEstate", b =>
+                {
+                    b.Navigation("ProductsRealEstate");
+                });
+
             modelBuilder.Entity("Property.Models.RentRealEstate", b =>
                 {
                     b.Navigation("RentRealEstatePerDay");
 
                     b.Navigation("RentRealEstatePerMounth");
-                });
-
-            modelBuilder.Entity("Property.Models.Subcategories.SubcategoryRealEstate", b =>
-                {
-                    b.Navigation("ProductsRealEstate");
                 });
 #pragma warning restore 612, 618
         }

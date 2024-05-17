@@ -3,7 +3,7 @@ using Property.Models;
 
 namespace Property.Services.UserApplicationServices
 {
-	public interface IUserApplicationServices
+	public interface IApplicationUserServices
 	{
 		Task<ServiceResponse<List<GetApplicationUserDTO>>> GetAllUsers();
 	}

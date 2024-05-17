@@ -26,7 +26,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
         public async Task<ServiceResponse<List<GetProductRealEstateDTO>>> GetAllProducts()
         {
             var products = await _context.ProductsRealEstate
-                                    .Include(p => p.SubcategoryRealEstate)
+                                    .Include(p => p.PropertyType)
                                     .Include(p => p.Country)
                                     .Include(p => p.City)
                                     .Include(p => p.Rent)
@@ -50,7 +50,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
             try
             {
                 var product = await _context.ProductsRealEstate
-                    .Include(p => p.SubcategoryRealEstate)
+                    .Include(p => p.PropertyType)
                     .Include(p => p.Country)
                     .Include(p => p.City)
                     .Include(p => p.Rent)
@@ -83,7 +83,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 if (agent is not null)
                 {
 					var product = await _context.ProductsRealEstate
-					.Include(p => p.SubcategoryRealEstate)
+					.Include(p => p.PropertyType)
 					.Include(p => p.Country)
 					.Include(p => p.City)
 					.Include(p => p.Rent)
@@ -123,14 +123,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 product.Agent = agent;
             }
 
-            // Get Subcategory
-            (result, number) = _otherServices.CheckIfInteger(newProduct.ProductSubCategoryId);
+			// Get PropertyType
+			(result, number) = _otherServices.CheckIfInteger(newProduct.PropertyTypeId);
             if (result == true)
             {
-                var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-                if (subcategory is not null)
+                var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+                if (propertyType is not null)
                 {
-                    product.SubcategoryRealEstate = subcategory;
+                    product.PropertyType = propertyType;
                 }
             }
 
@@ -199,14 +199,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				product.Agent = agent;
 			}
 
-			// Get Subcategory
-			(result, number) = _otherServices.CheckIfInteger(newProduct.ProductSubCategoryId);
+			// Get PropertyType
+			(result, number) = _otherServices.CheckIfInteger(newProduct.PropertyTypeId);
 			if (result == true)
 			{
-				var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-				if (subcategory is not null)
+				var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+				if (propertyType is not null)
 				{
-					product.SubcategoryRealEstate = subcategory;
+					product.PropertyType = propertyType;
 				}
 			}
 
@@ -272,14 +272,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 				product.Agent = agent;
 			}
 
-			// Get Subcategory
-			(result, number) = _otherServices.CheckIfInteger(newProduct.ProductSubCategoryId);
+			// Get PropertyType
+			(result, number) = _otherServices.CheckIfInteger(newProduct.PropertyTypeId);
 			if (result == true)
 			{
-				var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-				if (subcategory is not null)
+				var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+				if (propertyType is not null)
 				{
-					product.SubcategoryRealEstate = subcategory;
+					product.PropertyType = propertyType;
 				}
 			}
 
@@ -338,7 +338,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 if (agent is not null)
                 {
                     var product = await _context.ProductsRealEstate
-                        .Include(p => p.SubcategoryRealEstate)
+                        .Include(p => p.PropertyType)
                         .Include(p => p.Country)
                         .Include(p => p.City)
                         .Include(p => p.Rent)
@@ -363,14 +363,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
                     bool result; int number;
 
-                    // Get Subcategory
-                    (result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+					// Get PropertyType
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.PropertyTypeId);
                     if (result == true)
                     {
-                        var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-                        if (subcategory is not null)
+                        var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+                        if (propertyType is not null)
                         {
-                            product.SubcategoryRealEstate = subcategory;
+                            product.PropertyType = propertyType;
                         }
                     }
 
@@ -421,7 +421,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 if (agent is not null)
                 {
                     var product = await _context.ProductsRealEstate
-                        .Include(p => p.SubcategoryRealEstate)
+                        .Include(p => p.PropertyType)
                         .Include(p => p.Country)
                         .Include(p => p.City)
                         .Include(p => p.Rent)
@@ -439,14 +439,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
                     bool result; int number;
 
-                    // Get Subcategory
-                    (result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+					// Get PropertyType
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.PropertyTypeId);
                     if (result == true)
                     {
-                        var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-                        if (subcategory is not null)
+                        var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+                        if (propertyType is not null)
                         {
-                            product.SubcategoryRealEstate = subcategory;
+                            product.PropertyType = propertyType;
                         }
                     }
 
@@ -497,7 +497,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                 if (agent is not null)
                 {
                     var product = await _context.ProductsRealEstate
-                        .Include(p => p.SubcategoryRealEstate)
+                        .Include(p => p.PropertyType)
                         .Include(p => p.Country)
                         .Include(p => p.City)
                         .Include(p => p.Sell)
@@ -514,14 +514,14 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
                     bool result; int number;
 
-                    // Get Subcategory
-                    (result, number) = _otherServices.CheckIfInteger(updatedProduct.ProductSubCategoryId);
+					// Get PropertyType
+					(result, number) = _otherServices.CheckIfInteger(updatedProduct.PropertyTypeId);
                     if (result == true)
                     {
-                        var subcategory = await _context.SubcategoriesRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
-                        if (subcategory is not null)
+                        var propertyType = await _context.PropertyTypeRealEstate.FirstOrDefaultAsync(sc => sc.Id == number);
+                        if (propertyType is not null)
                         {
-                            product.SubcategoryRealEstate = subcategory;
+                            product.PropertyType = propertyType;
                         }
                     }
 

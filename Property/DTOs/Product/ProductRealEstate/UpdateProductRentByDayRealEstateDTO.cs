@@ -11,7 +11,7 @@ namespace Property.DTOs.Product.ProductRealEstate
 
         public int Room { get; set; }
         public string Address { get; set; }
-        public DateTime YearOfConstruction { get; set; }
+        public DateOnly YearOfConstruction { get; set; }
 
         public int NumberOfPoeple { get; set; }
         public int AdditionalPerson { get; set; }
@@ -20,7 +20,7 @@ namespace Property.DTOs.Product.ProductRealEstate
         // Foreign Keys
         public string CountryId { get; set; }
         public string CityId { get; set; }
-        public string ProductSubCategoryId { get; set; }
+        public string PropertyTypeId { get; set; }
         public ApplicationUser User { get; set; }
     }
 }

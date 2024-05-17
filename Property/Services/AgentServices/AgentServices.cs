@@ -3,7 +3,6 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
 using Property.DTOs.Agent;
-using Property.DTOs.Category;
 using Property.Models;
 
 namespace Property.Services.AgentServices

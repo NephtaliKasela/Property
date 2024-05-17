@@ -15,8 +15,6 @@
 	</div>
 </div>
 
-
-
 <div class="">
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb mb-0">
@@ -25,7 +23,6 @@
 		</ol>
 	</nav>
 </div>
-
 
 <div class="card">
 	<div class="container">
@@ -42,9 +39,9 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="productCategory">Property type:</label>
-						<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
-							@foreach (var sc in Model.Subcategories)
+						<label for="PropertyTypeId">Property type:</label>
+						<select id="PropertyTypeId" name="PropertyTypeId" class="form-control" required>
+							@foreach (var sc in Model.PropertyTypes)
 							{
 								<option value="@sc.Id">@sc.Name</option>
 							}

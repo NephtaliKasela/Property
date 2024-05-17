@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Property.Data;
-using Property.DTOs.Category;
 using Property.DTOs.Continent;
 using Property.Models;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using Property.DTOs.Actions;
 using Property.DTOs.Product.ProductRealEstate;
-using Property.DTOs.Subcategories.SubcategoryRealEstate;
+using Property.DTOs.PropertyTypeRealEstate;
 using Property.Services.CityServices;
 using Property.Services.CountryServices;
 using Property.Services.ProductService.ProductServicesRealEstate;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Property.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Property.Services.TransactionTypeServices;
 using Property.Services.AgentServices;
 
 namespace Property.Controllers.Products
@@ -21,14 +20,14 @@ namespace Property.Controllers.Products
 		private readonly ICountryServices _countryServices;
 		private readonly ICityServices _cityServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
-		private readonly ISubCategoryServicesRealEstate _subCategoryServicesRealEstate;
+		private readonly IPropertyTypeServicesRealEstate _propertyTypeServicesRealEstate;
 
-        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, ISubCategoryServicesRealEstate subCategoryServicesRealEstate, ICountryServices countryServices, ICityServices cityServices)
+        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, IPropertyTypeServicesRealEstate propertyTypeServicesRealEstate, ICountryServices countryServices, ICityServices cityServices)
         {
             _userManager = userManager;
 			_agentServices = agentServices;
 			_productServicesRealEstate = productServicesRealEstate;
-			_subCategoryServicesRealEstate = subCategoryServicesRealEstate;
+			_propertyTypeServicesRealEstate = propertyTypeServicesRealEstate;
 			_countryServices = countryServices;
 			_cityServices = cityServices;
 		}
@@ -80,13 +79,13 @@ namespace Property.Controllers.Products
 
         public async Task<IActionResult> AddProductSell()
         {
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
             var v = new AddProductRealEstate_action();
 
-            v.Subcategories = subcategories.Data;
+            v.PropertyTypes = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
 
@@ -95,13 +94,13 @@ namespace Property.Controllers.Products
 
         public async Task<IActionResult> AddProductRentByDay()
         {
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
             var v = new AddProductRealEstate_action();
 
-            v.Subcategories = subcategories.Data;
+            v.PropertyTypes = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
 
@@ -110,13 +109,13 @@ namespace Property.Controllers.Products
 
         public async Task<IActionResult> AddProductRentByMonth()
         {
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
             var v = new AddProductRealEstate_action();
 
-            v.Subcategories = subcategories.Data;
+            v.PropertyTypes = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
 
@@ -149,11 +148,11 @@ namespace Property.Controllers.Products
 
             var v = new UpdateProductRealEstate_action();
 
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
-            v.Subcategories = subcategories.Data;
+            v.Subcategories = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
@@ -167,11 +166,11 @@ namespace Property.Controllers.Products
 
             var v = new UpdateProductRealEstate_action();
 
-            var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
-            v.Subcategories = subcategories.Data;
+            v.Subcategories = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
@@ -185,11 +184,11 @@ namespace Property.Controllers.Products
 
 			var v = new UpdateProductRealEstate_action();
 
-			var subcategories = await _subCategoryServicesRealEstate.GetAllSubcategoriesRealEstate();
+			var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
 			var countries = await _countryServices.GetAllCountries();
 			var cities = await _cityServices.GetAllCities();
 
-			v.Subcategories = subcategories.Data;
+			v.Subcategories = propertyTypes.Data;
 			v.Countries = countries.Data;
 			v.Cities = cities.Data;
 			v.Product = product.Data;

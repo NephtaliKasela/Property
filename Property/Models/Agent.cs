@@ -8,11 +8,9 @@ namespace Property.Models
 		public int Id { get; set; }
 		public string Name { get; set; }	
 		public string Profession { get; set; }
-		//public string PhoneNumber { get; set; }
-		//***
-		public double Debt { get; set; }
+		public string PhoneNumber { get; set; }
+		public string Description { get; set; }
 		public DateTime RegistrationDate { get; set; }
-		//***
 		public ApplicationUser ApplicationUser { get; set; }
 		public List<ProductRealEstate>? ProductsRealEstate { get; set; }
 	}

@@ -13,12 +13,12 @@ namespace Property.DTOs.Product.ProductRealEstate
         public string Category { get; set; }
         public int Room { get; set; }
         public string Address { get; set; }
-        public DateTime YearOfConstruction { get; set; }
+        public DateOnly YearOfConstruction { get; set; }
 
         // Foreign Keys
         public string CountryId { get; set; }
         public string CityId { get; set; }
-        public string ProductSubCategoryId { get; set; }
+        public string PropertyTypeId { get; set; }
 
         public ApplicationUser User { get; set; }
     }

@@ -53,7 +53,7 @@ namespace Property.Services.ImageServices
 							}
 
 							// Save the model to the database
-							_context.productImagesRealEstate.Add(image);
+							_context.ProductImagesRealEstate.Add(image);
 							
 						}
 					}
@@ -65,7 +65,7 @@ namespace Property.Services.ImageServices
         public async Task<ServiceResponse<List<ProductImageRealEstate>>> GetImageByProductId(int productId)
         {
             var serviceResponse = new ServiceResponse<List<ProductImageRealEstate>>();
-            var images = await _context.productImagesRealEstate.Where(x => x.ProductRealEstate.Id == productId).ToListAsync();
+            var images = await _context.ProductImagesRealEstate.Where(x => x.ProductRealEstate.Id == productId).ToListAsync();
 
             serviceResponse.Data = images;
 

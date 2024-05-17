@@ -30,9 +30,9 @@
 				</div>
 				<div class="col-md-6">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="productCategory">Property type:</label>
-						<select id="ProductSubCategoryId" name="ProductSubCategoryId" class="form-control" required>
-							<option value="@Model.Product.SubcategoryRealEstate.Id">@Model.Product.SubcategoryRealEstate.Name</option>
+						<label for="PropertyTypeId">Property type:</label>
+						<select id="PropertyTypeId" name="PropertyTypeId" class="form-control" required>
+							<option value="@Model.Product.PropertyTypeRealEstate.Id">@Model.Product.PropertyTypeRealEstate.Name</option>
 							@foreach (var sc in Model.Subcategories)
 							{
 								<option value="@sc.Id">@sc.Name</option>
