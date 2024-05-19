@@ -6,15 +6,15 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb mb-0">
 			<li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
-			<li class="breadcrumb-item"><a asp-controller="SubCategoryRealEstate" asp-action="GetSubCategory">SubCategories</a></li>  
-			<li class="breadcrumb-item active" aria-current="page">new Subcategory</li>
+			<li class="breadcrumb-item"><a asp-controller="PropertyTypeRealEstate" asp-action="GetPropertyTypes">Property Types</a></li>
+			<li class="breadcrumb-item active" aria-current="page">new Property Type</li>
 		</ol>
 	</nav>
 </div>
 
 <div class="card py-5">
 	<div class="container">
-		<form method="post" asp-controller="SubCategoryRealEstate" asp-action="SaveAddSubcategory">
+		<form method="post" asp-controller="PropertyTypeRealEstate" asp-action="SaveAddPropertyType">
 
 			<div class="form-group">
 				<label for="name">Name:</label>

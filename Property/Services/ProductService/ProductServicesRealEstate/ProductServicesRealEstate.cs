@@ -158,6 +158,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
 			product.PublicationDate = DateTime.Now;
             product.Availability = true;
+            product.Active = true;
 
             //Save product
             _context.ProductsRealEstate.Add(product);
@@ -234,6 +235,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
 			product.PublicationDate = DateTime.Now;
 			product.Availability = true;
+			product.Active = true;
 
             //Save product
             _context.ProductsRealEstate.Add(product);
@@ -307,6 +309,7 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
 
 			product.PublicationDate = DateTime.Now;
 			product.Availability = true;
+			product.Active = true;
 
 			//Save product
 			_context.ProductsRealEstate.Add(product);
@@ -353,6 +356,9 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                     product.Room = updatedProduct.Room;
                     product.Address = updatedProduct.Address;
                     product.YearOfConstruction = updatedProduct.YearOfConstruction;
+                    product.BedRoom = updatedProduct.BedRoom;
+                    product.Garage = updatedProduct.Garage;
+                    product.Area = updatedProduct.Area;
 
                     if(product.Rent != null && product.Rent.RentRealEstatePerDay != null)
                     {
@@ -436,6 +442,9 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                     product.Room = updatedProduct.Room;
                     product.Address = updatedProduct.Address;
                     product.YearOfConstruction = updatedProduct.YearOfConstruction;
+                    product.BedRoom = updatedProduct.BedRoom;
+                    product.Garage = updatedProduct.Garage;
+                    product.Area = updatedProduct.Area;
 
                     bool result; int number;
 
@@ -511,6 +520,9 @@ namespace Property.Services.ProductService.ProductServicesRealEstate
                     product.Room = updatedProduct.Room;
                     product.Address = updatedProduct.Address;
                     product.YearOfConstruction = updatedProduct.YearOfConstruction;
+                    product.BedRoom = updatedProduct.BedRoom;
+                    product.Garage = updatedProduct.Garage;
+                    product.Area = updatedProduct.Area;
 
                     bool result; int number;
 

@@ -152,7 +152,7 @@ namespace Property.Controllers.Products
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
-            v.Subcategories = propertyTypes.Data;
+            v.PropertyTypes = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
@@ -170,7 +170,7 @@ namespace Property.Controllers.Products
             var countries = await _countryServices.GetAllCountries();
             var cities = await _cityServices.GetAllCities();
 
-            v.Subcategories = propertyTypes.Data;
+            v.PropertyTypes = propertyTypes.Data;
             v.Countries = countries.Data;
             v.Cities = cities.Data;
             v.Product = product.Data;
@@ -188,7 +188,7 @@ namespace Property.Controllers.Products
 			var countries = await _countryServices.GetAllCountries();
 			var cities = await _cityServices.GetAllCities();
 
-			v.Subcategories = propertyTypes.Data;
+			v.PropertyTypes = propertyTypes.Data;
 			v.Countries = countries.Data;
 			v.Cities = cities.Data;
 			v.Product = product.Data;

@@ -38,9 +38,12 @@ namespace Property.Services.ReservationServices
                 reservation.ProductRealEstate = product;
             }
 
-            DateTime checkInDateTime = newReservation.CheckIn.ToDateTime(new TimeOnly());
-            DateTime checkOutDateTime = newReservation.CheckOut.ToDateTime(new TimeOnly());
+            DateTime checkInDateTime = newReservation.ArrivalTime;
+            DateTime checkOutDateTime = newReservation.DepartureTime;
             TimeSpan difference = checkOutDateTime - checkInDateTime;
+
+            reservation.Arrival = new DateOnly(newReservation.ArrivalTime.Year, newReservation.ArrivalTime.Month, newReservation.ArrivalTime.Day);
+            reservation.Departure = new DateOnly(newReservation.DepartureTime.Year, newReservation.DepartureTime.Month, newReservation.DepartureTime.Day);
 
             reservation.Amount = difference.TotalDays * product.Price;
             reservation.ReservationFee = 5;
@@ -97,8 +100,11 @@ namespace Property.Services.ReservationServices
                 reservation.UserName = updatedReservation.UserName;
                 reservation.UserEmail = updatedReservation.UserEmail;
                 reservation.NumberOfPeople = updatedReservation.NumberOfPeople;
-                reservation.Arrival = updatedReservation.CheckIn;
-                reservation.Departure = updatedReservation.CheckOut;
+                reservation.Arrival = new DateOnly(updatedReservation.ArrivalTime.Year, updatedReservation.ArrivalTime.Month, updatedReservation.ArrivalTime.Day); 
+                reservation.Departure = new DateOnly(updatedReservation.DepartureTime.Year, updatedReservation.DepartureTime.Month, updatedReservation.DepartureTime.Day);
+                DateTime dateTimeValue = DateTime.Now; // Example DateTime value
+                DateOnly dateOnlyValue = new DateOnly(dateTimeValue.Year, dateTimeValue.Month, dateTimeValue.Day);
+
 
                 await _context.SaveChangesAsync();
 

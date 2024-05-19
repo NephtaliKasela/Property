@@ -8,14 +8,14 @@ namespace Property.DTOs.Actions
     public class UpdateProductRealEstate_action
 	{
 		public GetProductRealEstateDTO Product {  get; set; }
-		public List<GetPropertyTypeRealEstateDTO> Subcategories { get; set; }
+		public List<GetPropertyTypeRealEstateDTO> PropertyTypes { get; set; }
 		public List<GetCountryDTO> Countries { get; set; }
 		public List<GetCityDTO> Cities { get; set; }
 
 		public UpdateProductRealEstate_action()
 		{
 			Product = new GetProductRealEstateDTO();
-			Subcategories = new List<GetPropertyTypeRealEstateDTO>();
+            PropertyTypes = new List<GetPropertyTypeRealEstateDTO>();
 			Countries = new List<GetCountryDTO>();
 			Cities = new List<GetCityDTO>();
 		}

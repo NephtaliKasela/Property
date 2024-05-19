@@ -8,7 +8,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb mb-0">
 			<li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
-			<li class="breadcrumb-item"><a asp-controller="SubcategoryRealEstate" asp-action="GetSubcategory">Subcategories</a></li>
+			<li class="breadcrumb-item"><a asp-controller="PropertyTypeRealEstate" asp-action="GetPropertyTypes">Property Types</a></li>
 			<li class="breadcrumb-item active" aria-current="page">Update</li>
 			<li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
 		</ol>
@@ -17,7 +17,7 @@
 
 <div class="card py-5">
 	<div class="container">
-		<form method="post" asp-controller="SubcategoryRealEstate" asp-action="SaveUpdateSubcategory">
+		<form method="post" asp-controller="PropertyTypeRealEstate" asp-action="SaveUpdatePropertyType">
 			<div class="form-group">
 				<input type="hidden" class="form-control" id="id" name="id" value="@Model.Id" required>
 			</div>

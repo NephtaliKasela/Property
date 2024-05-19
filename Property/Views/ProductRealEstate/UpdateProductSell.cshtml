@@ -32,8 +32,8 @@
 					<div class="form-group" style="margin-bottom: 5px;">
 						<label for="PropertyTypeId">Property type:</label>
 						<select id="PropertyTypeId" name="PropertyTypeId" class="form-control" required>
-							<option value="@Model.Product.PropertyTypeRealEstate.Id">@Model.Product.PropertyTypeRealEstate.Name</option>
-							@foreach (var sc in Model.Subcategories)
+							<option value="@Model.Product.PropertyType.Id">@Model.Product.PropertyType.Name</option>
+							@foreach (var sc in Model.PropertyTypes)
 							{
 								<option value="@sc.Id">@sc.Name</option>
 							}
@@ -106,26 +106,26 @@
 				</div>
 				<div class="col-md-4">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="yearOfConstruction">Bathrooms:</label>
-						<input type="number" class="form-control" id="" name="">
+						<label for="BathRoom">Bathroom:</label>
+						<input type="number" class="form-control" id="BathRoom" name="BathRoom" value="@Model.Product.BathRoom">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="room">Bedrooms:</label>
-						<input type="number" class="form-control" id="" name="">
+						<label for="BedRoom">Bedroom:</label>
+						<input type="number" class="form-control" id="BedRoom" name="BedRoom" value="@Model.Product.BedRoom">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="room">Garages:</label>
-						<input type="number" class="form-control" id="" name="">
+						<label for="Garage">Garage:</label>
+						<input type="number" class="form-control" id="Garage" name="Garage" value="@Model.Product.Garage">
 					</div>
 				</div>
 				<div class="col-md-4">
 					<div class="form-group" style="margin-bottom: 5px;">
-						<label for="room">Area:</label>
-						<input type="number" class="form-control" id="" name="">
+						<label for="Area">Area:</label>
+						<input type="number" class="form-control" id="Area" name="Area" value="@Model.Product.Area">
 					</div>
 				</div>
 			</div>

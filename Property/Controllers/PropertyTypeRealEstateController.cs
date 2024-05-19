@@ -31,7 +31,7 @@ namespace Property.Controllers
         {
             var propertyType = await _propertyTypeServicesRealEstate.GetPropertyTypeRealEstateById(id);
 
-            return View(propertyType);
+            return View(propertyType.Data);
         }
 
         [HttpPost]
