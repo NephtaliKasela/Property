@@ -4,7 +4,7 @@
 }
 
 <div class="mt-5">
-	<ul class="nav nav-tabs nav-tabs-bottom">
+    <ul class="nav nav-tabs nav-tabs-solid">
 		<li class="nav-item"><a class="nav-link active" href="#forRent" data-toggle="tab">FOR RENT</a></li>
 		<li class="nav-item"><a class="nav-link" href="#forSale" data-toggle="tab">FOR SALE</a></li>
 	</ul>
@@ -38,11 +38,11 @@
                             <div class="card-body">
                                 @if(product.Rent.RentRealEstatePerDay is not null)
                                 {
-                                    <h6>@product.Price$ / night</h6>
+                                    <h6 style="color: #007f66;">@product.Price$ / night</h6>
                                 }
                                 else if (product.Rent.RentRealEstatePerMounth is not null)
                                 {
-                                    <h6>@product.Price$ / month</h6>
+                                    <h6 style="color: #007f66;">@product.Price$ / month</h6>
                                 }
                                 <h5 class="card-title mb-3">@product.Name</h5>
                                 <p class="card-text">
@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h6>@product.Price $</h6>
+                                <h6 style="color: #007f66;">@product.Price $</h6>
                                 <h5 class="card-title mb-3">@product.Name</h5>
                                 <p class="card-text">
                                     <small class="text-muted">Published : @product.PublicationDate.ToLongDateString()</small>

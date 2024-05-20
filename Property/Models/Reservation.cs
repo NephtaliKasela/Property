@@ -7,6 +7,7 @@ namespace Property.Models
         public int Id { get; set; }
         public string UserName { get; set; }
         public string UserEmail { get; set;}
+        //public string PhoneNumber { get; set;}
         public int NumberOfPeople { get; set;}
         public double Amount { get; set;}
         public double ReservationFee { get; set;}

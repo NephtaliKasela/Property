@@ -5,12 +5,12 @@
 }
 
 <div class="card mb-3 mt-5">
-    <div class="row g-0">
-        <div class="col-md-4">
+    <div class="row">
+        <div class="col-md-6">
             @if (@Model.ProductImages.Count > 0)
             {
                 var image = @Model.ProductImages[0];
-                <div class="gallery-item m-2">
+                <div class="gallery-item m-2" style="text-align: center;">
                     <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Product Image">
                 </div>
             }
@@ -21,46 +21,116 @@
                      class="img-fluid rounded-start"
                      style="max-height: 200px;" />
             }
-
         </div>
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card-body">
                 @{
                     if (Model.Rent is not null)
                     {
                         @if (Model.Rent.RentRealEstatePerDay != null)
                         {
-                            <h4>@Model.Price$ / night</h4>
+                            <h4 style="color: #007f66;">@Model.Price$ / night</h4>
                         }
                         else if (Model.Rent.RentRealEstatePerMounth != null)
                         {
-                            <h4>@Model.Price$ / month</h4>
+                            <h4 style="color: #007f66;">@Model.Price$ / month</h4>
                         }
                     }
                     else if (Model.Sell != null)
                     {
-                        <h4>@Model.Price $</h4>
+                        <h4 style="color: #007f66;">@Model.Price $</h4>
                     }
                 }
-                <h5 class="card-title mb-3">@Model.Name</h5>
-                <p class="card-text">
-                    @Model.Description
-                </p>
-                <p class="card-text">
-                    <small class="text-muted">Published : @Model.PublicationDate.ToLongDateString()</small>
-                </p>
+
+                <hr />
+                <h5 class="card-title mb-3" >@Model.Name</h5>
+                
+                <div class="mt-4">
+                    <ul class="nav nav-tabs nav-tabs-solid">
+                        <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab"><i class="fas fa-details"></i> <span> Description </span></a></li>
+                        <li class="nav-item"><a class="nav-link" href="#details" data-toggle="tab"><i class="fas fa-"></i> <span> Details </span></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane show active" id="description">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="">
+                                        <p class="" style="color: #808080;">
+                                            @Model.Description
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="details">
+                            <div class="">
+                                <div class="row">
+                                    <div class="col">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Id</th>
+                                                    <td style="border-top: 0px;">@Model.Id</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Address</th>
+                                                    <td>@Model.Address</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Room</th>
+                                                    <td>@Model.Room</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Bedroom</th>
+                                                    <td>@Model.BedRoom</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Bathroom</th>
+                                                    <td>@Model.BathRoom</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Garage</th>
+                                                    <td>@Model.Garage</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Area</th>
+                                                    <td>@Model.Area m²</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Year of Construction</th>
+                                                    <td>@Model.YearOfConstruction.ToLongDateString()</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Availability</th>
+                                                    <td>@(Model.Availability ? "Yes" : "No")</td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">Publication Date</th>
+                                                    <td>@Model.PublicationDate.ToLongDateString()</td>
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div style="text-align: right;">
                     <a class="btn btn-warning mt-4" asp-controller="ProductRealEstate" asp-action="UpdateProduct" asp-route-id="@Model.Id">Update</a>
                 </div>
-                
             </div>
         </div>
+        
+        
     </div>
 </div>
 
 <div class="mt-4">
-    <ul class="nav nav-tabs nav-tabs-top">
+    <ul class="nav nav-tabs nav-tabs-solid">
         <li class="nav-item"><a class="nav-link active" href="#booking" data-toggle="tab"><i class="fas fa-suitcase"></i> <span> Booking </span></a></li>
         <li class="nav-item"><a class="nav-link" href="#review" data-toggle="tab">Review</a></li>
     </ul>

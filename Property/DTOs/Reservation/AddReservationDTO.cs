@@ -8,8 +8,8 @@ namespace Property.DTOs.Reservation
         public string UserEmail { get; set; }
         public int NumberOfPeople { get; set; }
         public int NumberOfGuest { get; set; }
-        public DateTime ArrivalTime { get; set; }
-        public DateTime DepartureTime { get; set; }
+        public DateOnly Arrival { get; set; }
+        public DateOnly Departure { get; set; }
 
         // Foreign key
         public Models.ApplicationUser applicationUser { get; set; }
