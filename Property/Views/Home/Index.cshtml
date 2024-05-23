@@ -37,7 +37,6 @@
             <div class="col-lg-6 text-lg-end">
                 <p>
                     <a asp-controller="MarketPlace" asp-action="Properties"
-                       target="_blank"
                        class="btn btn-primary text-white py-3 px-4">View all properties</a>
                 </p>
             </div>
@@ -62,7 +61,27 @@
                                 </a>
 
                                 <div class="property-content">
-                                    <div class="price mb-2"><span>$@product.Price</span></div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="price mb-2"><span>$@product.Price</span></div>
+                                        </div>
+                                        <div class="col-6" style="text-align: right;">
+                                            @{
+                                                @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
+                                                {
+                                                    <span>/ Day</span>
+                                                }
+                                                else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
+                                                {
+                                                    <span>/ Month</span>
+                                                }
+                                                else if (product.Sell != null)
+                                                {
+                                                    <span>Sale</span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
                                     <div>
                                         <span class="d-block mb-2 text-black-50">@product.Address</span>
                                         <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
@@ -84,266 +103,36 @@
                                 </div>
                             </div>
                         }
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
-                            </a>
+                        @for(int i=0; i<5; i++)
+                        {
+                            <div class="property-item">
+                                <a href="property-single.html" class="img">
+                                    <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
+                                </a>
 
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
+                                <div class="property-content">
+                                    <div class="price mb-2"><span>$1,291,000</span></div>
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
+                                        <span class="city d-block mb-3">California, USA</span>
 
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
+                                        <div class="specs d-flex mb-4">
+                                            <span class="d-block d-flex align-items-center me-3">
+                                                <span class="icon-bed me-2"></span>
+                                                <span class="caption">2 beds</span>
+                                            </span>
+                                            <span class="d-block d-flex align-items-center">
+                                                <span class="icon-bath me-2"></span>
+                                                <span class="caption">2 baths</span>
+                                            </span>
+                                        </div>
+
+                                        <a href="property-single.html"
+                                           class="btn btn-primary py-2 px-3">See details</a>
                                     </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
                                 </div>
                             </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_2.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_3.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_4.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_5.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_6.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_7.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_8.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
+                        }
                     </div>
 
                     <div id="property-nav"
@@ -453,7 +242,8 @@
                         <h3 class="h5 text-primary mb-4">James Smith</h3>
                         <blockquote>
                             <p>
-                                &ldquo;Far far away, behind the word mountains, far from the
+                                &ldquo;
+                        Far far away, behind the word mountains, far from the
                                 countries Vokalia and Consonantia, there live the blind
                                 texts. Separated they live in Bookmarksgrove right at the
                                 coast of the Semantics, a large language ocean.&rdquo;
@@ -602,11 +392,11 @@
                 </div>
             </div>
         </div>
-        <div class="row section-counter mt-5">
+        <div class="row section-counter mt-5 justify-content-center">
             <div class="col-6 col-sm-6 col-md-6 col-lg-3"
                  data-aos="fade-up"
                  data-aos-delay="300">
-                <div class="counter-wrap mb-5 mb-lg-0">
+                <div class="counter-wrap mb-5 mb-lg-0" style="text-align:center;">
                     <span class="number"><span class="countup text-primary">3298</span></span>
                     <span class="caption text-black-50"># of Buy Properties</span>
                 </div>
@@ -614,7 +404,7 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-3"
                  data-aos="fade-up"
                  data-aos-delay="400">
-                <div class="counter-wrap mb-5 mb-lg-0">
+                <div class="counter-wrap mb-5 mb-lg-0" style="text-align:center;">
                     <span class="number"><span class="countup text-primary">2181</span></span>
                     <span class="caption text-black-50"># of Sell Properties</span>
                 </div>
@@ -622,7 +412,7 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-3"
                  data-aos="fade-up"
                  data-aos-delay="500">
-                <div class="counter-wrap mb-5 mb-lg-0">
+                <div class="counter-wrap mb-5 mb-lg-0" style="text-align:center;">
                     <span class="number"><span class="countup text-primary">9316</span></span>
                     <span class="caption text-black-50"># of All Properties</span>
                 </div>
@@ -630,7 +420,7 @@
             <div class="col-6 col-sm-6 col-md-6 col-lg-3"
                  data-aos="fade-up"
                  data-aos-delay="600">
-                <div class="counter-wrap mb-5 mb-lg-0">
+                <div class="counter-wrap mb-5 mb-lg-0" style="text-align:center;">
                     <span class="number"><span class="countup text-primary">7191</span></span>
                     <span class="caption text-black-50"># of Agents</span>
                 </div>
