@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Images;
 using Property.Services.ImageServices;
 
 namespace Property.Controllers.Images
 {
+	[Authorize]
 	public class ProductImageRealEstateController : Controller
 	{
 		private readonly IProductImageServicesRealEstate _productImageServices;

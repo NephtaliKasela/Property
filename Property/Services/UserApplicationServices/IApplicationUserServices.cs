@@ -6,5 +6,6 @@ namespace Property.Services.UserApplicationServices
 	public interface IApplicationUserServices
 	{
 		Task<ServiceResponse<List<GetApplicationUserDTO>>> GetAllUsers();
+		Task<ServiceResponse<GetApplicationUserDTO>> GetUserById(string userId);
 	}
 }

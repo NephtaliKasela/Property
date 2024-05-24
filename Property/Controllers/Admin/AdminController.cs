@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Actions;
 using Property.Services.AgentServices;
 using Property.Services.ProductService.ProductServicesRealEstate;
@@ -19,6 +20,8 @@ namespace Property.Controllers.Admin
 			_productServicesRealEstate = productServicesRealEstate;
         }
 
+        [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Index()
 		{
             var products = await _productServicesRealEstate.GetAllProducts();

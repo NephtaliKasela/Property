@@ -33,5 +33,19 @@ namespace Property.Services.UserApplicationServices
 			};
 			return serviceResponse;
 		}
+
+		public async Task<ServiceResponse<GetApplicationUserDTO>> GetUserById(string userId)
+		{
+			var user = await _context.Users
+									.Include(p => p.Agent)
+									.Include(p => p.Reservations)
+									.FirstOrDefaultAsync(x => x.Id == userId);
+
+			var serviceResponse = new ServiceResponse<GetApplicationUserDTO>()
+			{
+				Data = _mapper.Map<GetApplicationUserDTO>(user)
+			};
+			return serviceResponse;
+		}
 	}
 }

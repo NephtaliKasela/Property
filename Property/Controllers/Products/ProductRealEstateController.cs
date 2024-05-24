@@ -10,21 +10,26 @@ using Property.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Property.Services.AgentServices;
+using Property.Services.UserApplicationServices;
+using Property.DTOs.UserApplication;
 
 namespace Property.Controllers.Products
 {
+    [Authorize]
     public class ProductRealEstateController : Controller
     {
 		private readonly UserManager<ApplicationUser> _userManager;
+		private readonly IApplicationUserServices _applicationUserServices;
 		private readonly IAgentServices _agentServices;
 		private readonly ICountryServices _countryServices;
 		private readonly ICityServices _cityServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
 		private readonly IPropertyTypeServicesRealEstate _propertyTypeServicesRealEstate;
 
-        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, IPropertyTypeServicesRealEstate propertyTypeServicesRealEstate, ICountryServices countryServices, ICityServices cityServices)
+        public ProductRealEstateController(UserManager<ApplicationUser> userManager, IApplicationUserServices applicationUserServices, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate, IPropertyTypeServicesRealEstate propertyTypeServicesRealEstate, ICountryServices countryServices, ICityServices cityServices)
         {
             _userManager = userManager;
+			_applicationUserServices = applicationUserServices;
 			_agentServices = agentServices;
 			_productServicesRealEstate = productServicesRealEstate;
 			_propertyTypeServicesRealEstate = propertyTypeServicesRealEstate;
@@ -32,6 +37,7 @@ namespace Property.Controllers.Products
 			_cityServices = cityServices;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> ProductDetails(int id)
 		{
@@ -50,76 +56,88 @@ namespace Property.Controllers.Products
 			return View(products.Data);
         }
 
-        public IActionResult Choice(string option, string subOption)
+        public async Task<IActionResult> Choice()
         {
-			if(option == null || option == string.Empty) 
-			{
-                return View();
-            }
-			else
-			{
-				if (option.ToLower() == "sell") 
-				{
-					return RedirectToAction("AddProductSell");
-				}
-				else if (option.ToLower() == "rent")
-				{
-                    if (subOption.ToUpper() == "RD")
-					{
-						return RedirectToAction("AddProductRentByDay");
-					}
-					else if(subOption.ToUpper() == "RM")
-					{
-						return RedirectToAction("AddProductRentByMonth");
-					}
-                }
+			//Get the current user
+			ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+			var user = await _applicationUserServices.GetUserById(currentUser.Id);
+
+			if (user.Data != null && user.Data.Agent != null)
+            {
+			    return View();	
 			}
-			return View();
+			return RedirectToAction("Index", "Home");
+				
         }
 
         public async Task<IActionResult> AddProductSell()
         {
-            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
-            var countries = await _countryServices.GetAllCountries();
-            var cities = await _cityServices.GetAllCities();
+			//Get the current user
+			ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+			var user = await _applicationUserServices.GetUserById(currentUser.Id);
 
-            var v = new AddProductRealEstate_action();
+			if (user.Data != null && user.Data.Agent != null)
+			{
+				var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+				var countries = await _countryServices.GetAllCountries();
+				var cities = await _cityServices.GetAllCities();
 
-            v.PropertyTypes = propertyTypes.Data;
-            v.Countries = countries.Data;
-            v.Cities = cities.Data;
+				var v = new AddProductRealEstate_action();
 
-            return View(v);
-        }
+				v.PropertyTypes = propertyTypes.Data;
+				v.Countries = countries.Data;
+				v.Cities = cities.Data;
+
+				return View(v);
+			}
+			return RedirectToAction("Index", "Home");
+
+		}
 
         public async Task<IActionResult> AddProductRentByDay()
         {
-            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
-            var countries = await _countryServices.GetAllCountries();
-            var cities = await _cityServices.GetAllCities();
+			//Get the current user
+			ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+			var user = await _applicationUserServices.GetUserById(currentUser.Id);
 
-            var v = new AddProductRealEstate_action();
+			if (user.Data != null && user.Data.Agent != null)
+			{
+				var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+				var countries = await _countryServices.GetAllCountries();
+				var cities = await _cityServices.GetAllCities();
 
-            v.PropertyTypes = propertyTypes.Data;
-            v.Countries = countries.Data;
-            v.Cities = cities.Data;
+				var v = new AddProductRealEstate_action();
 
-            return View(v);
+				v.PropertyTypes = propertyTypes.Data;
+				v.Countries = countries.Data;
+				v.Cities = cities.Data;
+
+				return View(v);
+			}
+			return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> AddProductRentByMonth()
         {
-            var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
-            var countries = await _countryServices.GetAllCountries();
-            var cities = await _cityServices.GetAllCities();
+			//Get the current user
+			ApplicationUser currentUser = await _userManager.GetUserAsync(User);
+			var user = await _applicationUserServices.GetUserById(currentUser.Id);
 
-            var v = new AddProductRealEstate_action();
+			if (user.Data != null && user.Data.Agent != null)
+			{
+				var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+				var countries = await _countryServices.GetAllCountries();
+				var cities = await _cityServices.GetAllCities();
 
-            v.PropertyTypes = propertyTypes.Data;
-            v.Countries = countries.Data;
-            v.Cities = cities.Data;
+				var v = new AddProductRealEstate_action();
 
-            return View(v);
+				v.PropertyTypes = propertyTypes.Data;
+				v.Countries = countries.Data;
+				v.Cities = cities.Data;
+
+				return View(v);
+			}
+			return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> UpdateProduct(int id)
