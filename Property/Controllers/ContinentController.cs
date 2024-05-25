@@ -1,9 +1,11 @@
 ﻿using Property.DTOs.Continent;
 using Property.Services.ContinentServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Property.Controllers
 {
+	[Authorize]
     public class ContinentController : Controller
     {
 		private readonly IContinentServices _continentServices;
@@ -13,6 +15,7 @@ namespace Property.Controllers
 			_continentServices = continentServices;
 		}
 
+		[HttpGet]
 		public IActionResult AddContinent()
         {
             return View();
@@ -25,7 +28,8 @@ namespace Property.Controllers
             return View(continent.Data);
         }
 
-        public async Task<IActionResult> UpdateContinent(int id)
+		[HttpGet]
+		public async Task<IActionResult> UpdateContinent(int id)
         {
             var continent = await _continentServices.GetContinentById(id);
             return View(continent.Data);
@@ -46,7 +50,7 @@ namespace Property.Controllers
 			return RedirectToAction("GetContinent");
 		}
 
-		[HttpDelete]
+		[HttpPost]
 		public async Task<IActionResult> DeleteContinent(int id)
 		{
 			await _continentServices.DeleteContinent(id);

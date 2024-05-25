@@ -3,9 +3,11 @@ using Property.Services.OtherServices;
 using Property.Services.SubCategoryServicesRealEstate;
 using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.PropertyTypeRealEstate;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Property.Controllers
 {
+    [Authorize]
     public class PropertyTypeRealEstateController : Controller
     {
         private readonly IPropertyTypeServicesRealEstate _propertyTypeServicesRealEstate;
@@ -15,6 +17,7 @@ namespace Property.Controllers
             _propertyTypeServicesRealEstate = propertyTypeServicesRealEstate;
         }
 
+        [HttpGet]
         public IActionResult AddPropertyType()
         {
             return View();
@@ -27,7 +30,8 @@ namespace Property.Controllers
             return View(propertyTypes.Data);
         }
 
-        public async Task<IActionResult> UpdatePropertyType(int id)
+		[HttpGet]
+		public async Task<IActionResult> UpdatePropertyType(int id)
         {
             var propertyType = await _propertyTypeServicesRealEstate.GetPropertyTypeRealEstateById(id);
 
@@ -49,6 +53,7 @@ namespace Property.Controllers
             return RedirectToAction("GetPropertyTypes");
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeletePropertyType(int id)
         {
             await _propertyTypeServicesRealEstate.DeletePropertyTypeRealEstate(id);

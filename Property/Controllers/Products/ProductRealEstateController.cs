@@ -70,6 +70,7 @@ namespace Property.Controllers.Products
 				
         }
 
+		[HttpGet]
         public async Task<IActionResult> AddProductSell()
         {
 			//Get the current user
@@ -94,6 +95,7 @@ namespace Property.Controllers.Products
 
 		}
 
+		[HttpGet]
         public async Task<IActionResult> AddProductRentByDay()
         {
 			//Get the current user
@@ -117,6 +119,7 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Index", "Home");
         }
 
+		[HttpGet]
         public async Task<IActionResult> AddProductRentByMonth()
         {
 			//Get the current user
@@ -140,7 +143,7 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> UpdateProduct(int id)
+		public async Task<IActionResult> UpdateProduct(int id)
         {
             var product = await _productServicesRealEstate.GetProductById(id);
 
@@ -160,7 +163,8 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Dashboard", "Agent");
 		}
 
-        public async Task<IActionResult> UpdateProductSell(int id)
+		[HttpGet]
+		public async Task<IActionResult> UpdateProductSell(int id)
         {
             var product = await _productServicesRealEstate.GetProductById(id);
 
@@ -178,7 +182,8 @@ namespace Property.Controllers.Products
             return View(v);
         }
 
-        public async Task<IActionResult> UpdateProductRentByDay(int id)
+		[HttpGet]
+		public async Task<IActionResult> UpdateProductRentByDay(int id)
         {
             var product = await _productServicesRealEstate.GetProductById(id);
 
@@ -196,6 +201,7 @@ namespace Property.Controllers.Products
             return View(v);
         }
 
+		[HttpGet]
 		public async Task<IActionResult> UpdateProductRentByMonth(int id)
 		{
 			var product = await _productServicesRealEstate.GetProductById(id);
@@ -256,8 +262,6 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Dashboard", "Agent");
 		}
 
-
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SaveUpdateProductSell(UpdateProductSellRealEstateDTO updatedProduct)
         {
@@ -270,7 +274,6 @@ namespace Property.Controllers.Products
             return RedirectToAction("Dashboard", "Agent");
         }
 
-        [Authorize]
 		[HttpPost]
 		public async Task<IActionResult> SaveUpdateProductRentByDay(UpdateProductRentByDayRealEstateDTO updatedProduct)
 		{
@@ -283,7 +286,6 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Dashboard", "Agent");
 		}
 
-        [Authorize]
         [HttpPost]
         public async Task<IActionResult> SaveUpdateProductRentByMonth(UpdateProductRentByMonthRealEstateDTO updatedProduct)
         {
@@ -296,6 +298,7 @@ namespace Property.Controllers.Products
             return RedirectToAction("Dashboard", "Agent");
         }
 
+		[HttpPost]
         public async Task<IActionResult> DeleteProduct(int id)
 		{
 			await _productServicesRealEstate.DeleteProduct(id);

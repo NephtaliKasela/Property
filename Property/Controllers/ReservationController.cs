@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Actions;
 using Property.DTOs.Country;
@@ -10,6 +11,7 @@ using Property.Services.ReservationServices;
 
 namespace Property.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -23,7 +25,8 @@ namespace Property.Controllers
             _reservationServices = reservationServices;
         }
 
-        public async Task<IActionResult> Index(int id)
+		[HttpGet]
+		public async Task<IActionResult> Index(int id)
         {
             var product = await _productServicesRealEstate.GetProductById(id);
             if(product.Data != null)
@@ -40,6 +43,7 @@ namespace Property.Controllers
             return View(reservations.Data);
         }
 
+        [HttpGet]
         public async Task<IActionResult> UpdateReservation(int id)
         {
             var reservation = await _reservationServices.GetReservationById(id);
@@ -68,14 +72,14 @@ namespace Property.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveUpdateCountry(UpdateReservationDTO updatedReservation)
+        public async Task<IActionResult> SaveUpdateReservation(UpdateReservationDTO updatedReservation)
         {
             await _reservationServices.UpdateReservation(updatedReservation);
 
             return RedirectToAction("Properties", "MarketPlace");
         }
 
-        [HttpDelete]
+        [HttpPost]
         public async Task<IActionResult> DeleteReservation(int id)
         {
             await _reservationServices.DeleteReservation(id);

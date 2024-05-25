@@ -7,6 +7,7 @@ using Property.Services.UserApplicationServices;
 
 namespace Property.Controllers.Admin
 {
+	[Authorize(Roles = "Admin")]
 	public class AdminController : Controller
 	{
         private readonly IApplicationUserServices _applicationUserServices;
@@ -19,8 +20,7 @@ namespace Property.Controllers.Admin
 			_agentServices = agentServices;
 			_productServicesRealEstate = productServicesRealEstate;
         }
-
-        [Authorize]
+        
         [HttpGet]
         public async Task<IActionResult> Index()
 		{

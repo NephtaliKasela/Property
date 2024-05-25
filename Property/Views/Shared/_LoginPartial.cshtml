@@ -25,23 +25,18 @@ else
 }
 </ul> *@
 
-
     @if (SignInManager.IsSignedIn(User) && @User.Identity.Name?.Length > 0)
     {
-        <li>
-            @* <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a> *@
-        <a asp-area="Identity" asp-page="/Account/Manage/Index"><span style="border:1px solid grey; border-radius: 5px; padding: 10px; font-size: 20px; margin: 0px">@User.Identity.Name[0].ToString().ToUpper()</span></a>
-        </li>
-        <li>
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button type="submit" class="btn btn-primary py-2 px-3" style="color: grey;">Logout</button>
-            </form>
-        </li>
+    <li class="has-children">
+        <a asp-area="Identity" asp-page="/Account/Manage/Index"><span class="px-2 py-2" style=" background-color: slategrey; border:1px solid white; border-radius: 50%; font-size: 16px; margin: 0px; color: white; height: 20px; width: 20px;">@User.Identity.Name[0].ToString().ToUpper()</span></a>
+        <ul class="dropdown">
+            <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><span class="icon-sign-out me-2"></span> Log out</a></li>
+        </ul>
+    </li>
     }
     else
     {
         <li>
-            @* <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
-        <a asp-area="Identity" asp-page="/Account/Login"><span class="icon-user me-2" style="border:1px solid grey; border-radius: 5px; padding: 10px; font-size: 20px; margin: 0px"></span></a>
+        <a asp-area="Identity" asp-page="/Account/Login"><span class="icon-user me-2 px-2 py-2" style=" background-color: slategrey; border:1px solid white; border-radius: 50%; font-size: 16px; margin: 0px; color: white; height: 20px; width: 20px;"></span></a>
         </li>
     }

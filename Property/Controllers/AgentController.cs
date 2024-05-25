@@ -13,6 +13,7 @@ using Property.Services.ProductService.ProductServicesRealEstate;
 
 namespace Property.Controllers
 {
+	[Authorize]
 	public class AgentController : Controller
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
@@ -26,7 +27,7 @@ namespace Property.Controllers
 			_productServicesRealEstate = productServicesRealEstate;
 		}
 
-        [Authorize]
+		[HttpGet]
         public async Task<IActionResult> Dashboard()
         {
 			//Get the current user
@@ -50,7 +51,8 @@ namespace Property.Controllers
 			return RedirectToAction("AddAgent");
         }
 
-        public async Task<IActionResult> Properties()
+		[HttpGet]
+		public async Task<IActionResult> Properties()
 		{
             //Get the current user
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -73,8 +75,8 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-        [Authorize]
-        public async Task<IActionResult> GetAgentProductRentByDay(int id)
+		[HttpGet]
+		public async Task<IActionResult> GetAgentProductRentByDay(int id)
         {
             //Get the current user
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -95,8 +97,8 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-        [Authorize]
-        public async Task<IActionResult> AddAgent()
+		[HttpGet]
+		public async Task<IActionResult> AddAgent()
 		{
             return View();
 		}
@@ -117,8 +119,8 @@ namespace Property.Controllers
 		//public async Task<IActionResult> GetAgent()
 		//{
 		//	ApplicationUser user = await _userManager.GetUserAsync(User);
-  //          if (user != null)
-  //          {
+		//          if (user != null)
+		//          {
 		//		// Access user properties
 		//		string userId = user.Id;
 		//		string email = user.Email;
@@ -128,6 +130,7 @@ namespace Property.Controllers
 		//	return View(agents.Data);
 		//}
 
+		[HttpGet]
 		public async Task<IActionResult> UpdateAgent(int id)
 		{
 			var agent = await _agentServices.GetAgentById(id);
@@ -135,7 +138,6 @@ namespace Property.Controllers
 			return View(agent.Data);
 		}
 
-		[Authorize]
 		[HttpPost]
 		public async Task<IActionResult> SaveAddAgent(AddAgentDTO newAgent)
 		{
@@ -161,7 +163,7 @@ namespace Property.Controllers
 			return RedirectToAction("GetAgent");
 		}
 
-		[HttpDelete]
+		[HttpPost]
 		public async Task<IActionResult> DeleteAgent(int id)
 		{
 			await _agentServices.DeleteAgent(id);

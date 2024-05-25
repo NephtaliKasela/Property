@@ -5,9 +5,11 @@ using Property.Services.CityServices;
 using Property.Services.ContinentServices;
 using Property.Services.CountryServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Property.Controllers
 {
+	[Authorize]
 	public class CityController : Controller
 	{
 		private readonly ICountryServices _countryServices;
@@ -19,6 +21,7 @@ namespace Property.Controllers
 			_cityServices = cityServices;
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> AddCity()
 		{
 			var countries = await _countryServices.GetAllCountries();
@@ -32,6 +35,7 @@ namespace Property.Controllers
 			return View(cities.Data);
 		}
 
+		[HttpGet]
 		public async Task<IActionResult> UpdateCity(int id)
 		{
 			var city = await _cityServices.GetCityById(id);
@@ -59,7 +63,7 @@ namespace Property.Controllers
 			return RedirectToAction("GetCity");
 		}
 
-		[HttpDelete]
+		[HttpPost]
 		public async Task<IActionResult> DeleteCity(int id)
 		{
 			await _cityServices.DeleteCity(id);
