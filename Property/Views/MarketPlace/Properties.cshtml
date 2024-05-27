@@ -1,4 +1,4 @@
-﻿@model List<Property.DTOs.Product.ProductRealEstate.GetProductRealEstateDTO>
+﻿@model Property.DTOs.Actions.Properties_action
 
 @{
     ViewData["Title"] = "Market Place";
@@ -22,6 +22,158 @@
                         </li>
                     </ol>
                 </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container property-item mb-3">
+    <div class="property-content">
+        <div class="row justify-content-center" style="align-content: center; text-align: center;">
+            <div class="col-12">
+                <form>
+                    <div class="row">
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="CountryId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                    <option label="Country"></option>
+                                    @foreach (var country in Model.Countries)
+                                    {
+                                        <option value="@country.Id">@country.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="CityId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                    <option label="City"></option>
+                                    @foreach (var city in Model.Cities)
+                                    {
+                                        <option value="@city.Id">@city.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="Category" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
+                                    <option value="All">All</option>
+                                    <option value="Rent">For Rent</option>
+                                    <option value="Sale">For Sale</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
+                                    <option label="Property Type"></option>
+                                    @foreach (var propertyType in Model.PropertyTypes)
+                                    {
+                                        <option value="@propertyType.Id">@propertyType.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MinPrice" data-style="btn-primary" data-placeholder="Min Price" data-minimum-results-for-search="Infinity">
+                                    <option label="Min Price"></option>
+                                    <option value="2">1 $</option>
+                                    <option value="3">2 $</option>
+                                    <option value="4">3 $</option>
+                                    <option value="5">4 $</option>
+                                    <option value="6">5 $</option>
+                                    <option value="7">6 $</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MaxPrice" data-style="btn-primary" data-placeholder="Max Price" data-minimum-results-for-search="Infinity">
+                                    <option label="Max Price"></option>
+                                    <option value="2">1 $</option>
+                                    <option value="3">2 $</option>
+                                    <option value="4">3 $</option>
+                                    <option value="5">4 $</option>
+                                    <option value="6">5 $</option>
+                                    <option value="7">6 $</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MinBed" data-style="btn-primary" data-placeholder="Min Beds" data-minimum-results-for-search="Infinity">
+                                    <option label="Min Beds"></option>
+                                    <option value="2">1</option>
+                                    <option value="3">2</option>
+                                    <option value="4">3</option>
+                                    <option value="5">4</option>
+                                    <option value="6">5</option>
+                                    <option value="7">6</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MinBath" data-style="btn-primary" data-placeholder="Min Baths" data-minimum-results-for-search="Infinity">
+                                    <option label="Min Baths"></option>
+                                    <option value="2">1</option>
+                                    <option value="3">2</option>
+                                    <option value="4">3</option>
+                                    <option value="5">4</option>
+                                    <option value="6">5</option>
+                                    <option value="7">6</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MinGarage" data-style="btn-primary" data-placeholder="Min Garage" data-minimum-results-for-search="Infinity">
+                                    <option label="Min Garage"></option>
+                                    <option value="2">1</option>
+                                    <option value="3">2</option>
+                                    <option value="4">3</option>
+                                    <option value="5">4</option>
+                                    <option value="6">5</option>
+                                    <option value="7">6</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-2 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MinArea" data-style="btn-primary" data-placeholder="Min Area" data-minimum-results-for-search="Infinity">
+                                    <option label="Min Area"></option>
+                                    <option value="2">1 Sq Ft</option>
+                                    <option value="3">2 Sq Ft</option>
+                                    <option value="4">3 Sq Ft</option>
+                                    <option value="5">4 Sq Ft</option>
+                                    <option value="6">5 Sq Ft</option>
+                                    <option value="7">6 Sq Ft</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-2 col-sm-6 col-12">
+                            <div class="form-group mb-3">
+                                <select class="form-control select-filter" name="MaxArea" data-style="btn-primary" data-placeholder="Max Area" data-minimum-results-for-search="Infinity">
+                                    <option label="Max Area"></option>
+                                    <option value="2">1 Sq Ft</option>
+                                    <option value="3">2 Sq Ft</option>
+                                    <option value="4">3 Sq Ft</option>
+                                    <option value="5">4 Sq Ft</option>
+                                    <option value="6">5 Sq Ft</option>
+                                    <option value="7">6 Sq Ft</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-sm-12 col-12">
+                            <div class="form-group mt-2">
+                                <button class="btn btn-block btn-secondary py-2 mb-0" style="border-radius: 5px;" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -325,9 +477,9 @@
     <div class="container">
         <div class="row">
             @{
-                @if(Model.Count > 0)
+                @if(Model.Properties.Count > 0)
                 {
-                    @foreach(var product in Model)
+                    @foreach(var product in Model.Properties)
                     {
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
                             <div class="property-item mb-30">

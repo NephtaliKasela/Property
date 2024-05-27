@@ -24,13 +24,7 @@
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-users p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
-							@* <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="#009688" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-plus">
-								<path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-								<circle cx="8.5" cy="7" r="4"></circle>
-								<line x1="20" y1="8" x2="20" y2="14"></line>
-								<line x1="23" y1="11" x2="17" y2="11"></line>
-							</svg> *@
+							<i class="fas fa-users" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>
@@ -47,7 +41,7 @@
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-users p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
+							<i class="fas fa-users" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>
@@ -55,6 +49,23 @@
 		</div>
 	</div>
 	<div class="col-xl-4 col-sm-6 col-12">
+		<div class="card board1 fill">
+			<div class="card-body">
+				<div class="dash-widget-header">
+					<div>
+						<h3 class="card_widget_header">@Model.Reservations.Count</h3>
+						<h6 class="text-muted">Reservations</h6>
+					</div>
+					<div class="ml-auto mt-md-3 mt-lg-0">
+						<span class="opacity-7 text-muted">
+							<i class="fas fa-calendar" style="height: 24px; width: 24px; font-size: 24px;"></i>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card board1 fill">
 			<div class="card-body">
 				<div class="dash-widget-header">
@@ -64,48 +75,50 @@
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-home p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
+							<i class="fas fa-home" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-4 col-sm-6 col-12">
+	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card board1 fill">
 			<div class="card-body">
 				<div class="dash-widget-header">
 					<div>
 						<h3 class="card_widget_header">@Model.Products.Where(x => x.Rent != null && x.Rent.RentRealEstatePerDay != null).Count()</h3>
-						<h6 class="text-muted">Properties for Rent / night</h6>
+						<h6 class="text-muted">Properties for Rent</h6>
+						<h7 class="text-muted">per night</h7>
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-home p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
+							<i class="fas fa-home" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-4 col-sm-6 col-12">
+	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card board1 fill">
 			<div class="card-body">
 				<div class="dash-widget-header">
 					<div>
 						<h3 class="card_widget_header">@Model.Products.Where(x => x.Rent != null && x.Rent.RentRealEstatePerMounth != null).Count()</h3>
-						<h6 class="text-muted">Properties for Rent / month</h6>
+						<h6 class="text-muted">Properties for Rent</h6>
+						<h7 class="text-muted">per month</h7>
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-home p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
+							<i class="fas fa-home" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="col-xl-4 col-sm-6 col-12">
+	<div class="col-xl-3 col-sm-6 col-12">
 		<div class="card board1 fill">
 			<div class="card-body">
 				<div class="dash-widget-header">
@@ -115,7 +128,7 @@
 					</div>
 					<div class="ml-auto mt-md-3 mt-lg-0">
 						<span class="opacity-7 text-muted">
-							<i class="fas fa-home p-0 m-0 px-5" style="height: 24px; width: 24px; font-size: 24px;"></i>
+							<i class="fas fa-home" style="height: 24px; width: 24px; font-size: 24px;"></i>
 						</span>
 					</div>
 				</div>

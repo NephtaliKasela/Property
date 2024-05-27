@@ -6,7 +6,7 @@
 
 
 <div class="hero page-inner overlay"
-     style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")')">
+     style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")'); margin-top: 80px;">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
@@ -39,10 +39,6 @@
             <div class="col-lg-7">
                 <div class="img-property-slide-wrap">
                     <div class="img-property-slide">
-                        @* <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
-                        <img src="~/images/img_2.jpg" alt="Image" class="img-fluid" />
-                        <img src="~/images/img_3.jpg" alt="Image" class="img-fluid" /> *@
-                        @{
                             if(Model.ProductImages.Count > 0)
                             {
                                 @foreach(var image in Model.ProductImages)
