@@ -11,6 +11,7 @@ namespace Property.DTOs.Actions
         public List<GetPropertyTypeRealEstateDTO> PropertyTypes { get; set; }
         public List<GetCountryDTO> Countries { get; set; }
         public List<GetCityDTO> Cities { get; set; }
+        public Search Search { get; set; }
 
         public Properties_action()
         {
@@ -18,6 +19,7 @@ namespace Property.DTOs.Actions
             PropertyTypes = new List<GetPropertyTypeRealEstateDTO>();
             Countries = new List<GetCountryDTO>();
             Cities = new List<GetCityDTO>();
+            Search = new Search();
         }
     }
 }

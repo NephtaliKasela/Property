@@ -1,0 +1,255 @@
+﻿@model Property.DTOs.Actions.Properties_action
+
+@{
+    ViewData["Title"] = "Market Place";
+}
+
+<div class="container" style="margin-top: 170px;">
+    <div class="row">
+        <div class="col-8">
+            <div>
+                <h6><span>@Model.Properties.Count</span> Properties Found</h6>
+            </div>
+        </div>
+        <div class="col-4">
+            <div style="text-align: right;">
+                <a class="btn btn-primary py-2 px-3" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasExample">
+                    <i class="icon-filter"></i> Filter
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel"><i class="icon-filter"></i> Filter</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="container property-item mb-3" style="margin-top: 80px;">
+            <div class="property-content">
+                <div class="row justify-content-center" style="align-content: center; text-align: center;">
+                    <div class="col-12">
+                        <form method="post" asp-controller="MarketPlace" asp-action="Search">
+                            <div class="row">
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control select-filter" name="CountryId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                            @{
+                                                if (@Model.Search.CountryId > 0)
+                                                {
+                                                    <option value="@Model.Countries.FirstOrDefault(x => x.Id == @Model.Search.CountryId).Id">@Model.Countries.FirstOrDefault(x => x.Id == @Model.Search.CountryId).Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option label="Country"></option>
+                                                }
+                                            }
+
+                                            @foreach (var country in Model.Countries)
+                                            {
+                                                <option value="@country.Id">@country.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control select-filter" name="CityId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                            @{
+                                                if (@Model.Search.CityId > 0)
+                                                {
+                                                    <option value="@Model.Cities.FirstOrDefault(x => x.Id == @Model.Search.CityId).Id">@Model.Cities.FirstOrDefault(x => x.Id == @Model.Search.CityId).Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option label="City"></option>
+                                                }
+                                            }
+                                            @foreach (var city in Model.Cities)
+                                            {
+                                                <option value="@city.Id">@city.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control select-filter" name="Category" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
+                                            <option value="@Model.Search.Category">
+                                                @Model.Search.Category
+                                            </option>
+                                            <option value="All">All</option>
+                                            <option value="Rent">For Rent</option>
+                                            <option value="Sale">For Sale</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
+                                            @{
+                                                if (@Model.Search.PropertyTypeId > 0)
+                                                {
+                                                    <option value="@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Id">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option label="Property Type"></option>
+                                                }
+                                            }
+                                            @foreach (var propertyType in Model.PropertyTypes)
+                                            {
+                                                <option value="@propertyType.Id">@propertyType.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.Properties.Max(x => x.Price)" value="@Model.Search.MinPrice" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.Properties.Max(x => x.Price)" value="@Model.Search.MaxPrice" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.Properties.Max(x => x.BedRoom)" value="@Model.Search.MinBed" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.Properties.Max(x => x.BathRoom)" value="@Model.Search.MinBath" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.Properties.Max(x => x.Garage)" value="@Model.Search.MinGarage" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.Properties.Max(x => x.Area)" value="@Model.Search.MinArea" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mb-3">
+                                        <input type="number" class="form-control" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.Properties.Max(x => x.Area)" value="@Model.Search.MaxArea" data-minimum-results-for-search="Infinity">
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-sm-12 col-12">
+                                    <div class="form-group mt-2">
+                                        <button class="btn btn-block btn-secondary py-2 mb-0" style="border-radius: 5px;" type="submit">Search</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section section-properties">
+    <div class="container">
+        <div class="row">
+            @{
+                @if (Model.Properties.Count > 0)
+                {
+                    @foreach (var product in Model.Properties)
+                    {
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                            <div class="property-item mb-30">
+                                <div style="text-align: center;">
+                                    <a asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id" target="_blank" class="img">
+                                        @if (product.ProductImages.Count > 0)
+                                        {
+                                            var image = product.ProductImages[0];
+                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" />
+                                        }
+                                    </a>
+                                </div>
+
+                                <div class="property-content">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="price mb-2"><span>$@product.Price</span></div>
+                                        </div>
+                                        <div class="col-6" style="text-align: right;">
+                                            @{
+                                                @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
+                                                {
+                                                    <span>/ Day</span>
+                                                }
+                                                else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
+                                                {
+                                                    <span>/ Month</span>
+                                                }
+                                                else if (product.Sell != null)
+                                                {
+                                                    <span>Sale</span>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <span class="d-block mb-2 text-black-50">@product.Address</span>
+                                        <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
+
+                                        <div class="specs d-flex mb-4">
+                                            <span class="d-block d-flex align-items-center me-3">
+                                                <span class="icon-home me-2"></span>
+                                                @{
+                                                    @if (product.Room == 1)
+                                                    {
+                                                        <span class="caption">One Rom</span>
+                                                    }
+                                                    else if (product.Room > 1)
+                                                    {
+                                                        <span class="caption">@product.Room Roms</span>
+                                                    }
+                                                }
+
+
+                                            </span>
+                                            <span class="d-block d-flex align-items-center">
+                                                <span class="icon-bath me-2"></span>
+                                                <span class="caption">2 baths</span>
+                                            </span>
+                                        </div>
+
+                                        <a asp-controller="ProductRealEstate" asp-action="ProductDetails" target="_blank" asp-route-id="@product.Id"
+                                           class="btn btn-primary py-2 px-3">See details</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .item -->
+                        </div>
+                    }
+                }
+            }
+
+        </div>
+        <div class="row align-items-center py-5">
+            <div class="col-lg-3">Pagination (1 of 10)</div>
+            <div class="col-lg-6 text-center">
+                <div class="custom-pagination">
+                    <a href="#"><<</a>
+                    <a href="#">1</a>
+                    <a href="#" class="active">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">>></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

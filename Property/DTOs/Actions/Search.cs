@@ -4,8 +4,8 @@
     {
         public int CountryId { get; set; }
         public int CityId { get; set; }
-        public string Category { get; set; }
-        public int PropertyTypeId { get; set; }
+        public string Category { get; set; } = string.Empty;
+		public int PropertyTypeId { get; set; }
         public int MinPrice { get; set; }
         public int MaxPrice { get; set; }
         public int MinBed { get; set; }

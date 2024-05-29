@@ -52,6 +52,7 @@ namespace Property.Services.CountryServices
 			var countries = await _context.Countries
 				.Include(x => x.Continent)
 				.Include(x => x.Cities)
+				.Include(x => x.ProductsRealEstate)
 				.ToListAsync();
 			var serviceResponse = new ServiceResponse<List<GetCountryDTO>>()
 			{

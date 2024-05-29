@@ -47,5 +47,31 @@ namespace Property.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+		public async Task<IActionResult> Search(Search modelView)
+		{
+            var properties = await _productServicesRealEstate.GetAllProducts();
+            if (properties.Data != null)
+            {
+                var countries = await _countryServices.GetAllCountries();
+                var cities = await _cityServices.GetAllCities();
+                var propertyTyes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+
+                var v = new Properties_action();
+                v.Properties = properties.Data;
+                v.Countries = countries.Data;
+                v.Cities = cities.Data;
+                v.PropertyTypes = propertyTyes.Data;
+                v.Search = modelView;
+
+                return View(v);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Icons()
+        {
+            return View();
+        }
     }
 }

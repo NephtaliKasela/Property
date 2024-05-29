@@ -31,7 +31,7 @@
     <div class="property-content">
         <div class="row justify-content-center" style="align-content: center; text-align: center;">
             <div class="col-12">
-                <form>
+                <form method="post" asp-controller="MarketPlace" asp-action="Search">
                     <div class="row">
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
@@ -66,8 +66,8 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
-                                    <option label="Property Type"></option>
+                                <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
+                                    <option label="Property Type" class="text-muted"></option>
                                     @foreach (var propertyType in Model.PropertyTypes)
                                     {
                                         <option value="@propertyType.Id">@propertyType.Name</option>
@@ -77,94 +77,38 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MinPrice" data-style="btn-primary" data-placeholder="Min Price" data-minimum-results-for-search="Infinity">
-                                    <option label="Min Price"></option>
-                                    <option value="2">1 $</option>
-                                    <option value="3">2 $</option>
-                                    <option value="4">3 $</option>
-                                    <option value="5">4 $</option>
-                                    <option value="6">5 $</option>
-                                    <option value="7">6 $</option>
-                                </select>
+                                <input type="number" class="form-control" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MaxPrice" data-style="btn-primary" data-placeholder="Max Price" data-minimum-results-for-search="Infinity">
-                                    <option label="Max Price"></option>
-                                    <option value="2">1 $</option>
-                                    <option value="3">2 $</option>
-                                    <option value="4">3 $</option>
-                                    <option value="5">4 $</option>
-                                    <option value="6">5 $</option>
-                                    <option value="7">6 $</option>
-                                </select>
+                                <input type="number" class="form-control" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MinBed" data-style="btn-primary" data-placeholder="Min Beds" data-minimum-results-for-search="Infinity">
-                                    <option label="Min Beds"></option>
-                                    <option value="2">1</option>
-                                    <option value="3">2</option>
-                                    <option value="4">3</option>
-                                    <option value="5">4</option>
-                                    <option value="6">5</option>
-                                    <option value="7">6</option>
-                                </select>
+                                <input type="number" class="form-control" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.Properties.Max(x => x.BedRoom)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MinBath" data-style="btn-primary" data-placeholder="Min Baths" data-minimum-results-for-search="Infinity">
-                                    <option label="Min Baths"></option>
-                                    <option value="2">1</option>
-                                    <option value="3">2</option>
-                                    <option value="4">3</option>
-                                    <option value="5">4</option>
-                                    <option value="6">5</option>
-                                    <option value="7">6</option>
-                                </select>
+                                <input type="number" class="form-control" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.Properties.Max(x => x.BathRoom)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MinGarage" data-style="btn-primary" data-placeholder="Min Garage" data-minimum-results-for-search="Infinity">
-                                    <option label="Min Garage"></option>
-                                    <option value="2">1</option>
-                                    <option value="3">2</option>
-                                    <option value="4">3</option>
-                                    <option value="5">4</option>
-                                    <option value="6">5</option>
-                                    <option value="7">6</option>
-                                </select>
+                                <input type="number" class="form-control" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.Properties.Max(x => x.Garage)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MinArea" data-style="btn-primary" data-placeholder="Min Area" data-minimum-results-for-search="Infinity">
-                                    <option label="Min Area"></option>
-                                    <option value="2">1 Sq Ft</option>
-                                    <option value="3">2 Sq Ft</option>
-                                    <option value="4">3 Sq Ft</option>
-                                    <option value="5">4 Sq Ft</option>
-                                    <option value="6">5 Sq Ft</option>
-                                    <option value="7">6 Sq Ft</option>
-                                </select>
+                                <input type="number" class="form-control" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="MaxArea" data-style="btn-primary" data-placeholder="Max Area" data-minimum-results-for-search="Infinity">
-                                    <option label="Max Area"></option>
-                                    <option value="2">1 Sq Ft</option>
-                                    <option value="3">2 Sq Ft</option>
-                                    <option value="4">3 Sq Ft</option>
-                                    <option value="5">4 Sq Ft</option>
-                                    <option value="6">5 Sq Ft</option>
-                                    <option value="7">6 Sq Ft</option>
-                                </select>
+                                <input type="number" class="form-control" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-12 col-sm-12 col-12">
