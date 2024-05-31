@@ -2,6 +2,7 @@
 using Property.DTOs.Actions;
 using Property.Services.CityServices;
 using Property.Services.CountryServices;
+using Property.Services.OtherServices;
 using Property.Services.ProductService.ProductServicesRealEstate;
 using Property.Services.SubCategoryServicesRealEstate;
 
@@ -13,14 +14,16 @@ namespace Property.Controllers
         private readonly IPropertyTypeServicesRealEstate _propertyTypeServicesRealEstate;
         private readonly ICountryServices _countryServices;
         private readonly ICityServices _cityServices;
+        private readonly IOtherServices _otherServices;
 
-        public MarketPlaceController(IProductServicesRealEstate productServicesRealEstate, IPropertyTypeServicesRealEstate propertyTypeServicesRealEstate, 
-                                        ICountryServices countryServices, ICityServices cityServices)
+        public MarketPlaceController(IProductServicesRealEstate productServicesRealEstate, IPropertyTypeServicesRealEstate propertyTypeServicesRealEstate,
+                                        ICountryServices countryServices, ICityServices cityServices, IOtherServices otherServices)
         {
             _productServicesRealEstate = productServicesRealEstate;
             _propertyTypeServicesRealEstate = propertyTypeServicesRealEstate;
             _countryServices = countryServices;
             _cityServices = cityServices;
+            _otherServices = otherServices;
         }
 
         public IActionResult Index()
@@ -48,8 +51,8 @@ namespace Property.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-		public async Task<IActionResult> Search(Search modelView)
-		{
+        public async Task<IActionResult> Search(Search modelView)
+        {
             var properties = await _productServicesRealEstate.GetAllProducts();
             if (properties.Data != null)
             {
@@ -63,6 +66,8 @@ namespace Property.Controllers
                 v.Cities = cities.Data;
                 v.PropertyTypes = propertyTyes.Data;
                 v.Search = modelView;
+
+                v.Properties = _otherServices.Filter(properties.Data, modelView);
 
                 return View(v);
             }

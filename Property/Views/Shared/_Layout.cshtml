@@ -33,7 +33,7 @@
     </title>
 </head>
 <body>
-    <header class="">
+    <header>
         <div class="site-mobile-menu site-navbar-target">
             <div class="site-mobile-menu-header">
                 <div class="site-mobile-menu-close">
@@ -43,37 +43,28 @@
             <div class="site-mobile-menu-body"></div>
         </div>
 
-        <nav class="site-nav p-0" style="height: 80px; display: block;">
+        <nav class="site-nav p-0" style="height: 80px;">
             <div class="">
-                <div class="menu-bg-wrap bg-transparent" style="border-radius: 0px;">
+                <div class="menu-bg-wrap" style="border-radius: 0px; height: 80px;">
                     <div class="site-navigation container">
                         <a asp-controller="Home" asp-action="Index" class="logo m-0 float-start">
                             <img src="~/images/KARIBUNI.png" width="80" height="80" alt="logo"> <span class="logoclass"></span>
                             </a>
 
                         <ul class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end">
-                            <li class="active"><a asp-controller="Home" asp-action="Index" style="color: black;">Home</a></li>
+                            <li class="active"><a asp-controller="Home" asp-action="Index">Home</a></li>
                             <li class="has-children">
-                                <a asp-controller="MarketPlace" asp-action="Properties" style="color: black;">Properties</a>
+                                <a asp-controller="MarketPlace" asp-action="Properties">Properties</a>
                                 <ul class="dropdown">
                                     <li><a href="#">Buy Property</a></li>
-                                    <li><a href="#">Sell Property</a></li>
-                                    <li class="has-children">
-                                        <a href="#">Dropdown</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Sub Menu One</a></li>
-                                            <li><a href="#">Sub Menu Two</a></li>
-                                            <li><a href="#">Sub Menu Three</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="#">Rent Property</a></li>
                                 </ul>
                             </li>
-                            <li><a asp-controller="Services" asp-action="Index" style="color: black;">Services</a></li>
-                            <li><a asp-controller="Agent" asp-action="Dashboard" style="color: black;">Dashboard</a></li>
-                            <li><a asp-controller="AboutUs" asp-action="Index" style="color: black;">About</a></li>
-                            <li><a asp-controller="Contact" asp-action="Index" style="color: black;">Contact</a></li>
-                            <li><a asp-controller="MarketPlace" asp-action="Icons" style="color: black;">Icons</a></li>
-                            @* <li><a asp-area="Identity" asp-page="/Account/Manage/Index"><span class="icon-user me-2" style="border:1px solid grey; border-radius: 50%; padding: 15px; font-size: 20px;"></span></a></li> *@
+                            <li><a asp-controller="Services" asp-action="Index">Services</a></li>
+                            <li><a asp-controller="Agent" asp-action="Dashboard">Dashboard</a></li>
+                            <li><a asp-controller="AboutUs" asp-action="Index">About</a></li>
+                            <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+                            <li><a asp-controller="MarketPlace" asp-action="Icons">Icons</a></li>
                             <partial name="_LoginPartial" />
                         </ul>
                         
