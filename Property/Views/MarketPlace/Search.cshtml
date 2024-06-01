@@ -35,16 +35,14 @@
                             <div class="row">
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <select class="form-control select-filter" name="CountryId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
-                                            @{
-                                                if (@Model.Search.CountryId > 0)
-                                                {
-                                                    <option value="@Model.Countries.FirstOrDefault(x => x.Id == @Model.Search.CountryId).Id">@Model.Countries.FirstOrDefault(x => x.Id == @Model.Search.CountryId).Name</option>
-                                                }
-                                                else
-                                                {
-                                                    <option label="Country"></option>
-                                                }
+                                        <select class="form-control select-filter" name="CountryId" id="countrySelect" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                            @if (Model.Search.CountryId > 0)
+                                            {
+                                                <option value="@Model.Search.CountryId">@Model.Countries.FirstOrDefault(x => x.Id == Model.Search.CountryId)?.Name</option>
+                                            }
+                                            else
+                                            {
+                                                <option label="Country"></option>
                                             }
 
                                             @foreach (var country in Model.Countries)
@@ -56,7 +54,7 @@
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <select class="form-control select-filter" name="CityId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                        <select class="form-control select-filter" name="CityId" id="citySelect" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
                                             @{
                                                 if (@Model.Search.CityId > 0)
                                                 {
@@ -89,17 +87,16 @@
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
                                         <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
-                                            @{
-                                                if (@Model.Search.PropertyTypeId > 0)
-                                                {
-                                                    <option value="@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Id">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option>
-                                                }
-                                                else
-                                                {
-                                                    <option label="Property Type"></option>
-                                                }
+                                            @if (@Model.Search.PropertyTypeId > 0)
+                                            {
+                                                <option value="@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Id">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option>
                                             }
-                                            @foreach (var propertyType in Model.PropertyTypes)
+                                            else
+                                            {
+                                                <option label="Property Type"></option>
+                                            }
+
+                                            @foreach(var propertyType in Model.PropertyTypes)
                                             {
                                                 <option value="@propertyType.Id">@propertyType.Name</option>
                                             }

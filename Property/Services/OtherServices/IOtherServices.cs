@@ -8,8 +8,8 @@ namespace Property.Services.OtherServices
     {
         (bool, int) CheckIfInteger(string number);
         List<GetProductRealEstateDTO> Filter(List<GetProductRealEstateDTO> properties, Search modelView);
-        List<GetProductRealEstateDTO> FilterByCountry(List<GetProductRealEstateDTO> properties, int countryId);
-        List<GetProductRealEstateDTO> FilterByCity(List<GetProductRealEstateDTO> properties, int countryId, int cityId);
+        List<GetProductRealEstateDTO> FilterByCountry(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByCity(List<GetProductRealEstateDTO> properties, Search modelView);
         List<GetProductRealEstateDTO> FilterByCategory(List<GetProductRealEstateDTO> properties, string category);
 
 

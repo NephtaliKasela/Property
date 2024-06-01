@@ -36,44 +36,52 @@ namespace Property.Services.OtherServices
         {
             if (modelView.CountryId > 0)
             {
-                properties = FilterByCountry(properties, modelView.CountryId);
+                properties = FilterByCountry(properties, modelView);
             }
             if (modelView.CityId > 0)
             {
-                properties = FilterByCity(properties, modelView.CountryId, modelView.CityId);
+                properties = FilterByCity(properties, modelView);
             }
 
             return properties;
         }
 
-        public List<GetProductRealEstateDTO> FilterByCountry(List<GetProductRealEstateDTO> properties, int countryId)
+        public List<GetProductRealEstateDTO> FilterByCountry(List<GetProductRealEstateDTO> properties, Search modelView)
         {
             List <GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
 
-            foreach (var property in properties)
+            if(modelView.CountryId > 0)
             {
-                if(property.Country.Id == countryId)
+                foreach (var property in properties)
                 {
-                    Properties.Add(property);
+                    if (property.Country.Id == modelView.CountryId)
+                    {
+                        Properties.Add(property);
+                    }
                 }
+                return Properties;
             }
 
-            return Properties;
+            return properties;
         }
 
-        public List<GetProductRealEstateDTO> FilterByCity(List<GetProductRealEstateDTO> properties, int countryId, int cityId)
+        public List<GetProductRealEstateDTO> FilterByCity(List<GetProductRealEstateDTO> properties, Search modelView)
         {
             List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
 
-            foreach (var property in properties)
+            if (modelView.CityId > 0)
             {
-                if (property.Country.Id == countryId && property.City.Id == cityId)
-                { 
-                    Properties.Add(property);
+                foreach (var property in properties)
+                {
+                    if (property.City.Id == modelView.CityId)
+                    {
+                        Properties.Add(property);
+                    }
                 }
+                return Properties;
             }
 
-            return Properties;
+            return properties;
         }
 
         public List<GetProductRealEstateDTO> FilterByCategory(List<GetProductRealEstateDTO> properties, string category)

@@ -31,6 +31,7 @@ namespace Property.Controllers
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Properties()
         {
             var properties = await _productServicesRealEstate.GetAllProducts();
@@ -51,6 +52,7 @@ namespace Property.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
         public async Task<IActionResult> Search(Search modelView)
         {
             var properties = await _productServicesRealEstate.GetAllProducts();
@@ -58,13 +60,13 @@ namespace Property.Controllers
             {
                 var countries = await _countryServices.GetAllCountries();
                 var cities = await _cityServices.GetAllCities();
-                var propertyTyes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+                var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
 
                 var v = new Properties_action();
                 v.Properties = properties.Data;
                 v.Countries = countries.Data;
                 v.Cities = cities.Data;
-                v.PropertyTypes = propertyTyes.Data;
+                v.PropertyTypes = propertyTypes.Data;
                 v.Search = modelView;
 
                 v.Properties = _otherServices.Filter(properties.Data, modelView);
