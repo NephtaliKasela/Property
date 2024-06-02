@@ -24,8 +24,6 @@ namespace Property.Services.ReservationServices
             var serviceResponse = new ServiceResponse<List<GetReservationDTO>>();
             var reservation = _mapper.Map<Reservation>(newReservation);
 
-            bool result; int number;
-
             // Get Agent
             var product = await _context.ProductsRealEstate
                 .Include(x => x.Rent)

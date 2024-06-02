@@ -8,7 +8,14 @@
     <div class="row">
         <div class="col-8">
             <div>
-                <h6><span style="color: #005454;">@Model.Properties.Count</span> Properties Found</h6>
+                @if (Model.Properties != null && Model.Properties.Count > 0)
+                {
+                    <h6><span style="color: #005454;">@Model.Properties.Count</span> Properties Found</h6>
+                }
+                else
+                {
+                    <h6><span style="color: #005454;">No</span> Property Found</h6>
+                }
             </div>
         </div>
         <div class="col-4">
@@ -31,7 +38,7 @@
             <div class="property-content">
                 <div class="row justify-content-center" style="align-content: center; text-align: center;">
                     <div class="col-12">
-                        <form method="post" asp-controller="MarketPlace" asp-action="Search">
+                        <form asp-controller="MarketPlace" asp-action="Search">
                             <div class="row">
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
@@ -75,9 +82,21 @@
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
                                         <select class="form-control select-filter" name="Category" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
-                                            <option value="@Model.Search.Category">
-                                                @Model.Search.Category
-                                            </option>
+                                            @{
+                                                @if (@Model.Search.Category.ToLower() == "rent" || @Model.Search.Category.ToLower() == "sale")
+                                                {
+                                                    <option value="@Model.Search.Category">
+                                                        For @Model.Search.Category
+                                                    </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@Model.Search.Category">
+                                                        @Model.Search.Category
+                                                    </option>
+                                                }
+                                            }
+
                                             <option value="All">All</option>
                                             <option value="Rent">For Rent</option>
                                             <option value="Sale">For Sale</option>
@@ -86,20 +105,29 @@
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
-                                            @if (@Model.Search.PropertyTypeId > 0)
+                                        <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary">
+                                            @if (Model.PropertyTypes != null && Model.PropertyTypes.Any())
                                             {
-                                                <option value="@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Id">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option>
+                                                @if (@Model.Search.PropertyTypeId > 0)
+                                                {
+                                                    @* <option value="@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Id">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option> *@
+                                                    <option value="@Model.Search.PropertyTypeId">@Model.PropertyTypes.FirstOrDefault(x => x.Id == @Model.Search.PropertyTypeId).Name</option>
+                                                }
+                                                else
+                                                {
+                                                    <option label="Property Type"></option>
+                                                }
+
+                                                @foreach (var propertyType in Model.PropertyTypes)
+                                                {
+                                                    <option value="@propertyType.Id">@propertyType.Name</option>
+                                                }
                                             }
                                             else
                                             {
-                                                <option label="Property Type"></option>
+                                                <option value="">Property Type</option>
                                             }
 
-                                            @foreach(var propertyType in Model.PropertyTypes)
-                                            {
-                                                <option value="@propertyType.Id">@propertyType.Name</option>
-                                            }
                                         </select>
                                     </div>
                                 </div>
@@ -157,7 +185,7 @@
     <div class="container">
         <div class="row">
             @{
-                @if (Model.Properties.Count > 0)
+                @if (Model.Properties.Count > 0 || Model.Properties != null)
                 {
                     @foreach (var product in Model.Properties)
                     {

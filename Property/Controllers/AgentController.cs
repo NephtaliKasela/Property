@@ -97,8 +97,7 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-		[HttpGet]
-		public async Task<IActionResult> AddAgent()
+		public IActionResult AddAgent()
 		{
             return View();
 		}

@@ -1,0 +1,30 @@
+﻿@model Property.DTOs.Actions.Properties_action
+
+@{
+    ViewData["Title"] = "Market Place";
+}
+
+<div class="container mb-0" style="margin-top: 150px;">
+    <div class="row">
+        <div class="col-8">
+            <div>
+                 <h6><span style="color: #005454;">No</span> Property Found</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="section section-properties mt-0 pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-sm-12 col-12">
+                <div class="form-group mt-5">
+                    <a class="btn btn-primary py-2 px-3" style="border-radius: 5px;" asp-controller="MarketPlace" asp-action="Properties">
+                        <i class="icon-filter"></i> Back home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

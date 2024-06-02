@@ -7,6 +7,7 @@ using Property.DTOs.Country;
 using System.Collections.Generic;
 using DocumentFormat.OpenXml.Bibliography;
 using Property.DTOs.Actions;
+using System.Numerics;
 
 namespace Property.Services.OtherServices
 {
@@ -32,7 +33,7 @@ namespace Property.Services.OtherServices
             return (false, 0);
         }
 
-        public List<GetProductRealEstateDTO> Filter(List<GetProductRealEstateDTO> properties, Search modelView)
+        public async Task<(List<GetProductRealEstateDTO>, Search)> Filter(List<GetProductRealEstateDTO> properties, Search modelView)
         {
             if (modelView.CountryId > 0)
             {
@@ -40,17 +41,20 @@ namespace Property.Services.OtherServices
             }
             if (modelView.CityId > 0)
             {
-                properties = FilterByCity(properties, modelView);
+                (properties, modelView) = await FilterByCity(properties, modelView);
             }
 
-            return properties;
+            properties = FilterByCategory(properties, modelView);
+            properties = FilterByPropertyType(properties, modelView);
+
+            return (properties, modelView);
         }
 
         public List<GetProductRealEstateDTO> FilterByCountry(List<GetProductRealEstateDTO> properties, Search modelView)
         {
-            List <GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
 
-            if(modelView.CountryId > 0)
+            if (modelView.CountryId > 0)
             {
                 foreach (var property in properties)
                 {
@@ -62,20 +66,61 @@ namespace Property.Services.OtherServices
                 return Properties;
             }
 
+            modelView.CityId = 0;
             return properties;
         }
 
-        public List<GetProductRealEstateDTO> FilterByCity(List<GetProductRealEstateDTO> properties, Search modelView)
+        public async Task<(List<GetProductRealEstateDTO>, Search)> FilterByCity(List<GetProductRealEstateDTO> properties, Search modelView)
         {
             List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
 
             if (modelView.CityId > 0)
             {
+                if (modelView.CountryId > 0)
+                {
+                    var country = await _context.Countries
+                        .Include(x => x.Cities)
+                        .FirstOrDefaultAsync(x => x.Id == modelView.CountryId);
+
+                    if (country.Cities.FirstOrDefault(x => x.Id == modelView.CityId) is not null)
+                    {
+                        foreach (var property in properties)
+                        {
+                            if (property.City.Id == modelView.CityId)
+                            {
+                                Properties.Add(property);
+                            }
+                        }
+                        return (Properties, modelView);
+                    }
+                }
+            }
+
+            modelView.CityId = 0;
+            return (properties, modelView);
+        }
+
+        public List<GetProductRealEstateDTO> FilterByCategory(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.Category.ToLower() != "all")
+            {
                 foreach (var property in properties)
                 {
-                    if (property.City.Id == modelView.CityId)
+                    if (modelView.Category.ToLower() == "rent")
                     {
-                        Properties.Add(property);
+                        if (property.Rent is not null)
+                        {
+                            Properties.Add(property);
+                        }
+                    }
+                    else if (modelView.Category.ToLower() == "sale")
+                    {
+                        if (property.Sell is not null)
+                        {
+                            Properties.Add(property);
+                        }
                     }
                 }
                 return Properties;
@@ -84,29 +129,23 @@ namespace Property.Services.OtherServices
             return properties;
         }
 
-        public List<GetProductRealEstateDTO> FilterByCategory(List<GetProductRealEstateDTO> properties, string category)
+        public List<GetProductRealEstateDTO> FilterByPropertyType(List<GetProductRealEstateDTO> properties, Search modelView)
         {
             List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
 
-            foreach (var property in properties)
+            if (modelView.PropertyTypeId > 0)
             {
-                if (category.ToLower() == "rent")
+                foreach (var property in properties)
                 {
-                    if (property.Rent is not null)
+                    if (property.PropertyType.Id == modelView.PropertyTypeId)
                     {
                         Properties.Add(property);
                     }
                 }
-                else if (category.ToLower() == "sale")
-                {
-                    if (property.Sell is not null)
-                    {
-                        Properties.Add(property);
-                    }
-                }
+                return Properties;
             }
 
-            return Properties;
+            return properties;
         }
     }
 }

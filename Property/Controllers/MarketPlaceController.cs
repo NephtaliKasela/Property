@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Actions;
 using Property.Services.CityServices;
 using Property.Services.CountryServices;
@@ -52,7 +53,6 @@ namespace Property.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpPost]
         public async Task<IActionResult> Search(Search modelView)
         {
             var properties = await _productServicesRealEstate.GetAllProducts();
@@ -63,13 +63,37 @@ namespace Property.Controllers
                 var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
 
                 var v = new Properties_action();
-                v.Properties = properties.Data;
                 v.Countries = countries.Data;
                 v.Cities = cities.Data;
                 v.PropertyTypes = propertyTypes.Data;
                 v.Search = modelView;
 
-                v.Properties = _otherServices.Filter(properties.Data, modelView);
+                (v.Properties, v.Search) = await _otherServices.Filter(properties.Data, modelView);
+                
+                if(v.Properties.Count == 0)
+                {
+                    return RedirectToAction("SearchFail", new { modelView = modelView });
+                }
+
+                return View(v);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> SearchFail(Search modelView)
+        {
+            var properties = await _productServicesRealEstate.GetAllProducts();
+            if (properties.Data != null)
+            {
+                var countries = await _countryServices.GetAllCountries();
+                var cities = await _cityServices.GetAllCities();
+                var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
+
+                var v = new Properties_action();
+                v.Countries = countries.Data;
+                v.Cities = cities.Data;
+                v.PropertyTypes = propertyTypes.Data;
+                v.Search = modelView;
 
                 return View(v);
             }

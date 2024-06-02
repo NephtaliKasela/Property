@@ -1,5 +1,4 @@
 ﻿using Property.DTOs.Agent;
-using Property.DTOs.Agent;
 using Property.Models;
 
 namespace Property.Services.AgentServices
