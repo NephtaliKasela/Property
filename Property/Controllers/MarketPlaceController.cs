@@ -63,6 +63,7 @@ namespace Property.Controllers
                 var propertyTypes = await _propertyTypeServicesRealEstate.GetAllPropertyTypesRealEstate();
 
                 var v = new Properties_action();
+                v.AllProperties = properties.Data;
                 v.Countries = countries.Data;
                 v.Cities = cities.Data;
                 v.PropertyTypes = propertyTypes.Data;

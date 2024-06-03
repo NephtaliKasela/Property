@@ -12,6 +12,13 @@ namespace Property.Services.OtherServices
         Task<(List<GetProductRealEstateDTO>, Search)> FilterByCity(List<GetProductRealEstateDTO> properties, Search modelView);
         List<GetProductRealEstateDTO> FilterByCategory(List<GetProductRealEstateDTO> properties, Search modelView);
         List<GetProductRealEstateDTO> FilterByPropertyType(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMinPrice(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMaxPrice(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMinBed(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMinBath(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMinGarage(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMinArea(List<GetProductRealEstateDTO> properties, Search modelView);
+        List<GetProductRealEstateDTO> FilterByMaxArea(List<GetProductRealEstateDTO> properties, Search modelView);
 
 
     }

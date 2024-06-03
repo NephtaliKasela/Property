@@ -10,7 +10,14 @@
             <div>
                 @if (Model.Properties != null && Model.Properties.Count > 0)
                 {
-                    <h6><span style="color: #005454;">@Model.Properties.Count</span> Properties Found</h6>
+                    @if (Model.Properties.Count == 1)
+                    {
+                        <h6><span style="color: #005454;">One</span> property found</h6>
+                    }
+                    else
+                    {
+                        <h6><span style="color: #005454;">@Model.Properties.Count</span> properties found</h6>
+                    }
                 }
                 else
                 {
@@ -133,38 +140,38 @@
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.Properties.Max(x => x.Price)" value="@Model.Search.MinPrice" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.AllProperties.Max(x => x.Price)" value="@Model.Search.MinPrice" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.Properties.Max(x => x.Price)" value="@Model.Search.MaxPrice" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.AllProperties.Max(x => x.Price)" value="@Model.Search.MaxPrice" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.Properties.Max(x => x.BedRoom)" value="@Model.Search.MinBed" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.AllProperties.Max(x => x.BedRoom)" value="@Model.Search.MinBed" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.Properties.Max(x => x.BathRoom)" value="@Model.Search.MinBath" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.AllProperties.Max(x => x.BathRoom)" value="@Model.Search.MinBath" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.Properties.Max(x => x.Garage)" value="@Model.Search.MinGarage" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.AllProperties.Max(x => x.Garage)" value="@Model.Search.MinGarage" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.Properties.Max(x => x.Area)" value="@Model.Search.MinArea" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.AllProperties.Max(x => x.Area)" value="@Model.Search.MinArea" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">
                                     <div class="form-group mb-3">
-                                        <input type="number" class="form-control" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.Properties.Max(x => x.Area)" value="@Model.Search.MaxArea" data-minimum-results-for-search="Infinity">
+                                        <input type="number" class="form-control" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.AllProperties.Max(x => x.Area)" value="@Model.Search.MaxArea" data-minimum-results-for-search="Infinity">
                                     </div>
                                 </div>
                                 <div class="col-xl-12 col-sm-12 col-12">

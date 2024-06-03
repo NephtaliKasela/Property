@@ -46,6 +46,13 @@ namespace Property.Services.OtherServices
 
             properties = FilterByCategory(properties, modelView);
             properties = FilterByPropertyType(properties, modelView);
+            properties = FilterByMinPrice(properties, modelView);
+            properties = FilterByMaxPrice(properties, modelView);
+            properties = FilterByMinBed(properties, modelView);
+            properties = FilterByMinBath(properties, modelView);
+            properties = FilterByMinGarage(properties, modelView);
+            properties = FilterByMinArea(properties, modelView);
+            properties = FilterByMaxArea(properties, modelView);
 
             return (properties, modelView);
         }
@@ -138,6 +145,139 @@ namespace Property.Services.OtherServices
                 foreach (var property in properties)
                 {
                     if (property.PropertyType.Id == modelView.PropertyTypeId)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMinPrice(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MinPrice > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.Price >= modelView.MinPrice)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMaxPrice(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MaxPrice > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.Price <= modelView.MaxPrice)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMinBed(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MinBed > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.BedRoom >= modelView.MinBed)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMinBath(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MinBath > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.BathRoom >= modelView.MinBath)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMinGarage(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MinGarage > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.Garage >= modelView.MinGarage)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMinArea(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MinArea > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.Area >= modelView.MinArea)
+                    {
+                        Properties.Add(property);
+                    }
+                }
+                return Properties;
+            }
+
+            return properties;
+        }
+
+        public List<GetProductRealEstateDTO> FilterByMaxArea(List<GetProductRealEstateDTO> properties, Search modelView)
+        {
+            List<GetProductRealEstateDTO> Properties = new List<GetProductRealEstateDTO>();
+
+            if (modelView.MaxArea > 0)
+            {
+                foreach (var property in properties)
+                {
+                    if (property.Area <= modelView.MaxArea)
                     {
                         Properties.Add(property);
                     }
