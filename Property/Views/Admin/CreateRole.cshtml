@@ -1,0 +1,28 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mt-5 mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+            <li class="breadcrumb-item"><a asp-controller="" asp-action="">Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">new Role</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="card py-5">
+    <div class="container">
+        <form method="post" asp-controller="Admin" asp-action="CreateRole">
+            <div class="form-group">
+                <label for="name">role:</label>
+                <input type="text" class="form-control" id="role" name="role" required>
+            </div>
+
+            <input type="submit" value="Add Country" class="btn btn-primary mt-4">
+        </form>
+    </div>
+</div>

@@ -42,8 +42,17 @@ builder.Services.AddScoped<IReservationServices, ReservationServices>();
 builder.Services.AddScoped<IApplicationUserServices, ApplicationUserServices>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminRole",
+         policy => policy.RequireRole("Admin"));
+    options.AddPolicy("ManagerRole",
+         policy => policy.RequireRole("Manager"));
+});
 
 var app = builder.Build();
 

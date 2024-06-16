@@ -1,0 +1,103 @@
+﻿@model Property.DTOs.Role.GetUserRole
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="mt-5 mb-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Admin" asp-action="Roles">Roles</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Role.ToString()</li>
+            <li class="breadcrumb-item active" aria-current="page">New User</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="page-header">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="">
+                <form>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter email here" required>
+                        </div>
+                        <div class="col-6">
+                            <input type="submit" class="btn btn-primary float-left veiwbutton" value="Search">
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="card card-table">
+            <div class="card-body booking_card">
+                <div class="table-responsive">
+                    <table class="datatable table table-stripped table table-hover table-center mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th class="text-center">Agent</th>
+                                <th class="text-center">Booking</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                @foreach (var user in Model.Users)
+                                {
+                                    <tr>
+                                        <td>BKG-0001</td>
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/admin_dashbaord-_hotel_bootstrap5/assets/img/profiles/avatar-03.jpg" alt="User Image"></a>
+                                                @user.UserName
+                                            </h2>
+                                        </td>
+                                        <td>@user.Email</td>
+                                        <td>@user.PhoneNumber</td>
+                                        @if (user.Agent is not null)
+                                        {
+                                            <td class="text-center">Yes</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">No</td>
+                                        }
+                                        @if (user.Reservations is not null)
+                                        {
+                                            <td class="text-center">@user.Reservations.Count</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="text-center">0</td>
+                                        }
+
+                                        <td class="text-right">
+                                            <form asp-controller="Admin" asp-action="AddUserRole" method="/post">
+                                                <input type="hidden" name="userEmail" value="@user.Email" />
+                                                <input type="hidden" name="role" value="@Model.Role" />
+                                                <button class="btn btn-primary float-right veiwbutton"><i class="fas fa-plus"></i></button>
+                                            </form>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

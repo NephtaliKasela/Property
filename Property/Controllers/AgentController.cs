@@ -102,7 +102,8 @@ namespace Property.Controllers
             return View();
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "ManagerRole")]
+        [HttpGet]
 		public async Task<IActionResult> GetAgents()
 		{
 			var agents = await _agentServices.GetAllAgents();

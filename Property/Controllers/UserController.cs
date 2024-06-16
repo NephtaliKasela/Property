@@ -8,10 +8,10 @@ using Property.Services.UserApplicationServices;
 namespace Property.Controllers
 {
     [Authorize]
-    public class CustomerController : Controller
+    public class UserController : Controller
     {
         private readonly IApplicationUserServices _userApplication;
-        public CustomerController(IApplicationUserServices userApplication)
+        public UserController(IApplicationUserServices userApplication)
         {
             _userApplication = userApplication;
         }
