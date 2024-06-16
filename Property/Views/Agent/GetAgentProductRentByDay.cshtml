@@ -147,12 +147,13 @@
                                             <th>Booking ID</th>
                                             <th>Name</th>
                                             <th>Room Type</th>
-                                            <th>Total Numbers</th>
+                                            <th>People</th>
                                             <th>Date</th>
                                             <th>Time</th>
                                             <th>Arrival Date</th>
                                             <th>Depature Date</th>
                                             <th>Amount</th>
+                                            <th>Commission</th>
                                             <th>Email</th>
                                             <th>Ph.Number</th>
                                             <th>Status</th>
@@ -181,6 +182,11 @@
                                                         <td>@reservation.Arrival.ToLongDateString()</td>
                                                         <td>@reservation.Departure.ToLongDateString()</td>
                                                         <td>@reservation.Amount $</td>
+                                                        @{
+                                                            double commission = 0;
+                                                            commission = (reservation.Amount * 20) / 100;
+                                                            <td><mark>@commission $</mark></td>
+                                                        }
                                                         <td>@reservation.UserEmail</td>
                                                         <td>631-254-6480</td>
                                                         <td>

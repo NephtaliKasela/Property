@@ -41,7 +41,7 @@ namespace Property.Services.ReservationServices
             reservation.Amount = duration.TotalDays * product.Price;
             reservation.ReservationFee = 5;
 
-            reservation.NumberOfPeople = newReservation.NumberOfPeople;
+            reservation.NumberOfPeople = newReservation.NumberOfPeople + newReservation.NumberOfGuest;
 
             reservation.Date = DateTime.Now;
 
