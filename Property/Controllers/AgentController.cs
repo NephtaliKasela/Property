@@ -27,7 +27,8 @@ namespace Property.Controllers
 			_productServicesRealEstate = productServicesRealEstate;
 		}
 
-		[HttpGet]
+        [Authorize(Policy ="AdminRole")]
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
 			//Get the current user
@@ -51,7 +52,8 @@ namespace Property.Controllers
 			return RedirectToAction("AddAgent");
         }
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> Properties()
 		{
             //Get the current user
@@ -102,7 +104,7 @@ namespace Property.Controllers
             return View();
 		}
 
-        [Authorize(Policy = "ManagerRole")]
+        [Authorize(Policy = "ManagerRole, AdminRole")]
         [HttpGet]
 		public async Task<IActionResult> GetAgents()
 		{
@@ -113,22 +115,6 @@ namespace Property.Controllers
 			}
 			return View("Index", "Home");
 		}
-
-		//[Authorize]
-		//[HttpGet]
-		//public async Task<IActionResult> GetAgent()
-		//{
-		//	ApplicationUser user = await _userManager.GetUserAsync(User);
-		//          if (user != null)
-		//          {
-		//		// Access user properties
-		//		string userId = user.Id;
-		//		string email = user.Email;
-		//		// ...
-		//	}
-		//	var agents = await _agentServices.GetAgentById(1);
-		//	return View(agents.Data);
-		//}
 
 		[HttpGet]
 		public async Task<IActionResult> UpdateAgent(int id)

@@ -12,7 +12,6 @@ using Property.Services.UserApplicationServices;
 
 namespace Property.Controllers.Admin
 {
-	[Authorize(Policy = "AdminRole")]
 	public class AdminController : Controller
 	{
         private readonly IApplicationUserServices _applicationUserServices;
@@ -32,7 +31,7 @@ namespace Property.Controllers.Admin
 			_productServicesRealEstate = productServicesRealEstate;
             _reservationServices = reservationServices;
         }
-
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<IActionResult> Index()
 		{
@@ -50,6 +49,7 @@ namespace Property.Controllers.Admin
 			return View(v);
 		}
 
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<IActionResult> Roles()
         {
@@ -57,13 +57,13 @@ namespace Property.Controllers.Admin
             return View(v);
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         public IActionResult CreateRole()
         {
             return View();
         }
 
-        [Authorize]
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         public async Task<IActionResult> CreateRole(string role)
         {
@@ -84,8 +84,8 @@ namespace Property.Controllers.Admin
             return View();
         }
 
-		[Authorize]
-		public async Task<IActionResult> GetUsersRoles(string role)
+        [Authorize(Policy = "AdminRole")]
+        public async Task<IActionResult> GetUsersRoles(string role)
 		{
             if (!string.IsNullOrEmpty(role))
             {
@@ -98,8 +98,8 @@ namespace Property.Controllers.Admin
 			return View();
 		}
 
-		[Authorize]
-		public async Task<IActionResult> GetUsers(string role)
+        [Authorize(Policy = "AdminRole")]
+        public async Task<IActionResult> GetUsers(string role)
 		{
 			var v = new GetUserRole();
 			v.Users = await _userManager.Users.ToListAsync();
@@ -122,7 +122,7 @@ namespace Property.Controllers.Admin
 			return RedirectToAction("GetUsersRoles");
 		}
 
-        [Authorize]
+        [Authorize(Policy ="AdminRole")]
         public async Task<IActionResult> AddUserRole(string userEmail, string role)
         {
             var user = _userManager.FindByEmailAsync(userEmail);

@@ -49,7 +49,8 @@ namespace Property.Controllers.Products
 			return RedirectToAction("Index", "Home");
 		}
 
-		[HttpGet]
+		[Authorize(Policy ="AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> GetProduct()
         {
             var products = await _productServicesRealEstate.GetAllProducts();
