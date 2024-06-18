@@ -163,17 +163,17 @@
 					<div class="col-md-6 col-md-offset-1">
 						<div class="booking-form">
 							<form asp-controller="Reservation" asp-action="SaveAddReservation">
-                                <input type="hidden" id="ProductRealEstateId" name="ProductRealEstateId" value="@Model.Id">
+                                <input type="hidden" id="ProductRealEstateId" name="ProductRealEstateId" value="@Model.Id" required>
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<input class="form-control" type="text" id="UserName" name="UserName">
+                                            <input class="form-control" type="text" id="UserName" name="UserName" required>
 											<span class="form-label">Name</span>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<input class="form-control" type="email" id="UserEmail" name="UserEmail">
+                                            <input class="form-control" type="email" id="UserEmail" name="UserEmail" required>
 											<span class="form-label">Email</span>
 										</div>
 									</div>
@@ -181,19 +181,19 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<input class="form-control" type="tel" id="Phone" name="Phone">
-											<span class="form-label">Phone</span>
+                                            <input class="form-control" type="tel" id="Phone" name="Phone" required>
+                                            <span class="form-label">Phone</span>
 										</div>
 									</div>
 									<div class="col-md-3 col-sm-6">
 										<div class="form-group">
-											<input class="form-control" type="number" id="NumberOfPeople" name="NumberOfPeople" min="0" max="@Model.Rent.RentRealEstatePerDay.NumberOfPoeple">
+                                            <input class="form-control" type="number" id="NumberOfPeople" name="NumberOfPeople" min="0" max="@Model.Rent.RentRealEstatePerDay.NumberOfPoeple" required>
 											<span class="form-label">People</span>
 										</div>
 									</div>
 									<div class="col-md-3 col-sm-6">
 										<div class="form-group">
-											<input class="form-control" type="number" id="NumberOfGuest" name="NumberOfGuest" min="0" max="@Model.Rent.RentRealEstatePerDay.AdditionalPerson">
+                                            <input class="form-control" type="number" id="NumberOfGuest" name="NumberOfGuest" min="0" max="@Model.Rent.RentRealEstatePerDay.AdditionalPerson" required>
 											<span class="form-label">Guest</span>
 										</div>
 									</div>
@@ -222,7 +222,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="amount" style="text-align: right;">
-                                                    <h5 id="amount">$0</h5>
+                                                    <h4 id="amount">$0</h4>
                                                     <script>
                                                         function calculateTotal() {
                                                             var startDate = new Date(document.getElementById('Arrival').value);
@@ -271,7 +271,7 @@
                                             </div>
                                             <div class="col-6">
                                                 <div style="text-align: right">
-                                                    <h5 class="text-muted" id="booking-fee">$0</h5>
+                                                    <h4 class="text-muted" id="booking-fee">$0</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,12 +280,12 @@
                                         <div class="row">
                                             <div class="col-6">
                                                 <div style="text-align: left">
-                                                    <h5 class="text-muted">Total</h5>
+                                                    <h3 class="text-muted">Total</h3>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div style="text-align: right">
-                                                    <h5 class="text-muted" id="total-amount">$0</h5>
+                                                    <h3 class="text-muted" id="total-amount">$0</h3>
                                                 </div>
                                             </div>
                                         </div>

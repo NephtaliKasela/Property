@@ -34,11 +34,11 @@
 </div> *@
 
 <div class="overlay"
-     style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")'); margin-top: 80px; height: 220px;">
+     style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")'); margin-top: 80px;">
     <div class="container">
         <div class="row justify-content-center align-items-center">
-            <div class="col-lg-9 text-center mt-5">
-                <h3>
+            <div class="col-lg-9 text-center">
+                <h3 class="mt-5 mb-5" style="color: white;">
                     @Model.Name
                 </h3>
             </div>
@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<div class="">
+<div class="mb-0">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
@@ -62,10 +62,10 @@
 </div>
 
 
-<div class="section">
+<div class="section mt-0 pt-5">
     <div class="container">
         <div class="row justify-content-between">
-            <div class="col-lg-7">
+            <div class="col-lg-6">
                 <div class="img-property-slide-wrap">
                     <div class="img-property-slide">
                             if(Model.ProductImages.Count > 0)
@@ -83,9 +83,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="property-item mb-3"> 
-                    <div class="property-content">
+             <div class="col-lg-5">
+                @*<div class="property-item mb-3">
+                <div class="property-content">
                         <div class="row">
                             <div class="col-6">
                                 <div class="price mb-2"><span>$@Model.Price</span></div>
@@ -108,14 +108,40 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
 
-                <h2 class="heading text-primary">@Model.City.Name, @Model.Country.Name</h2>
-                <p class="meta">@Model.Address</p>
-                <p class="meta">Published: @Model.PublicationDate.Day.@Model.PublicationDate.Month.@Model.PublicationDate.Year</p>
-                <p class="text-black-50">
-                    @Model.Description
-                </p>
+                <div class="row">
+                    <div class="col-6">
+                        <h4 class="price mb-2"><span>$@Model.Price</span></h4>
+                    </div>
+                    <div class="col-6" style="text-align: right;">
+                        @{
+                            @if (Model.Rent != null && Model.Rent.RentRealEstatePerDay != null)
+                            {
+                                <span>/ night</span>
+                            }
+                            else if (Model.Rent != null && Model.Rent.RentRealEstatePerMounth != null)
+                            {
+                                <span>/ Month</span>
+                            }
+                            else if (Model.Sell != null)
+                            {
+                                <span>Sale</span>
+                            }
+                        }
+                    </div>
+                </div>
+                <hr />
+
+                @* <h3 class="heading text-primary">@Model.City.Name, @Model.Country.Name</h3> *@
+                <p class="meta">@Model.Country.Name, @Model.City.Name. @Model.Address</p>
+                <p class="meta mb-2">Published: @Model.PublicationDate.Day.@Model.PublicationDate.Month.@Model.PublicationDate.Year</p>
+                .<div>
+                    <p class="card mt-0" style="border: 0px;">
+                        @Model.Description
+                    </p>
+                </div>
+                
                 <p class="text-black-50">
                     Perferendis eligendi reprehenderit, assumenda molestias nisi eius
                     iste reiciendis porro tenetur in, repudiandae amet libero.
