@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Property.DTOs.Actions;
@@ -36,6 +37,7 @@ namespace Property.Controllers
             return RedirectToAction("Properties", "MarketPlace");
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<IActionResult> GetReservation()
         {
@@ -46,13 +48,20 @@ namespace Property.Controllers
         [HttpGet]
         public async Task<IActionResult> UpdateReservation(int id)
         {
-            var reservation = await _reservationServices.GetReservationById(id);
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            if (reservation != null)
+            if (user != null)
             {
-                return View(reservation.Data);
+                var reservation = await _reservationServices.GetReservationById(id);
+
+                if (reservation != null && reservation.Data.applicationUser.Id == user.Id)
+                {
+                    return View(reservation.Data);
+                }
+                return RedirectToAction("Properties", "MarketPlace");
             }
-            return RedirectToAction("Properties", "MarketPlace");
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -74,17 +83,40 @@ namespace Property.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveUpdateReservation(UpdateReservationDTO updatedReservation)
         {
-            await _reservationServices.UpdateReservation(updatedReservation);
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            return RedirectToAction("Properties", "MarketPlace");
+            if (user != null)
+            {
+                var reservation = await _reservationServices.GetReservationById(updatedReservation.Id);
+
+                if (reservation != null && reservation.Data.applicationUser.Id == user.Id)
+                {
+                    var result = await _reservationServices.UpdateReservation(updatedReservation);
+                    if (result.Success) { return RedirectToAction("Properties", "MarketPlace"); }
+                }
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
         public async Task<IActionResult> DeleteReservation(int id)
         {
-            await _reservationServices.DeleteReservation(id);
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            return RedirectToAction("Properties", "MarketPlace");
+            if (user != null)
+            {
+                var reservation = await _reservationServices.GetReservationById(id);
+
+                if (reservation != null && reservation.Data.applicationUser.Id == user.Id)
+                {
+                    var result = await _reservationServices.DeleteReservation(id);
+                    if (result.Success) { return RedirectToAction("Properties", "MarketPlace"); }
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

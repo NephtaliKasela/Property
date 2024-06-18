@@ -21,21 +21,24 @@ namespace Property.Controllers
 			_cityServices = cityServices;
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> AddCity()
 		{
 			var countries = await _countryServices.GetAllCountries();
 			return View(countries.Data);
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> GetCity()
 		{
 			var cities = await _cityServices.GetAllCities();
 			return View(cities.Data);
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> UpdateCity(int id)
 		{
 			var city = await _cityServices.GetCityById(id);
@@ -48,7 +51,8 @@ namespace Property.Controllers
 			return View(v);
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveAddCity(AddCityDTO newCity)
 		{
 			await _cityServices.AddCity(newCity);
@@ -56,14 +60,16 @@ namespace Property.Controllers
 			return RedirectToAction("GetCity");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveUpdateCity(UpdateCityDTO updatedCity)
 		{
 			await _cityServices.UpdateCity(updatedCity);
 			return RedirectToAction("GetCity");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> DeleteCity(int id)
 		{
 			await _cityServices.DeleteCity(id);

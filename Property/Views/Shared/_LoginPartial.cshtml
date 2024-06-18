@@ -28,7 +28,7 @@ else
     @if (SignInManager.IsSignedIn(User) && @User.Identity.Name?.Length > 0)
     {
     <li class="has-children">
-        <a asp-area="Identity" asp-page="/Account/Manage/Index"><span class="px-2 py-2" style=" background-color: slategrey; border:1px solid white; border-radius: 50%; font-size: 16px; margin: 0px; color: white; height: 20px; width: 20px;">@User.Identity.Name[0].ToString().ToUpper()</span></a>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index"><span class="px-2 py-2" style=" background-color: slategrey; border:1px solid white; border-radius: 50%; margin: 0px; color: white; height: 20px; width: 20px;">@User.Identity.Name[0].ToString().ToUpper()</span></a>
         <ul class="dropdown">
             <li><a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><span class="icon-sign-out me-2"></span> Log out</a></li>
         </ul>

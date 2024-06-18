@@ -20,21 +20,24 @@ namespace Property.Controllers
 			_countryServices = countryServices;
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> AddCountry()
 		{
 			var continents = await _continentServices.GetAllContinents();
 			return View(continents.Data);
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> GetCountry()
 		{
 			var countries = await _countryServices.GetAllCountries();
 			return View(countries.Data);
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> UpdateCountry(int id)
 		{
 			var country = await _countryServices.GetCountryById(id);
@@ -47,7 +50,8 @@ namespace Property.Controllers
 			return View(v);
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveAddCountry(AddCountryDTO newCountry)
 		{
 			await _countryServices.AddCountry(newCountry);
@@ -55,14 +59,16 @@ namespace Property.Controllers
 			return RedirectToAction("GetCountry");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveUpdateCountry(UpdateCountryDTO updatedCountry)
 		{
 			await _countryServices.UpdateCountry(updatedCountry);
 			return RedirectToAction("GetCountry");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> DeleteCountry(int id)
 		{
 			await _countryServices.DeleteCountry(id);

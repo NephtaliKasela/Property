@@ -17,12 +17,14 @@ namespace Property.Controllers
             _propertyTypeServicesRealEstate = propertyTypeServicesRealEstate;
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public IActionResult AddPropertyType()
         {
             return View();
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpGet]
         public async Task<IActionResult> GetPropertyTypes()
         {
@@ -30,7 +32,8 @@ namespace Property.Controllers
             return View(propertyTypes.Data);
         }
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> UpdatePropertyType(int id)
         {
             var propertyType = await _propertyTypeServicesRealEstate.GetPropertyTypeRealEstateById(id);
@@ -38,6 +41,7 @@ namespace Property.Controllers
             return View(propertyType.Data);
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         public async Task<IActionResult> SaveAddPropertyType(AddPropertyTypeRealEstateDTO newPropertyType)
         {
@@ -46,6 +50,7 @@ namespace Property.Controllers
             return RedirectToAction("GetPropertyTypes");
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         public async Task<IActionResult> SaveUpdatePropertyType(UpdatePropertyTypeRealEstateDTO updatedSubcategory)
         {
@@ -53,6 +58,7 @@ namespace Property.Controllers
             return RedirectToAction("GetPropertyTypes");
         }
 
+        [Authorize(Policy = "AdminRole")]
         [HttpPost]
         public async Task<IActionResult> DeletePropertyType(int id)
         {

@@ -17,17 +17,19 @@ namespace Property.Controllers
 	public class AgentController : Controller
 	{
 		private readonly UserManager<ApplicationUser> _userManager;
-		private readonly IAgentServices _agentServices;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IAgentServices _agentServices;
 		private readonly IProductServicesRealEstate _productServicesRealEstate;
 
-		public AgentController(UserManager<ApplicationUser> userManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate)
+		public AgentController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IAgentServices agentServices, IProductServicesRealEstate productServicesRealEstate)
 		{
 			_userManager = userManager;
-			_agentServices = agentServices;
+            _roleManager = roleManager;
+            _agentServices = agentServices;
 			_productServicesRealEstate = productServicesRealEstate;
 		}
 
-        [Authorize(Policy ="AdminRole")]
+        [Authorize(Policy ="AgentRole")]
         [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
@@ -52,7 +54,7 @@ namespace Property.Controllers
 			return RedirectToAction("AddAgent");
         }
 
-        [Authorize(Policy = "AdminRole")]
+        [Authorize(Policy = "AgentRole")]
         [HttpGet]
 		public async Task<IActionResult> Properties()
 		{
@@ -77,7 +79,8 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-		[HttpGet]
+        [Authorize(Policy = "AgentRole")]
+        [HttpGet]
 		public async Task<IActionResult> GetAgentProductRentByDay(int id)
         {
             //Get the current user
@@ -99,7 +102,7 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-		public IActionResult AddAgent()
+        public IActionResult AddAgent()
 		{
             return View();
 		}
@@ -116,7 +119,8 @@ namespace Property.Controllers
 			return View("Index", "Home");
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AgentRole, AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> UpdateAgent(int id)
 		{
 			var agent = await _agentServices.GetAgentById(id);
@@ -124,7 +128,7 @@ namespace Property.Controllers
 			return View(agent.Data);
 		}
 
-		[HttpPost]
+        [HttpPost]
 		public async Task<IActionResult> SaveAddAgent(AddAgentDTO newAgent)
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
@@ -136,20 +140,35 @@ namespace Property.Controllers
 				// ...
 
 				await _agentServices.AddAgent(newAgent);
-				return RedirectToAction("Dashboard");
-			}
+
+                string role = "Agent";
+                var r = _roleManager.FindByNameAsync(role);
+                if (r != null)
+                {
+                    if (!await _userManager.IsInRoleAsync(user, role))
+                    {
+                        var result = await _userManager.AddToRoleAsync(user, role);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Dashboard");
+                        }
+                    }
+                }
+            }
 
             return RedirectToAction("AddAgent");
         }
 
-		[HttpPost]
+        [Authorize(Policy = "AgentRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveUpdateAgent(UpdateAgentDTO updatedAgent)
 		{
 			await _agentServices.UpdateAgent(updatedAgent);
 			return RedirectToAction("GetAgent");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AgentRole")]
+        [HttpPost]
 		public async Task<IActionResult> DeleteAgent(int id)
 		{
 			await _agentServices.DeleteAgent(id);

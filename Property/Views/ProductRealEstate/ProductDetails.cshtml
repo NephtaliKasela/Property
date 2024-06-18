@@ -5,7 +5,7 @@
 }
 
 
-<div class="hero page-inner overlay"
+@* <div class="hero page-inner overlay"
      style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")'); margin-top: 80px;">
     <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -31,7 +31,36 @@
             </div>
         </div>
     </div>
+</div> *@
+
+<div class="overlay"
+     style="background-image: url('@Url.Content("~/Images/hero_bg_3.jpg")'); margin-top: 80px; height: 220px;">
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-9 text-center mt-5">
+                <h3>
+                    @Model.Name
+                </h3>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">
+                <a href="properties.html">Properties</a>
+            </li>
+            <li class="breadcrumb-item active text-white-50"
+                aria-current="page">
+                @Model.Address
+            </li>
+        </ol>
+    </nav>
+</div>
+
 
 <div class="section">
     <div class="container">

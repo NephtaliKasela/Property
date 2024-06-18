@@ -15,27 +15,31 @@ namespace Property.Controllers
 			_continentServices = continentServices;
 		}
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public IActionResult AddContinent()
         {
             return View();
         }
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
         public async Task<IActionResult> GetContinent()
         {
 			var continent = await _continentServices.GetAllContinents();
             return View(continent.Data);
         }
 
-		[HttpGet]
+        [Authorize(Policy = "AdminRole")]
+        [HttpGet]
 		public async Task<IActionResult> UpdateContinent(int id)
         {
             var continent = await _continentServices.GetContinentById(id);
             return View(continent.Data);
         }
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveAddContinent(AddContinentDTO newContinent)
 		{
 			await _continentServices.AddContinent(newContinent);
@@ -43,14 +47,16 @@ namespace Property.Controllers
 			return RedirectToAction("GetContinent");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> SaveUpdateContinent(UpdateContinentDTO updatedContinent)
 		{
 			await _continentServices.UpdateContinent(updatedContinent);
 			return RedirectToAction("GetContinent");
 		}
 
-		[HttpPost]
+        [Authorize(Policy = "AdminRole")]
+        [HttpPost]
 		public async Task<IActionResult> DeleteContinent(int id)
 		{
 			await _continentServices.DeleteContinent(id);

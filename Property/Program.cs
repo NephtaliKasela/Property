@@ -49,9 +49,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("AdminRole",
-         policy => policy.RequireRole("Admin"));
+         policy => policy.RequireRole("Admin")); 
     options.AddPolicy("ManagerRole",
          policy => policy.RequireRole("Manager"));
+    options.AddPolicy("AgentRole",
+         policy => policy.RequireRole("Agent", "Admin"));
 });
 
 var app = builder.Build();
