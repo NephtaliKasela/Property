@@ -4,17 +4,17 @@
     ViewData["Title"] = "Market Place";
 }
 
-<div class="hero page-inner overlay"
-    style="background-image: url('@Url.Content("~/Images/hero_bg_1.jpg")'); margin-top: 80px;">
+<div class="hero page-inner"
+     style="background-image: url('@Url.Content("~/Images/architecture-gratte-ciel-brille-dans-coucher-du-soleil-ia-generative-ai-generative.jpg")'); margin-top: 80px;">
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
                 <h1 class="heading" data-aos="fade-up">Properties</h1>
-
+                @* <img src="~/images/architecture-gratte-ciel-brille-dans-coucher-du-soleil-ia-generative-ai-generative.jpg" alt="Alternate Text" /> *@
                 <nav aria-label="breadcrumb"
                      data-aos="fade-up"
                      data-aos-delay="200">
-                    <ol class="breadcrumb text-center justify-content-center">
+                    <ol class="breadcrumb text-center justify-content-center bg-transparent">
                         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
                         <li class="breadcrumb-item active text-white-50"
                             aria-current="page">
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="CountryId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                <select class="form-control select-filter" style="border-radius: 0px;" name="CountryId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
                                     <option label="Country"></option>
                                     @foreach (var country in Model.Countries)
                                     {
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="CityId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
+                                <select class="form-control select-filter" style="border-radius: 0px;" name="CityId" data-style="btn-primary" data-placeholder="Country" data-minimum-results-for-search="Infinity">
                                     <option label="City"></option>
                                     @foreach (var city in Model.Cities)
                                     {
@@ -57,7 +57,7 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="Category" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
+                                <select class="form-control select-filter" style="border-radius: 0px;" name="Category" data-style="btn-primary" data-placeholder="Property Type" data-minimum-results-for-search="Infinity">
                                     <option value="All">All</option>
                                     <option value="Rent">For Rent</option>
                                     <option value="Sale">For Sale</option>
@@ -66,7 +66,7 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <select class="form-control select-filter" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
+                                <select class="form-control select-filter" style="border-radius: 0px;" name="PropertyTypeId" data-style="btn-primary" data-minimum-results-for-search="Infinity">
                                     <option label="Property Type" class="text-muted"></option>
                                     @foreach (var propertyType in Model.PropertyTypes)
                                     {
@@ -77,43 +77,43 @@
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MinPrice" data-style="btn-primary" placeholder="Min Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-3 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MaxPrice" data-style="btn-primary" placeholder="Max Price" min="0" max="@Model.Properties.Max(x => x.Price)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.Properties.Max(x => x.BedRoom)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MinBed" data-style="btn-primary" placeholder="Min Beds" min="0" max="@Model.Properties.Max(x => x.BedRoom)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.Properties.Max(x => x.BathRoom)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MinBath" data-style="btn-primary" placeholder="Min Baths" min="0" max="@Model.Properties.Max(x => x.BathRoom)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.Properties.Max(x => x.Garage)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MinGarage" data-style="btn-primary" placeholder="Min Garage" min="0" max="@Model.Properties.Max(x => x.Garage)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MinArea" data-style="btn-primary" placeholder="Min Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-2 col-sm-6 col-12">
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
+                                <input type="number" class="form-control" style="border-radius: 0px;" name="MaxArea" data-style="btn-primary" placeholder="Max Area" min="0" max="@Model.Properties.Max(x => x.Area)" data-minimum-results-for-search="Infinity">
                             </div>
                         </div>
                         <div class="col-xl-12 col-sm-12 col-12">
                             <div class="form-group mt-2">
-                                <button class="btn btn-block btn-secondary py-2 mb-0" style="border-radius: 5px;" type="submit">Search</button>
+                                <button class="btn btn-block btn-secondary py-2 mb-0" style="border-radius: 0px;" type="submit">Search</button>
                             </div>
                         </div>
                     </div>
@@ -136,266 +136,77 @@
             <div class="col-12">
                 <div class="property-slider-wrap">
                     <div class="property-slider">
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
-                            </a>
+                        @{
+                            @if (Model.Properties.Count > 0)
+                            {
+                                @foreach (var product in Model.Properties)
+                                {
+                                    <div class="property-item">
+                                        <a asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id" target="_blank" class="img">
+                                            @if (product.ProductImages.Count > 0)
+                                            {
+                                                var image = product.ProductImages[0];
+                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" />
+                                            }
+                                        </a>
 
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
+                                        <div class="property-content">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <h5 class=" mb-2"><span>$@product.Price</span></h5>
+                                                </div>
+                                                <div class="col-6" style="text-align: right;">
+                                                    @{
+                                                        @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
+                                                        {
+                                                            <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ night</span>
+                                                        }
+                                                        else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
+                                                        {
+                                                            <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ month</span>
+                                                        }
+                                                        else if (product.Sell != null)
+                                                        {
+                                                            <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">sale</span>
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
+                                                <span class="city d-block mb-3">California, USA</span>
 
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
+                                                <div class="specs d-flex mb-4">
+                                                    <span class="d-block d-flex align-items-center me-3">
+                                                        <span class="icon-home me-2"></span>
+                                                        @{
+                                                            @if (product.Room == 1)
+                                                            {
+                                                                <span class="caption">One Rom</span>
+                                                            }
+                                                            else if (product.Room > 1)
+                                                            {
+                                                                <span class="caption">@product.Room Roms</span>
+                                                            }
+                                                        }
+
+
+                                                    </span>
+                                                    <span class="d-block d-flex align-items-center">
+                                                        <span class="icon-bath me-2"></span>
+                                                        <span class="caption">2 baths</span>
+                                                    </span>
+                                                </div>
+
+                                                <a asp-controller="ProductRealEstate" asp-action="ProductDetails" asp-route-id="@product.Id"
+                                                   class="btn btn-outline-primary py-2 px-3" style="border-radius: 0px;">See details</a>
+                                            </div>
+                                        
+                                        </div>
                                     </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_2.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_3.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_4.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_5.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_6.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_7.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_8.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
-
-                        <div class="property-item">
-                            <a href="property-single.html" class="img">
-                                <img src="~/images/img_1.jpg" alt="Image" class="img-fluid" />
-                            </a>
-
-                            <div class="property-content">
-                                <div class="price mb-2"><span>$1,291,000</span></div>
-                                <div>
-                                    <span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-                                    <span class="city d-block mb-3">California, USA</span>
-
-                                    <div class="specs d-flex mb-4">
-                                        <span class="d-block d-flex align-items-center me-3">
-                                            <span class="icon-bed me-2"></span>
-                                            <span class="caption">2 beds</span>
-                                        </span>
-                                        <span class="d-block d-flex align-items-center">
-                                            <span class="icon-bath me-2"></span>
-                                            <span class="caption">2 baths</span>
-                                        </span>
-                                    </div>
-
-                                    <a href="property-single.html"
-                                       class="btn btn-primary py-2 px-3">See details</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- .item -->
+                                }
+                            }
+                        }
                     </div>
 
                     <div id="property-nav"
@@ -440,21 +251,21 @@
                                 <div class="property-content">
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="price mb-2"><span>$@product.Price</span></div>
+                                            <h5 class=" mb-2"><span>$@product.Price</span></h5>
                                         </div>
                                         <div class="col-6" style="text-align: right;">
                                             @{
                                                 @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
                                                 {
-                                                    <span>/ Day</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ night</span>
                                                 }
                                                 else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
                                                 {
-                                                    <span>/ Month</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ month</span>
                                                 }
                                                 else if (product.Sell != null)
                                                 {
-                                                    <span>Sale</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">sale</span>
                                                 }
                                             }
                                         </div>
@@ -464,7 +275,7 @@
                                         <span class="d-block mb-2 text-black-50">@product.Address</span>
                                         <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
 
-                                        <div class="specs d-flex mb-4">
+                                        <div class="specs d-flex mb-0">
                                             <span class="d-block d-flex align-items-center me-3">
                                                 <span class="icon-home me-2"></span>
                                                 @{

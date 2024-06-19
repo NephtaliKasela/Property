@@ -1,3 +1,4 @@
+using DocumentFormat.OpenXml.ExtendedProperties;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Property.Data;
@@ -54,6 +55,8 @@ builder.Services.AddAuthorization(options =>
          policy => policy.RequireRole("Manager"));
     options.AddPolicy("AgentRole",
          policy => policy.RequireRole("Agent", "Admin"));
+    options.AddPolicy("AdminRole&ManagerRole",
+         policy => policy.RequireRole("Admin", "Manager"));
 });
 
 var app = builder.Build();

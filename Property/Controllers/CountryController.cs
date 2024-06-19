@@ -28,7 +28,7 @@ namespace Property.Controllers
 			return View(continents.Data);
 		}
 
-        [Authorize(Policy = "AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
 		public async Task<IActionResult> GetCountry()
 		{

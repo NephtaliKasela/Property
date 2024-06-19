@@ -1,4 +1,6 @@
-﻿@model Property.DTOs.Actions.AdminDashboard_action
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@model Property.DTOs.Actions.AdminDashboard_action
 @{
 	Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
@@ -6,7 +8,15 @@
 <div class="page-header">
 	<div class="row">
 		<div class="col-sm-12 mt-5">
-			<h3 class="page-title mt-3">Good Morning Soeng Souy!</h3>
+			@if (SignInManager.IsSignedIn(User) && @User.Identity.Name?.Length > 0)
+			{
+				<h3 class="page-title mt-3">Hello @User.Identity.Name !</h3>
+			}
+			else
+			{
+				<h3 class="page-title mt-3">Hello !</h3>
+			}
+			
 			<ul class="breadcrumb">
 				<li class="breadcrumb-item active">Dashboard</li>
 			</ul>

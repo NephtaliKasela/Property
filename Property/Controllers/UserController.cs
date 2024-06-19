@@ -16,7 +16,7 @@ namespace Property.Controllers
             _userApplication = userApplication;
         }
 
-        [Authorize(Policy ="AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
 		public async Task<IActionResult> Index()
         {

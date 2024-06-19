@@ -102,12 +102,19 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
-        public IActionResult AddAgent()
+        public async Task<IActionResult> AddAgent()
 		{
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            if (user != null)
+            {
+                var agent = await _agentServices.GetAllAgents();
+                var existingAgent = agent.Data.Where(x => x.ApplicationUser.Id == user.Id);
+                if (existingAgent is null) { return RedirectToAction("Dashboard"); }
+            }
             return View();
-		}
+        }
 
-        [Authorize(Policy = "ManagerRole, AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
 		public async Task<IActionResult> GetAgents()
 		{
@@ -119,7 +126,7 @@ namespace Property.Controllers
 			return View("Index", "Home");
 		}
 
-        [Authorize(Policy = "AgentRole, AdminRole")]
+        [Authorize(Policy = "AgentRole")]
         [HttpGet]
 		public async Task<IActionResult> UpdateAgent(int id)
 		{
@@ -137,7 +144,11 @@ namespace Property.Controllers
 				// Access user properties
 				newAgent.ApplicationUser = user;
 				newAgent.ApplicationUserId = user.Id;
-				// ...
+                // ...
+
+                var agent = await _agentServices.GetAllAgents();
+                var existingAgent = agent.Data.Where(x => x.ApplicationUser.Id == newAgent.ApplicationUser.Id);
+                if (existingAgent is null) { return RedirectToAction("Dashboard"); }
 
 				await _agentServices.AddAgent(newAgent);
 

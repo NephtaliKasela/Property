@@ -37,7 +37,7 @@ namespace Property.Controllers
             return RedirectToAction("Properties", "MarketPlace");
         }
 
-        [Authorize(Policy = "AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
         public async Task<IActionResult> GetReservation()
         {

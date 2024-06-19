@@ -38,7 +38,7 @@
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center">
-                <h3 class="mt-5 mb-5" style="color: white;">
+                <h3  style="color: white; margin-top: 100px; margin-bottom: 100px;">
                     @Model.Name
                 </h3>
             </div>
@@ -48,16 +48,18 @@
 
 <div class="mb-0">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li class="breadcrumb-item">
-                <a href="properties.html">Properties</a>
-            </li>
-            <li class="breadcrumb-item active text-white-50"
-                aria-current="page">
-                @Model.Address
-            </li>
-        </ol>
+        <div class="">
+            <ol class="breadcrumb px-5">
+                <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" style="color: black;">Home</a></li>
+                <li class="breadcrumb-item">
+                    <a href="properties.html" style="color: black;">Properties</a>
+                </li>
+                <li class="breadcrumb-item"
+                    aria-current="page" style="color: cornflowerblue;">
+                        @Model.Address
+                </li>
+            </ol>
+        </div>
     </nav>
 </div>
 
@@ -84,35 +86,35 @@
                 </div>
             </div>
              <div class="col-lg-5">
-                @*<div class="property-item mb-3">
+                <div class="property-item mb-3">
                 <div class="property-content">
                         <div class="row">
                             <div class="col-6">
-                                <div class="price mb-2"><span>$@Model.Price</span></div>
+                                <h3 class=" mb-2"><span>$@Model.Price</span></h3>
                             </div>
                             <div class="col-6" style="text-align: right;">
                                 @{
-                                    @if (Model.Rent != null && Model.Rent.RentRealEstatePerDay != null)
+                                    @if (@Model.Rent != null && @Model.Rent.RentRealEstatePerDay != null)
                                     {
-                                        <span>/ Day</span>
+                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ night</span>
                                     }
-                                    else if (Model.Rent != null && Model.Rent.RentRealEstatePerMounth != null)
+                                    else if (@Model.Rent != null && @Model.Rent.RentRealEstatePerMounth != null)
                                     {
-                                        <span>/ Month</span>
+                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ month</span>
                                     }
-                                    else if (Model.Sell != null)
+                                    else if (@Model.Sell != null)
                                     {
-                                        <span>Sale</span>
+                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">sale</span>
                                     }
                                 }
                             </div>
                         </div>
                     </div>
-                </div> *@
+                </div>
 
-                <div class="row">
+                @* <div class="row">
                     <div class="col-6">
-                        <h4 class="price mb-2"><span>$@Model.Price</span></h4>
+                        <h4 class="price text-primary mb-2"><span>$@Model.Price</span></h4>
                     </div>
                     <div class="col-6" style="text-align: right;">
                         @{
@@ -131,18 +133,18 @@
                         }
                     </div>
                 </div>
-                <hr />
+                <hr class="text-primary" /> *@
 
                 @* <h3 class="heading text-primary">@Model.City.Name, @Model.Country.Name</h3> *@
                 <p class="meta">@Model.Country.Name, @Model.City.Name. @Model.Address</p>
                 <p class="meta mb-2">Published: @Model.PublicationDate.Day.@Model.PublicationDate.Month.@Model.PublicationDate.Year</p>
-                .<div>
-                    <p class="card mt-0" style="border: 0px;">
+                <div class="card" style="border: 0px;">
+                    <p class="text-dark mt-0">
                         @Model.Description
                     </p>
                 </div>
                 
-                <p class="text-black-50">
+                <p class="text-dark">
                     Perferendis eligendi reprehenderit, assumenda molestias nisi eius
                     iste reiciendis porro tenetur in, repudiandae amet libero.
                     Doloremque, reprehenderit cupiditate error laudantium qui, esse
@@ -163,40 +165,50 @@
                     }
                 </div>
 
-                <div class="d-block agent-box p-5">
-                    <div class="img mb-4">
-                        <img src="~/images/person_2-min.jpg"
-                             alt="Image"
-                             class="img-fluid" />
+                <div class="d-block agent-box p-3">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="img mb-4 justify-content-center" style="text-align: center;">
+                                <div class="">
+                                    <img src="~/images/person_2-min.jpg" alt="Image" class="img-fluid" />
+                                </div>
+                            </div>
+                            <div class="text justify-content-center" style="text-align: center;">
+                                <h3 class="mb-0">@Model.Agent.Name</h3>
+                                <div class="meta mb-3">@Model.Agent.Profession</div>
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <div class="text">
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Ratione laborum quo quos omnis sed magnam id ducimus saepe
+                                </p>
+                                <ul class="list-unstyled social dark-hover d-flex">
+                                    <li class="me-1">
+                                        <a href="#"><span class="icon-instagram"></span></a>
+                                    </li>
+                                    <li class="me-1">
+                                        <a href="#"><span class="icon-twitter"></span></a>
+                                    </li>
+                                    <li class="me-1">
+                                        <a href="#"><span class="icon-facebook"></span></a>
+                                    </li>
+                                    <li class="me-1">
+                                        <a href="#"><span class="icon-linkedin"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <div class="text">
-                        <h3 class="mb-0">@Model.Agent.Name</h3>
-                        <div class="meta mb-3">@Model.Agent.Profession</div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Ratione laborum quo quos omnis sed magnam id ducimus saepe
-                        </p>
-                        <ul class="list-unstyled social dark-hover d-flex">
-                            <li class="me-1">
-                                <a href="#"><span class="icon-instagram"></span></a>
-                            </li>
-                            <li class="me-1">
-                                <a href="#"><span class="icon-twitter"></span></a>
-                            </li>
-                            <li class="me-1">
-                                <a href="#"><span class="icon-facebook"></span></a>
-                            </li>
-                            <li class="me-1">
-                                <a href="#"><span class="icon-linkedin"></span></a>
-                            </li>
-                        </ul>
-                    </div>
+                    
+                    
 
-                    <div class="property-item mb-3" style="margin-top: 110px;">
+                    @* <div class="property-item mb-3" style="margin-top: 110px;">
                         <div class="property-content">
                             <div class="price mb-2"><span>+375 257 256 675</span></div>
                         </div>
-                    </div>
+                    </div> *@
                     
                 </div>
             </div>

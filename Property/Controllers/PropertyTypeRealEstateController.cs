@@ -24,7 +24,7 @@ namespace Property.Controllers
             return View();
         }
 
-        [Authorize(Policy = "AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
         public async Task<IActionResult> GetPropertyTypes()
         {

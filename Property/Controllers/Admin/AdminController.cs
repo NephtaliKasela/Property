@@ -31,7 +31,8 @@ namespace Property.Controllers.Admin
 			_productServicesRealEstate = productServicesRealEstate;
             _reservationServices = reservationServices;
         }
-        [Authorize(Policy = "AdminRole")]
+
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
         public async Task<IActionResult> Index()
 		{

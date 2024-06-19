@@ -30,7 +30,10 @@
     <div class="container">
         <div class="row mb-5 align-items-center">
             <div class="col-lg-6">
-                <h3 class="font-weight-bold text-primary heading">
+                @* <h3 class="font-weight-bold text-primary heading" style="color: #2D394B;">
+                    Popular Properties
+                </h3> *@
+                <h3 class="font-weight-bold heading" style="color: black;">
                     Popular Properties
                 </h3>
             </div>
@@ -63,30 +66,34 @@
                                 <div class="property-content">
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="price mb-2"><span>$@product.Price</span></div>
+                                            <h5 class=" mb-2" style="color: black;"><span>$@product.Price</span></h5>
                                         </div>
                                         <div class="col-6" style="text-align: right;">
-                                            @{
-                                                @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
-                                                {
-                                                    <span>/ Day</span>
+                                            <div class="">
+                                                @{
+                                                    @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
+                                                    {
+                                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ night</span>
+                                                    }
+                                                    else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
+                                                    {
+                                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ month</span>
+                                                    }
+                                                    else if (product.Sell != null)
+                                                    {
+                                                        <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">sale</span>
+                                                    }
                                                 }
-                                                else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
-                                                {
-                                                    <span>/ Month</span>
-                                                }
-                                                else if (product.Sell != null)
-                                                {
-                                                    <span>Sale</span>
-                                                }
-                                            }
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
                                         <span class="d-block mb-2 text-black-50">@product.Address</span>
-                                        <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
+                                        <a asp-controller="ProductRealEstate" asp-action="ProductDetails" target="_blank" asp-route-id="@product.Id"
+                                           class=" py-0 px-0 bg-transparent" style="border: 0px;"><span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span></a>
+                                        
 
-                                        <div class="specs d-flex mb-4">
+                                        <div class="specs d-flex mb-0">
                                             <span class="d-block d-flex align-items-center me-3">
                                                 <span class="icon-home me-2"></span>
                                                 <span class="caption">@product.Room Room(s)</span>
@@ -103,7 +110,7 @@
                                 </div>
                             </div>
                         }
-                        @for(int i=0; i<5; i++)
+                        @for(int i=0; i<0; i++)
                         {
                             <div class="property-item">
                                 <a href="property-single.html" class="img">
@@ -209,7 +216,7 @@
     <div class="container">
         <div class="row mb-5 align-items-center">
             <div class="col-md-6">
-                <h2 class="font-weight-bold heading text-primary mb-4 mb-md-0">
+                <h2 class="font-weight-bold heading mb-4 mb-md-0" style="color: black;">
                     Customer Says
                 </h2>
             </div>
@@ -239,7 +246,7 @@
                             <span class="icon-star text-warning"></span>
                             <span class="icon-star text-warning"></span>
                         </div>
-                        <h3 class="h5 text-primary mb-4">James Smith</h3>
+                        <h3 class="h5 mb-4" style="color: black;">James Smith</h3>
                         <blockquote>
                             <p>
                                 &ldquo;
@@ -265,7 +272,7 @@
                             <span class="icon-star text-warning"></span>
                             <span class="icon-star text-warning"></span>
                         </div>
-                        <h3 class="h5 text-primary mb-4">Mike Houston</h3>
+                        <h3 class="h5 mb-4" style="color: black;">Mike Houston</h3>
                         <blockquote>
                             <p>
                                 &ldquo;Far far away, behind the word mountains, far from the
@@ -290,7 +297,7 @@
                             <span class="icon-star text-warning"></span>
                             <span class="icon-star text-warning"></span>
                         </div>
-                        <h3 class="h5 text-primary mb-4">Cameron Webster</h3>
+                        <h3 class="h5 mb-4" style="color: black;">Cameron Webster</h3>
                         <blockquote>
                             <p>
                                 &ldquo;Far far away, behind the word mountains, far from the
@@ -315,7 +322,7 @@
                             <span class="icon-star text-warning"></span>
                             <span class="icon-star text-warning"></span>
                         </div>
-                        <h3 class="h5 text-primary mb-4">Dave Smith</h3>
+                        <h3 class="h5 mb-4" style="color: black;">Dave Smith</h3>
                         <blockquote>
                             <p>
                                 &ldquo;Far far away, behind the word mountains, far from the
@@ -336,7 +343,7 @@
     <div class="container">
         <div class="row justify-content-center text-center mb-5">
             <div class="col-lg-5">
-                <h2 class="font-weight-bold heading text-primary mb-4">
+                <h2 class="font-weight-bold heading mb-4" style="color: black;">
                     Let's find home that's perfect for you
                 </h2>
                 <p class="text-black-50">
@@ -436,7 +443,7 @@
             <p>
                 <a asp-controller="Agent" asp-action="AddAgent"
                    target="_blank"
-                   class="btn btn-primary text-white py-3 px-4">Apply for Real Estate agent</a>
+                   class="btn btn-outline-primary py-3 px-4" style="border-radius: 0px;">Apply for being Real Estate agent</a>
             </p>
         </div>
         <!-- /.col-lg-7 -->
@@ -448,7 +455,7 @@
     <div class="container">
         <div class="row justify-content-center text-center mb-5">
             <div class="col-lg-6 mb-5">
-                <h2 class="font-weight-bold heading text-primary mb-4">
+                <h2 class="font-weight-bold heading mb-4" style="color: black;">
                     Our Agents
                 </h2>
                 <p class="text-black-50">

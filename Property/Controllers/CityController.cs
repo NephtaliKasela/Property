@@ -29,7 +29,7 @@ namespace Property.Controllers
 			return View(countries.Data);
 		}
 
-        [Authorize(Policy = "AdminRole")]
+        [Authorize(Policy = "AdminRole&ManagerRole")]
         [HttpGet]
 		public async Task<IActionResult> GetCity()
 		{

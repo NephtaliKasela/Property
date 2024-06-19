@@ -27,7 +27,7 @@
         </div>
         <div class="col-4">
             <div style="text-align: right;">
-                <a class="btn btn-primary py-2 px-3" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasExample">
+                <a class="btn btn-primary py-2 px-3" style="border-radius: 0px;" data-bs-toggle="offcanvas" href="#offcanvasRight" role="button" aria-controls="offcanvasExample">
                     <i class="icon-filter"></i> Filter
                 </a>
             </div>
@@ -211,21 +211,21 @@
                                 <div class="property-content">
                                     <div class="row">
                                         <div class="col-6">
-                                            <div class="price mb-2"><span>$@product.Price</span></div>
+                                            <h5 class=" mb-2" style="color: black;"><span>$@product.Price</span></h5>
                                         </div>
                                         <div class="col-6" style="text-align: right;">
                                             @{
                                                 @if (product.Rent != null && product.Rent.RentRealEstatePerDay != null)
                                                 {
-                                                    <span>/ Day</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ night</span>
                                                 }
                                                 else if (product.Rent != null && product.Rent.RentRealEstatePerMounth != null)
                                                 {
-                                                    <span>/ Month</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">/ month</span>
                                                 }
                                                 else if (product.Sell != null)
                                                 {
-                                                    <span>Sale</span>
+                                                    <span class="py-1 px-2" style="background-color: cornflowerblue; color: white;">sale</span>
                                                 }
                                             }
                                         </div>
@@ -235,7 +235,7 @@
                                         <span class="d-block mb-2 text-black-50">@product.Address</span>
                                         <span class="city d-block mb-3">@product.City.Name, @product.Country.Name</span>
 
-                                        <div class="specs d-flex mb-4">
+                                        <div class="specs d-flex mb-0">
                                             <span class="d-block d-flex align-items-center me-3">
                                                 <span class="icon-home me-2"></span>
                                                 @{
