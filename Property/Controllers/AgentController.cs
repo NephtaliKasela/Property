@@ -109,7 +109,7 @@ namespace Property.Controllers
             {
                 var agent = await _agentServices.GetAllAgents();
                 var existingAgent = agent.Data.Where(x => x.ApplicationUser.Id == user.Id);
-                if (existingAgent is null) { return RedirectToAction("Dashboard"); }
+                if (existingAgent is not null) { return RedirectToAction("Dashboard"); }
             }
             return View();
         }
