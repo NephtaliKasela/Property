@@ -4,13 +4,13 @@
     Layout = "~/Views/Shared/_AgentLayout.cshtml";
 }
 
-<div class="card mb-3 mt-5">
+<div class="card mb-3 mt-5 bg-transparent">
     <div class="row">
         <div class="col-md-6">
             @if (@Model.ProductImages.Count > 0)
             {
                 var image = @Model.ProductImages[0];
-                <div class="gallery-item m-2" style="text-align: center;">
+                <div class="gallery-item " style="text-align: left;">
                     <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Product Image">
                 </div>
             }

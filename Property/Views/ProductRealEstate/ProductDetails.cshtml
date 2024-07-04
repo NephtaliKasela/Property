@@ -112,44 +112,16 @@
                     </div>
                 </div>
 
-                @* <div class="row">
-                    <div class="col-6">
-                        <h4 class="price text-primary mb-2"><span>$@Model.Price</span></h4>
-                    </div>
-                    <div class="col-6" style="text-align: right;">
-                        @{
-                            @if (Model.Rent != null && Model.Rent.RentRealEstatePerDay != null)
-                            {
-                                <span>/ night</span>
-                            }
-                            else if (Model.Rent != null && Model.Rent.RentRealEstatePerMounth != null)
-                            {
-                                <span>/ Month</span>
-                            }
-                            else if (Model.Sell != null)
-                            {
-                                <span>Sale</span>
-                            }
-                        }
-                    </div>
-                </div>
-                <hr class="text-primary" /> *@
-
                 @* <h3 class="heading text-primary">@Model.City.Name, @Model.Country.Name</h3> *@
-                <p class="meta">@Model.Country.Name, @Model.City.Name. @Model.Address</p>
-                <p class="meta mb-2">Published: @Model.PublicationDate.Day.@Model.PublicationDate.Month.@Model.PublicationDate.Year</p>
+                <p class="meta">@Model.City.Name, @Model.Country.Name. @Model.Address</p>
+                
                 <div class="card" style="border: 0px;">
                     <p class="text-dark mt-0">
                         @Model.Description
                     </p>
                 </div>
-                
-                <p class="text-dark">
-                    Perferendis eligendi reprehenderit, assumenda molestias nisi eius
-                    iste reiciendis porro tenetur in, repudiandae amet libero.
-                    Doloremque, reprehenderit cupiditate error laudantium qui, esse
-                    quam debitis, eum cumque perferendis, illum harum expedita.
-                </p>
+
+                <p class="meta mb-5">Published: @Model.PublicationDate.Day.@Model.PublicationDate.Month.@Model.PublicationDate.ToLongDateString()</p>
 
                 <div>
                     @if(Model.Rent != null && Model.Rent.RentRealEstatePerDay != null)
