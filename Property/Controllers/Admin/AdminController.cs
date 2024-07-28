@@ -12,6 +12,7 @@ using Property.Services.UserApplicationServices;
 
 namespace Property.Controllers.Admin
 {
+    [Authorize]
 	public class AdminController : Controller
 	{
         private readonly IApplicationUserServices _applicationUserServices;

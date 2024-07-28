@@ -48,7 +48,10 @@ namespace Property.Controllers
                 v.Cities = cities.Data;
                 v.PropertyTypes = propertyTyes.Data;
 
-                return View(v);
+                if(v.Properties.Count > 0)
+                {
+                    return View(v);
+                }
             }
             return RedirectToAction("Index", "Home");
         }
