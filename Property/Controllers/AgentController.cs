@@ -102,15 +102,26 @@ namespace Property.Controllers
             return RedirectToAction("AddAgent");
         }
 
+        [HttpGet]
         public async Task<IActionResult> AddAgent()
 		{
             ApplicationUser user = await _userManager.GetUserAsync(User);
             if (user != null)
             {
-                var agent = await _agentServices.GetAllAgents();
-                var existingAgent = agent.Data.Where(x => x.ApplicationUser.Id == user.Id);
-                if (existingAgent is not null) { return RedirectToAction("Dashboard"); }
+                //Get specific agent by user id
+                var agent = await _agentServices.GetAgentByUserId(user.Id);
+                if (agent.Data != null)
+                {
+                    return RedirectToAction("Dashboard"); 
+                }
             }
+            
+            //if (user != null)
+            //{
+            //    var agent = await _agentServices.GetAllAgents();
+            //    var existingAgent = agent.Data.Where(x => x.ApplicationUser.Id == user.Id);
+            //    if (existingAgent is not null) { return RedirectToAction("Dashboard"); }
+            //}
             return View();
         }
 
